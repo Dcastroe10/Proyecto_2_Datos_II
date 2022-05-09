@@ -9,13 +9,18 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    CanvasDialog/createcanvasdialog.cpp \
     main.cpp \
+    canvasimage.cpp \
     mainwindow.cpp
 
 HEADERS += \
-    mainwindow.h
+    CanvasDialog/createcanvasdialog.h \
+    mainwindow.h \
+    canvasimage.h
 
 FORMS += \
+    CanvasDialog/createcanvasdialog.ui \
     mainwindow.ui
 
 # Default rules for deployment.
