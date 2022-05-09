@@ -18,7 +18,11 @@ protected:
     void mouseMoveEvent(QMouseEvent *event);
 
 signals:
-    void sendMousePosition(QPoint&);
+    void sendMousePosition(int&, int&);
+
+private:
+    int x;
+    int y;
 };
 
 #endif // CANVASIMAGE_H

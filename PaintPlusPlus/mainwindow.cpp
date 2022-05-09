@@ -21,6 +21,7 @@ void MainWindow::receiveCanvas(int& x, int& y) {
 void MainWindow::createNewCanvas(int x, int y)
 {
     ui->canvasLabel->setEnabled(true);
+    ui->gridLayout->setGeometry(QRect(x, y, x, y));
     fillCanvas(255, 255, 255, x, y, ui->canvasLabel);
 }
 

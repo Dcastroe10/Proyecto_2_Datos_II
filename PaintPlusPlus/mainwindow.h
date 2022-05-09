@@ -30,7 +30,5 @@ private:
     void createNewCanvas(int x, int y);
     void fillCanvas(int r, int g, int b, int x, int y, QLabel *label);
 
-    int mouseDiffX;
-    int mouseDiffY;
 };
 #endif // MAINWINDOW_H
