@@ -12,12 +12,14 @@ SOURCES += \
     CanvasDialog/createcanvasdialog.cpp \
     main.cpp \
     canvasimage.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    pixel.cpp
 
 HEADERS += \
     CanvasDialog/createcanvasdialog.h \
     mainwindow.h \
-    canvasimage.h
+    canvasimage.h \
+    pixel.h
 
 FORMS += \
     CanvasDialog/createcanvasdialog.ui \

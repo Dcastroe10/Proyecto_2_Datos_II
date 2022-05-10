@@ -17,18 +17,28 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    uint32_t rgbToHex(int r, int g, int b);
+
+    void setPixelInCanvas(int x, int y);
 private slots:
     void on_actionNuevo_triggered();
 
-    // Para crear lienzo
+    // Para crear lienzo con datos del dialogo.
     void receiveCanvas(int& x, int& y);
+
+    // Para pintar el canvas con el mouse.
+    void mouseIsPressed(int& x, int& y);
+    void mouseIsReleased();
+    void mouseMove(int& x, int& y);
 
 private:
     Ui::MainWindow *ui;
     createCanvasDialog *createcanvasDialog;
 
     void createNewCanvas(int x, int y);
-    void fillCanvas(int r, int g, int b, int x, int y, QLabel *label);
+    void fillCanvas(int r, int g, int b, int x, int y);
+
+    bool mousePressedInCanvas = false;
 
 };
 #endif // MAINWINDOW_H
