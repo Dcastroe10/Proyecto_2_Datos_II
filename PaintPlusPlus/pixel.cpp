@@ -1,4 +1,5 @@
 #include "pixel.h"
+#include <QtDebug>
 
 pixel::pixel()
 {

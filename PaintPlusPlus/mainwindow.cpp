@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QtDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -70,7 +71,7 @@ void MainWindow::mouseMove(int &x, int &y)
 
 void MainWindow::setPixelInCanvas(int x, int y) {
     if (this->mousePressedInCanvas) {
-        QImage canvas = ui->canvasLabel->pixmap().toImage();
+        QImage canvas = ui->canvasLabel->pixmap()->toImage();
         uint32_t color1 = rgbToHex(0, 0, 0);
 
         canvas.setPixel(x, y, color1);
