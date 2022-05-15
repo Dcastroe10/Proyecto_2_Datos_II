@@ -1,4 +1,5 @@
 #include "canvasimage.h"
+#include <QtDebug>
 
 canvasImage::canvasImage(QWidget* parent) :
     QLabel(parent)

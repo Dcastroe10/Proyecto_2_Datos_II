@@ -1,6 +1,7 @@
 #include "createcanvasdialog.h"
 #include "ui_createcanvasdialog.h"
 #include <QMessageBox>
+#include <QtDebug>
 
 createCanvasDialog::createCanvasDialog(QWidget *parent) :
     QDialog(parent),
