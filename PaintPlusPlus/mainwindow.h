@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "CanvasDialog/createcanvasdialog.h"
 #include <QLabel>
+#include "tools.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -20,6 +21,9 @@ public:
     uint32_t rgbToHex(int r, int g, int b);
 
     void setPixelInCanvas(int x, int y);
+    void trueAllButtons();
+    void drawALine(int start[], int end[]);
+    void updateCanvas();
 private slots:
     void on_actionNuevo_triggered();
 
@@ -28,12 +32,29 @@ private slots:
 
     // Para pintar el canvas con el mouse.
     void mouseIsPressed(int& x, int& y);
-    void mouseIsReleased();
+    void mouseIsReleased(int& x, int& y);
     void mouseMove(int& x, int& y);
+
+    void on_penButton_clicked();
+
+    void falseAllTools();
+
+
+
+    void on_pencilButton_clicked();
 
 private:
     Ui::MainWindow *ui;
     createCanvasDialog *createcanvasDialog;
+    Tools tools;
+
+    bool penF = false;
+    bool pencilF = false;
+
+    int firstClick[2] = {0, 0};
+    int clickReleased[2] = {0, 0};
+
+    int imageDimensions[2] = {0, 0};
 
     void createNewCanvas(int x, int y);
     void fillCanvas(int r, int g, int b, int x, int y);

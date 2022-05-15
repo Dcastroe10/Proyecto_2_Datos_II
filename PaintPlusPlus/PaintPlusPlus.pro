@@ -10,16 +10,22 @@ CONFIG += c++11
 
 SOURCES += \
     CanvasDialog/createcanvasdialog.cpp \
+    Tools/pen.cpp \
+    Tools/pencil.cpp \
     main.cpp \
     canvasimage.cpp \
     mainwindow.cpp \
-    pixel.cpp
+    pixel.cpp \
+    tools.cpp
 
 HEADERS += \
     CanvasDialog/createcanvasdialog.h \
+    Tools/pen.h \
+    Tools/pencil.h \
     mainwindow.h \
     canvasimage.h \
-    pixel.h
+    pixel.h \
+    tools.h
 
 FORMS += \
     CanvasDialog/createcanvasdialog.ui \

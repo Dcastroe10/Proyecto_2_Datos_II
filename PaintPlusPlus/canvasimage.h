@@ -18,8 +18,8 @@ public:
 
     void createNewMatrix(int x, int y);
 
-    pixel **getMatrix() const;
 
+    pixel **getMatrix() const;
 
 protected:
     void mouseMoveEvent(QMouseEvent *event);
@@ -29,7 +29,7 @@ protected:
 signals:
     void sendMousePosition(int&, int&);
     void sendMouseClicked(int&, int&);
-    void sendMouseReleased();
+    void sendMouseReleased(int&, int&);
 
 private:
     pixel **matrix;

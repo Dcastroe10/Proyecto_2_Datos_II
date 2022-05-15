@@ -15,15 +15,12 @@ void canvasImage::createNewMatrix(int x, int y)
 {
     matrix = new pixel*[x];
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < y; i++) {
         matrix[i] = new pixel[y];
     }
 }
 
-pixel **canvasImage::getMatrix() const
-{
-    return matrix;
-}
+
 
 void canvasImage::mouseMoveEvent(QMouseEvent *event)
 {
@@ -31,9 +28,8 @@ void canvasImage::mouseMoveEvent(QMouseEvent *event)
     this->y = event->pos().y();
 
     if (this->x <= this->size().width() && this->y <= this->size().height()) {
-        if (this->x > 0 && this->y > 0) {
+        if (this->x >= 0 && this->y >= 0) {
             emit sendMousePosition(this->x, this->y);
-            qDebug() << this->x << this->y;
         }
     }
 }
@@ -47,7 +43,12 @@ void canvasImage::mousePressEvent(QMouseEvent *event)
 void canvasImage::mouseReleaseEvent(QMouseEvent *event)
 {
     qDebug() << x << y << "released";
-    emit sendMouseReleased();
+    emit sendMouseReleased(this->x, this->y);
+}
+
+pixel **canvasImage::getMatrix() const
+{
+    return matrix;
 }
 
 
