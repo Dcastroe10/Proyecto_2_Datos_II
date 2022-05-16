@@ -52,7 +52,7 @@ void Pencil::drawALineInCanvas(pixel **canvas, int start[2], int end[2], uint32_
 
             }
 
-            startX -= 0.01;
+            startX -= 0.1;
         }
     } else {
         while(startX < endX) {
@@ -65,7 +65,13 @@ void Pencil::drawALineInCanvas(pixel **canvas, int start[2], int end[2], uint32_
                      canvas[xi + i][yi + j].setColor(color);
                 }
 
+<<<<<<< Updated upstream
             }
+=======
+            startX += 0.1;
+        }
+    }
+>>>>>>> Stashed changes
 
 
             startX += 0.01;
