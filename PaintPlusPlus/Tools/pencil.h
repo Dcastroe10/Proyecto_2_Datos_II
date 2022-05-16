@@ -12,7 +12,7 @@ public:
 
 private:
     float mResult(int start[], int end[]);
-    float bResult(int x, int y, int m);
+    float bResult(int x, int y, float m);
 };
 
 #endif // PENCIL_H
