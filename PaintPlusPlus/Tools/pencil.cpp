@@ -64,19 +64,9 @@ void Pencil::drawALineInCanvas(pixel **canvas, int start[2], int end[2], uint32_
                 for(int j = -grosor; j < grosor; j++){
                      canvas[xi + i][yi + j].setColor(color);
                 }
-
-<<<<<<< Updated upstream
             }
-=======
             startX += 0.1;
         }
     }
->>>>>>> Stashed changes
-
-
-            startX += 0.01;
-        }
-    }
-
 }
 

@@ -184,3 +184,9 @@ void MainWindow::on_pushButton_3_clicked()
     this->updateCanvas();
 }
 
+
+void MainWindow::on_pushButton_2_clicked()
+{
+
+}
+
