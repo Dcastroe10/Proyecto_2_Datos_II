@@ -1,6 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QtDebug>
+#include <QColorDialog>
+
+using namespace std;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -11,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->canvasLabel, SIGNAL(sendMousePosition(int&, int&)), this, SLOT(mouseMove(int&, int&)));
     connect(ui->canvasLabel, SIGNAL(sendMouseClicked(int&, int&)), this, SLOT(mouseIsPressed(int&, int&)));
     connect(ui->canvasLabel, SIGNAL(sendMouseReleased(int&, int&)), this, SLOT(mouseIsReleased(int&, int&)));
+    color = rgbToHex(0,0,0);
 }
 
 MainWindow::~MainWindow()
@@ -102,18 +106,22 @@ void MainWindow::updateCanvas() {
 }
 
 void MainWindow::drawALine(int start[], int end[]) {
-    tools.drawWithPencil(start, end, rgbToHex(0, 0, 0));
+    tools.drawWithPencil(start, end, this->color,ui->spinBox->value());
     updateCanvas();
 }
 
 void MainWindow::setPixelInCanvas(int x, int y) {
     if (this->penF && this->mousePressedInCanvas) {
         QImage canvas = ui->canvasLabel->pixmap().toImage();
-        uint32_t color1 = rgbToHex(0, 0, 0);
+        int grosor = ui->spinBox->value();
 
-        canvas.setPixel(x, y, color1);
-        tools.drawWithPen(x, y, color1);
+        for (int i = -grosor; i < grosor; i++){
+            for(int j = -grosor; j < grosor; j++){
+                 canvas.setPixel(x + i , y +j, this->color);
+                 tools.drawWithPen(x + i, y + j, this->color);
+            }
 
+        }
         ui->canvasLabel->setPixmap(QPixmap::fromImage(canvas));
     }
 }
@@ -157,5 +165,22 @@ void MainWindow::on_pencilButton_clicked()
     this->pencilF = true;
     trueAllButtons();
     ui->pencilButton->setEnabled(false);
+}
+
+
+void MainWindow::on_Color_button_clicked()
+{
+    QColor code = QColorDialog::getColor(Qt::blue,this, "Select Color", QColorDialog::DontUseNativeDialog);
+    int red = code.red();
+    int green = code.green();
+    int blue = code.blue();
+    this->color = rgbToHex(red, green, blue);
+
+}
+
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    this->updateCanvas();
 }
 

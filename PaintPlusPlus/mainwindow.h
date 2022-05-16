@@ -43,6 +43,12 @@ private slots:
 
     void on_pencilButton_clicked();
 
+    void on_pushButton_2_clicked();
+
+    void on_pushButton_3_clicked();
+
+    void on_Color_button_clicked();
+
 private:
     Ui::MainWindow *ui;
     createCanvasDialog *createcanvasDialog;
@@ -60,6 +66,8 @@ private:
     void fillCanvas(int r, int g, int b, int x, int y);
 
     bool mousePressedInCanvas = false;
+
+    uint32_t color;
 
 };
 #endif // MAINWINDOW_H

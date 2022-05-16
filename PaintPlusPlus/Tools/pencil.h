@@ -8,7 +8,7 @@ class Pencil
 {
 public:
    Pencil();
-   void drawALineInCanvas(pixel **canvas, int start[], int end[], uint32_t color);
+   void drawALineInCanvas(pixel **canvas, int start[], int end[], uint32_t color, int grosor);
 
 private:
     float mResult(int start[], int end[]);

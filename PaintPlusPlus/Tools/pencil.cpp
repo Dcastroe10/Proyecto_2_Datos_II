@@ -26,7 +26,7 @@ float Pencil::bResult(int x, int y, float m) {
 }
 
 
-void Pencil::drawALineInCanvas(pixel **canvas, int start[2], int end[2], uint32_t color) {
+void Pencil::drawALineInCanvas(pixel **canvas, int start[2], int end[2], uint32_t color, int grosor) {
     float m = mResult(start, end);
     float b = -bResult(start[0], start[1], m);
     float y = 0;
@@ -44,8 +44,13 @@ void Pencil::drawALineInCanvas(pixel **canvas, int start[2], int end[2], uint32_
             y = (m * startX) - b;
             xi = int(startX);
             yi = int(y);
-            qDebug() << "line >";
-            canvas[xi][yi].setColor(color);
+            //qDebug() << "line >";
+            for (int i = -grosor; i < grosor; i++){
+                for(int j = -grosor; j < grosor; j++){
+                     canvas[xi + i][yi + j].setColor(color);
+                }
+
+            }
 
             startX -= 0.01;
         }
@@ -54,30 +59,18 @@ void Pencil::drawALineInCanvas(pixel **canvas, int start[2], int end[2], uint32_
             y = (m * startX) - b;
             xi = int(startX);
             yi = int(y);
-            qDebug() << "line <";
-            canvas[xi][yi].setColor(color);
+            //qDebug() << "line <";
+            for (int i = -grosor; i < grosor; i++){
+                for(int j = -grosor; j < grosor; j++){
+                     canvas[xi + i][yi + j].setColor(color);
+                }
+
+            }
+
 
             startX += 0.01;
         }
     }
-
-    /*
-    if (start[0] > end[0]) {
-        for (startX; startX > endX; startX += 0.1) {
-            y = (m * startX) + b;
-            //xi = int(x);
-            //yi = int(y);
-            //qDebug() << "line >";
-            //canvas[xi][yi].setColor(color);
-        }
-    } else {
-        for (int x = start[0]; x < end[0]; x++) {
-            y = (m * x) + b;
-            qDebug() << "line <";
-            //canvas[x][y].setColor(color);
-        }
-    }
-    */
 
 }
 

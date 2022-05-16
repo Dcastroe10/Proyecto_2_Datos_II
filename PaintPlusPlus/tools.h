@@ -24,7 +24,10 @@ public:
     void drawWithPen(int posx, int posy, uint32_t color);
 
 
-    void drawWithPencil(int start[], int end[], uint32_t color);
+    void drawWithPencil(int start[], int end[], uint32_t color, int grosor);
+
+    void set_grosor(int num);
+    int get_grosor();
 };
 
 #endif // TOOLS_H
