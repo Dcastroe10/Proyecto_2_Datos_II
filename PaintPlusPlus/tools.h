@@ -6,6 +6,7 @@
 #include "pixel.h"
 #include "Tools/pencil.h"
 #include "Tools/square.h"
+#include "Tools/circle.h"
 
 class Tools
 {
@@ -20,6 +21,7 @@ public:
     Pen getPen();
     Pencil pencil;
     Square square;
+    circle circle;
 
     void setMatrixPointer(pixel **newMatrixPointer);
 
@@ -29,6 +31,8 @@ public:
     void drawWithPencil(int start[], int end[], uint32_t color, int grosor);
 
     void drawSquare(int start[], int end[], uint32_t color, int grosor);
+
+    void drawCircle(int start[], int end[], uint32_t color, int grosor);
 
     void set_grosor(int num);
     int get_grosor();

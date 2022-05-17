@@ -26,7 +26,10 @@ void Tools::drawWithPencil(int start[2], int end[2], uint32_t color, int grosor)
 
 void Tools::drawSquare(int *start, int *end, uint32_t color, int grosor){
     square.draw_square_in_canvas(this->matrixPointer,start, end, color, grosor);
-    ////
+}
+
+void Tools::drawCircle(int *start, int *end, uint32_t color, int grosor){
+    circle.draw_circle(this->matrixPointer,start, end, color, grosor);
 }
 
 void Tools::set_grosor(int num){

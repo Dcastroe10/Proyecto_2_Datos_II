@@ -85,6 +85,9 @@ void MainWindow::mouseIsReleased(int& x, int& y)
     if (this->squareF){
         drawSquare(this->firstClick, this->clickReleased);
     }
+    if(this->circleF){
+        drawCircle(this->firstClick, this->clickReleased);
+    }
 }
 
 void MainWindow::mouseMove(int &x, int &y)
@@ -118,6 +121,11 @@ void MainWindow::drawSquare(int *start, int *end){
     updateCanvas();
 }
 
+void MainWindow::drawCircle(int *start, int *end){
+    tools.drawCircle(start, end, this->color,ui->spinBox->value());
+    updateCanvas();
+}
+
 void MainWindow::setPixelInCanvas(int x, int y) {
     if (this->penF && this->mousePressedInCanvas) {
         QImage canvas = ui->canvasLabel->pixmap().toImage();
@@ -133,7 +141,6 @@ void MainWindow::setPixelInCanvas(int x, int y) {
         ui->canvasLabel->setPixmap(QPixmap::fromImage(canvas));
     }
 }
-
 
 void MainWindow::on_actionNuevo_triggered()
 {
@@ -153,12 +160,14 @@ void MainWindow::falseAllTools()
     this->penF = false;
     this->pencilF = false;
     this->squareF = false;
+    this->circleF = false;
 }
 
 void MainWindow::trueAllButtons() {
     ui->penButton->setEnabled(true);
     ui->pencilButton->setEnabled(true);
     ui->squareButton->setEnabled(true);
+    ui->circle_Button->setEnabled(true);
 }
 
 void MainWindow::on_penButton_clicked()
@@ -185,6 +194,14 @@ void MainWindow::on_squareButton_clicked()
     ui->squareButton->setEnabled(false);
 }
 
+void MainWindow::on_circle_Button_clicked()
+{
+    falseAllTools();
+    this->circleF = true;
+    trueAllButtons();
+    ui->circle_Button->setEnabled(false);
+}
+
 void MainWindow::on_Color_button_clicked()
 {
     QColor code = QColorDialog::getColor(Qt::blue,this, "Select Color", QColorDialog::DontUseNativeDialog);
@@ -195,11 +212,13 @@ void MainWindow::on_Color_button_clicked()
 
 }
 
-
 void MainWindow::on_pushButton_3_clicked()
 {
     this->updateCanvas();
 }
+
+
+
 
 
 void MainWindow::on_pushButton_2_clicked()
@@ -212,6 +231,8 @@ void MainWindow::on_pushButton_clicked()
 {
 
 }
+
+
 
 
 

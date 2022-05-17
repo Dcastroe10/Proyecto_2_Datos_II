@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     CanvasDialog/createcanvasdialog.cpp \
+    Tools/circle.cpp \
     Tools/pen.cpp \
     Tools/pencil.cpp \
     Tools/square.cpp \
@@ -21,6 +22,7 @@ SOURCES += \
 
 HEADERS += \
     CanvasDialog/createcanvasdialog.h \
+    Tools/circle.h \
     Tools/pen.h \
     Tools/pencil.h \
     Tools/square.h \
