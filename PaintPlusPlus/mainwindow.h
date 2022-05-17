@@ -23,6 +23,7 @@ public:
     void setPixelInCanvas(int x, int y);
     void trueAllButtons();
     void drawALine(int start[], int end[]);
+    void drawSquare(int start[], int end[]);
     void updateCanvas();
 private slots:
     void on_actionNuevo_triggered();
@@ -49,6 +50,10 @@ private slots:
 
     void on_Color_button_clicked();
 
+    void on_pushButton_clicked();
+
+    void on_squareButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     createCanvasDialog *createcanvasDialog;
@@ -56,6 +61,7 @@ private:
 
     bool penF = false;
     bool pencilF = false;
+    bool squareF = false;
 
     int firstClick[2] = {0, 0};
     int clickReleased[2] = {0, 0};

@@ -12,6 +12,7 @@ SOURCES += \
     CanvasDialog/createcanvasdialog.cpp \
     Tools/pen.cpp \
     Tools/pencil.cpp \
+    Tools/square.cpp \
     main.cpp \
     canvasimage.cpp \
     mainwindow.cpp \
@@ -22,6 +23,7 @@ HEADERS += \
     CanvasDialog/createcanvasdialog.h \
     Tools/pen.h \
     Tools/pencil.h \
+    Tools/square.h \
     mainwindow.h \
     canvasimage.h \
     pixel.h \

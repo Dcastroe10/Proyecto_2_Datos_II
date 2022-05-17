@@ -82,6 +82,9 @@ void MainWindow::mouseIsReleased(int& x, int& y)
     if (this->pencilF) {
         drawALine(this->firstClick, this->clickReleased);
     }
+    if (this->squareF){
+        drawSquare(this->firstClick, this->clickReleased);
+    }
 }
 
 void MainWindow::mouseMove(int &x, int &y)
@@ -107,6 +110,11 @@ void MainWindow::updateCanvas() {
 
 void MainWindow::drawALine(int start[], int end[]) {
     tools.drawWithPencil(start, end, this->color,ui->spinBox->value());
+    updateCanvas();
+}
+
+void MainWindow::drawSquare(int *start, int *end){
+    tools.drawSquare(start, end, this->color,ui->spinBox->value());
     updateCanvas();
 }
 
@@ -144,11 +152,13 @@ void MainWindow::falseAllTools()
 {
     this->penF = false;
     this->pencilF = false;
+    this->squareF = false;
 }
 
 void MainWindow::trueAllButtons() {
     ui->penButton->setEnabled(true);
     ui->pencilButton->setEnabled(true);
+    ui->squareButton->setEnabled(true);
 }
 
 void MainWindow::on_penButton_clicked()
@@ -167,6 +177,13 @@ void MainWindow::on_pencilButton_clicked()
     ui->pencilButton->setEnabled(false);
 }
 
+void MainWindow::on_squareButton_clicked()
+{
+    falseAllTools();
+    this->squareF = true;
+    trueAllButtons();
+    ui->squareButton->setEnabled(false);
+}
 
 void MainWindow::on_Color_button_clicked()
 {
@@ -189,4 +206,13 @@ void MainWindow::on_pushButton_2_clicked()
 {
 
 }
+
+
+void MainWindow::on_pushButton_clicked()
+{
+
+}
+
+
+
 

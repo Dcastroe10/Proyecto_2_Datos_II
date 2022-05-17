@@ -17,11 +17,16 @@ Pen Tools::getPen()
 
 void Tools::drawWithPen(int posx, int posy, uint32_t color)
 {
-    pen.drawInCanvas(matrixPointer, posx, posy, color);
+    pen.drawInCanvas(this->matrixPointer, posx, posy, color);
 }
 
 void Tools::drawWithPencil(int start[2], int end[2], uint32_t color, int grosor) {
     pencil.drawALineInCanvas(this->matrixPointer, start, end, color, grosor);
+}
+
+void Tools::drawSquare(int *start, int *end, uint32_t color, int grosor){
+    square.draw_square_in_canvas(this->matrixPointer,start, end, color, grosor);
+    ////
 }
 
 void Tools::set_grosor(int num){
