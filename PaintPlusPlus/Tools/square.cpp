@@ -1,7 +1,6 @@
 #include "square.h"
 
-#include <iostream>
-using namespace std;
+#include <QtDebug>
 
 Square::Square()
 {
@@ -16,12 +15,33 @@ void Square::draw_square_in_canvas(pixel **canvas, int start[2], int end[2], uin
     int endy = end[1];
 
     //para los ciclos
-    int ciclo_startx = startx;
-    int ciclo_starty = starty;
+    int ciclo_startx;
+    int ciclo_starty;
+    int ciclo_endx;
+    int ciclo_endy;
+    int temp;
 
-    int ciclo_endx = endx;
-    int ciclo_endy = endy;
+    if(startx < endx){
+        ciclo_startx = startx;
+        ciclo_endx = endx;
+    }else{
+         ciclo_startx = endx;
+         ciclo_endx = startx;
+         temp = startx;
+         startx = endx;
+         endx=temp;
+    }
 
+    if(starty<endy){
+        ciclo_starty = starty;
+        ciclo_endy = endy;
+    }else{
+        ciclo_starty = endy;
+        ciclo_endy = starty;
+        temp = starty;
+        starty = endy;
+        endy=temp;
+    }
     for(int x = startx; x<endx;x++){
         for (int i = -grosor; i < grosor; i++){
             for(int j = -grosor; j < grosor; j++){
