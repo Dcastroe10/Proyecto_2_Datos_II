@@ -81,13 +81,17 @@ void MainWindow::mouseIsReleased(int& x, int& y)
 
     if (this->pencilF) {
         drawALine(this->firstClick, this->clickReleased);
-    }
-    if (this->squareF){
+    } else if (this->squareF){
         drawSquare(this->firstClick, this->clickReleased);
-    }
-    if(this->circleF){
+    } else if(this->circleF){
         drawCircle(this->firstClick, this->clickReleased);
+    } else if (this->colorPickerF){
+        this->color = tools.getColorColorPicker(x, y);
+        on_penButton_clicked();
+    } else if (this->paintFillF) {
+        usePaintFill(x, y);
     }
+
 }
 
 void MainWindow::mouseMove(int &x, int &y)
@@ -109,6 +113,11 @@ void MainWindow::updateCanvas() {
         }
     }
     ui->canvasLabel->setPixmap(QPixmap::fromImage(canvas));
+}
+
+void MainWindow::usePaintFill(int posX, int posY) {
+    tools.drawWithPaintFiller(this->imageDimensions[0], this->imageDimensions[1], this->color, posX, posY);
+    updateCanvas();
 }
 
 void MainWindow::drawALine(int start[], int end[]) {
@@ -161,6 +170,8 @@ void MainWindow::falseAllTools()
     this->pencilF = false;
     this->squareF = false;
     this->circleF = false;
+    this->colorPickerF = false;
+    this->paintFillF = false;
 }
 
 void MainWindow::trueAllButtons() {
@@ -168,6 +179,8 @@ void MainWindow::trueAllButtons() {
     ui->pencilButton->setEnabled(true);
     ui->squareButton->setEnabled(true);
     ui->circle_Button->setEnabled(true);
+    ui->colorPickerButton->setEnabled(true);
+    ui->paintFillButton->setEnabled(true);
 }
 
 void MainWindow::on_penButton_clicked()
@@ -202,6 +215,14 @@ void MainWindow::on_circle_Button_clicked()
     ui->circle_Button->setEnabled(false);
 }
 
+void MainWindow::on_colorPickerButton_clicked()
+{
+    falseAllTools();
+    this->colorPickerF = true;
+    trueAllButtons();
+    ui->colorPickerButton->setEnabled(false);
+}
+
 void MainWindow::on_Color_button_clicked()
 {
     QColor code = QColorDialog::getColor(Qt::blue,this, "Select Color", QColorDialog::DontUseNativeDialog);
@@ -221,19 +242,17 @@ void MainWindow::on_pushButton_3_clicked()
 
 
 
-void MainWindow::on_pushButton_2_clicked()
-{
-
-}
-
-
 void MainWindow::on_pushButton_clicked()
 {
 
 }
 
 
-
-
-
+void MainWindow::on_paintFillButton_clicked()
+{
+    falseAllTools();
+    this->paintFillF = true;
+    trueAllButtons();
+    ui->paintFillButton->setEnabled(false);
+}
 

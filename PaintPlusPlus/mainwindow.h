@@ -26,6 +26,7 @@ public:
     void drawSquare(int start[], int end[]);
     void drawCircle(int start[], int end[]);
     void updateCanvas();
+    void usePaintFill(int posX, int posY);
 private slots:
     void on_actionNuevo_triggered();
 
@@ -57,6 +58,10 @@ private slots:
 
     void on_circle_Button_clicked();
 
+    void on_colorPickerButton_clicked();
+
+    void on_paintFillButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     createCanvasDialog *createcanvasDialog;
@@ -66,6 +71,8 @@ private:
     bool pencilF = false;
     bool squareF = false;
     bool circleF = false;
+    bool colorPickerF= false;
+    bool paintFillF = false;
 
     int firstClick[2] = {0, 0};
     int clickReleased[2] = {0, 0};

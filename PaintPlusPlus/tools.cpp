@@ -29,7 +29,16 @@ void Tools::drawSquare(int *start, int *end, uint32_t color, int grosor){
 }
 
 void Tools::drawCircle(int *start, int *end, uint32_t color, int grosor){
-    circle.draw_circle(this->matrixPointer,start, end, color, grosor);
+    Circle.draw_circle(this->matrixPointer,start, end, color, grosor);
+}
+
+void Tools::drawWithPaintFiller(int width, int height, uint32_t color, int posX, int posY)
+{
+    PaintFill.doPaintFill(width, height, color, this->matrixPointer, posX, posY);
+}
+
+u_int32_t Tools::getColorColorPicker(int x, int y) {
+    return this->ColorPicker.getColorInMatrix(this->matrixPointer, x, y);
 }
 
 void Tools::set_grosor(int num){

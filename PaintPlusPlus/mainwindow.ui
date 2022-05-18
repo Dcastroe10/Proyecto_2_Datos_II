@@ -63,11 +63,28 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>91</width>
-      <height>280</height>
+      <width>92</width>
+      <height>291</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_2">
+     <item row="7" column="1">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Grosor:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QPushButton" name="Color_button">
+       <property name="text">
+        <string>Color</string>
+       </property>
+      </widget>
+     </item>
      <item row="1" column="1">
       <widget class="QPushButton" name="pencilButton">
        <property name="enabled">
@@ -78,17 +95,23 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
-      <widget class="QPushButton" name="squareButton">
+     <item row="5" column="1">
+      <widget class="QPushButton" name="colorPickerButton">
        <property name="text">
-        <string>Cuadrado</string>
+        <string>Color Picker</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
-      <widget class="QPushButton" name="Color_button">
-       <property name="text">
-        <string>Color</string>
+     <item row="8" column="1">
+      <widget class="QSpinBox" name="spinBox">
+       <property name="minimum">
+        <number>2</number>
+       </property>
+       <property name="maximum">
+        <number>100</number>
+       </property>
+       <property name="singleStep">
+        <number>2</number>
        </property>
       </widget>
      </item>
@@ -102,7 +125,21 @@
        </property>
       </widget>
      </item>
-     <item row="8" column="1">
+     <item row="2" column="1">
+      <widget class="QPushButton" name="squareButton">
+       <property name="text">
+        <string>Cuadrado</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QPushButton" name="circle_Button">
+       <property name="text">
+        <string>Círculo</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="1">
       <widget class="QLabel" name="mouseLocationLabel">
        <property name="text">
         <string>0, 0</string>
@@ -112,33 +149,10 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Grosor:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
      <item row="6" column="1">
-      <widget class="QSpinBox" name="spinBox">
-       <property name="minimum">
-        <number>2</number>
-       </property>
-       <property name="maximum">
-        <number>100</number>
-       </property>
-       <property name="singleStep">
-        <number>2</number>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QPushButton" name="circle_Button">
+      <widget class="QPushButton" name="paintFillButton">
        <property name="text">
-        <string>Círculo</string>
+        <string>PaintFill</string>
        </property>
       </widget>
      </item>
@@ -177,7 +191,7 @@
      <x>0</x>
      <y>0</y>
      <width>932</width>
-     <height>27</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuArchivo">

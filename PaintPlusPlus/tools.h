@@ -7,6 +7,8 @@
 #include "Tools/pencil.h"
 #include "Tools/square.h"
 #include "Tools/circle.h"
+#include "Tools/colorpicker.h"
+#include "Tools/paintfill.h"
 
 class Tools
 {
@@ -21,7 +23,10 @@ public:
     Pen getPen();
     Pencil pencil;
     Square square;
-    circle circle;
+    circle Circle;
+    colorpicker ColorPicker;
+    paintfill PaintFill;
+
 
     void setMatrixPointer(pixel **newMatrixPointer);
 
@@ -34,8 +39,13 @@ public:
 
     void drawCircle(int start[], int end[], uint32_t color, int grosor);
 
+    void drawWithPaintFiller(int width, int height, uint32_t color, int posX, int posY);
+
+    u_int32_t getColorColorPicker(int x, int y);
+
     void set_grosor(int num);
     int get_grosor();
+
 };
 
 #endif // TOOLS_H
