@@ -44,34 +44,6 @@ void circle::draw_circle(pixel **canvas, int start[2], int end[2], uint32_t colo
 
     }
 
-
-    qDebug()<<"entroooooooooooooo    "<<radius<<"      radioooo";
-    qDebug()<<"entroooooooooooooo    "<<centerx<<"      centeeeer";
-
-
-
-  /*
-    for (int i = -grosor; i < grosor; i++){
-        for(int j = -grosor; j < grosor; j++){
-            canvas[centerx + i][centery + j].setColor(color);
-
-            //En x
-            canvas[centerx + radius + i][centery + j].setColor(color);
-            canvas[centerx - radius + i][centery + j].setColor(color);
-            //EN Y
-            canvas[centerx + i][centery + radius + j].setColor(color);
-            canvas[centerx + i][centery - radius + j].setColor(color);
-
-
-            //revisar que siga siendo el radio y ajaa
-            canvas[centerx + i + 5][centery + radius + j].setColor(color);
-            canvas[centerx + i + 5][centery - radius + j].setColor(color);
-        }
-    }
-
-*/
-
-
 }
 
 
