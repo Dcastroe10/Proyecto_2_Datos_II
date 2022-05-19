@@ -198,6 +198,8 @@ void MainWindow::trueAllButtons() {
     ui->paintFillButton->setEnabled(true);
     ui->eraserButton->setEnabled(true);
     ui->figureeraserButton->setEnabled(true);
+    ui->Color_button->setEnabled(true);
+    ui->spinBox->setEnabled(true);
 }
 
 void MainWindow::on_penButton_clicked()
@@ -272,6 +274,11 @@ void MainWindow::on_Color_button_clicked()
 
 void MainWindow::on_pushButton_3_clicked()
 {
+    for (int i = 0; i < 20; i++) {
+        for (int j = 0; j < 20; j++) {
+            qDebug() << this->ui->canvasLabel->getMatrix()[i][j].getColor();
+        }
+    }
     this->updateCanvas();
     //print the colors on the matrix
     /*
@@ -295,6 +302,34 @@ void MainWindow::on_paintFillButton_clicked()
     trueAllButtons();
     ui->paintFillButton->setEnabled(false);
 }
+
+
+
+
+
+void MainWindow::on_actionAbrir_triggered()
+{
+    std::string file = QFileDialog::getOpenFileName(this, "Escoge un archivo", QDir::homePath()).toStdString();
+    uint32_t** image = tools.BMP.convertToUint32(tools.BMP.readBMP(file));
+    int width = tools.BMP.getWidth();
+    int height = tools.BMP.getHeight();
+    createNewCanvas(width, height);
+
+    QImage canvas = ui->canvasLabel->pixmap().toImage();
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            canvas.setPixel(x, height - y, image[x][y]);
+
+            ui->canvasLabel->getMatrix()[x][height - y].setColor(image[x][y]);
+        }
+    }
+
+    ui->canvasLabel->setPixmap(QPixmap::fromImage(canvas));
+
+    on_penButton_clicked();
+}
+
 
 
 

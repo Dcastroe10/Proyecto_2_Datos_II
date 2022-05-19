@@ -70,6 +70,9 @@
     <layout class="QGridLayout" name="gridLayout_2">
      <item row="4" column="1">
       <widget class="QPushButton" name="Color_button">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>Color</string>
        </property>
@@ -77,6 +80,9 @@
      </item>
      <item row="9" column="1">
       <widget class="QPushButton" name="figureeraserButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>Figure eraser</string>
        </property>
@@ -84,6 +90,9 @@
      </item>
      <item row="2" column="1">
       <widget class="QPushButton" name="squareButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>Cuadrado</string>
        </property>
@@ -121,6 +130,9 @@
      </item>
      <item row="3" column="1">
       <widget class="QPushButton" name="circle_Button">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>Círculo</string>
        </property>
@@ -128,6 +140,9 @@
      </item>
      <item row="8" column="1">
       <widget class="QSpinBox" name="spinBox">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="minimum">
         <number>2</number>
        </property>
@@ -141,6 +156,9 @@
      </item>
      <item row="5" column="1">
       <widget class="QPushButton" name="colorPickerButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>Color Picker</string>
        </property>
@@ -148,6 +166,9 @@
      </item>
      <item row="10" column="1">
       <widget class="QPushButton" name="eraserButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>Free eraser</string>
        </property>
@@ -155,6 +176,9 @@
      </item>
      <item row="6" column="1">
       <widget class="QPushButton" name="paintFillButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>PaintFill</string>
        </property>
@@ -211,7 +235,7 @@
      <x>0</x>
      <y>0</y>
      <width>1132</width>
-     <height>27</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuArchivo">
@@ -220,6 +244,7 @@
     </property>
     <addaction name="separator"/>
     <addaction name="actionNuevo"/>
+    <addaction name="actionAbrir"/>
    </widget>
    <addaction name="menuArchivo"/>
   </widget>
@@ -237,6 +262,11 @@
   <action name="actionNuevo">
    <property name="text">
     <string>Nuevo...</string>
+   </property>
+  </action>
+  <action name="actionAbrir">
+   <property name="text">
+    <string>Abrir...</string>
    </property>
   </action>
  </widget>

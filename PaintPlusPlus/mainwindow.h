@@ -5,6 +5,7 @@
 #include "CanvasDialog/createcanvasdialog.h"
 #include <QLabel>
 #include "tools.h"
+#include <QFileDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -65,6 +66,8 @@ private slots:
     void on_eraserButton_clicked();
 
     void on_figureeraserButton_clicked();
+
+    void on_actionAbrir_triggered();
 
 private:
     Ui::MainWindow *ui;

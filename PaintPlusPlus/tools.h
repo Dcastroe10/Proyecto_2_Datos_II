@@ -9,6 +9,7 @@
 #include "Tools/circle.h"
 #include "Tools/colorpicker.h"
 #include "Tools/paintfill.h"
+#include "Tools/bmp.h"
 
 class Tools
 {
@@ -26,6 +27,7 @@ public:
     circle Circle;
     colorpicker ColorPicker;
     paintfill PaintFill;
+    bmp BMP;
 
 
     void setMatrixPointer(pixel **newMatrixPointer);

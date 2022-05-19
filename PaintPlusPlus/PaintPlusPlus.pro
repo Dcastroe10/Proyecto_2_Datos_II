@@ -12,6 +12,7 @@ SOURCES += \
     CanvasDialog/createcanvasdialog.cpp \
     DataStructures/bfs.cpp \
     DataStructures/queue.cpp \
+    Tools/bmp.cpp \
     Tools/circle.cpp \
     Tools/paintfill.cpp \
     Tools/pen.cpp \
@@ -30,6 +31,7 @@ HEADERS += \
     CanvasDialog/createcanvasdialog.h \
     DataStructures/bfs.h \
     DataStructures/queue.h \
+    Tools/bmp.h \
     Tools/circle.h \
     Tools/paintfill.h \
     Tools/pen.h \
