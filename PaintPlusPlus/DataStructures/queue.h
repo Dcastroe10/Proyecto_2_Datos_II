@@ -2,22 +2,23 @@
 #define QUEUE_H
 
 #include <QDebug>
+#include <iostream>
 
 class queue
 {
-private:
-    int* elements;
-    int front;
-    int rear;
-    int size;
 public:
-    queue(int sizE);
+    struct node1 {
+        int value;
+        node1* next = NULL;
+    };
+
+    node1* front = NULL;
+    node1* rear = NULL;
+
+    int nElements = 0;
     bool isEmpty();
-    bool isFull();
-    void enQueue(int num);
+    void enQueue(int value1);
     int deQueue();
-    int peek();
-    int getSize() const;
 };
 
 #endif // QUEUE_H

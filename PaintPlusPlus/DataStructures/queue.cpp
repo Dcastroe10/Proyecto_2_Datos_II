@@ -1,73 +1,42 @@
 #include "queue.h"
 
-int queue::getSize() const
-{
-    return size;
-}
-
-queue::queue(int sizE)
-{
-    front = -1;
-    rear = -1;
-    elements = new int[sizE];
-    size = sizE;
-}
+#include <QDebug>
 
 bool queue::isEmpty()
 {
-    if (front == -1) {
-        return true;
-    } else {
-        return false;
-    }
+    return nElements == 0;
+
 }
 
-bool queue::isFull()
-{
-    if (rear == size - 1) {
-        return true;
+void queue::enQueue(int value1) {
+    node1* tmp = new node1;
+    tmp->value = value1;
+    if (isEmpty()) {
+        front = tmp;
+        rear = NULL;
+    } else if (rear == NULL) {
+        rear = tmp;
+        front->next = rear;
     } else {
-        return false;
+        rear->next = tmp;
+        rear = tmp;
     }
-}
-
-void queue::enQueue(int num)
-{
-    if (isFull()) {
-        //qDebug() << "MaxQueue";
-    } else {
-        if (front == -1) {
-            front = 0;
-        }
-        rear++;
-        elements[rear] = num;
-    }
+    nElements++;
 }
 
 int queue::deQueue() {
-    if (isEmpty()) {
-        qDebug() << "Queue empty";
+    if (front == NULL) {
         return -1;
-    } else {
-        int element;
-        element = elements[front];
-        if (front >= rear) {
-            front = -1;
-            rear = -1;
-        } else {
-            front++;
-        }
-        return element;
     }
-}
-
-int queue::peek() {
-    if (isEmpty()) {
-        qDebug() << "Queue empty";
-        return -1;
+    int ret = this->front->value;
+    if (front->next == NULL) {
+        front = NULL;
+        rear = NULL;
     } else {
-        return elements[front];
+        front = front->next;
     }
+    nElements--;
+    return ret;
 }
 
 
