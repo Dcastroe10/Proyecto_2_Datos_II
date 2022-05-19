@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>932</width>
+    <width>1132</width>
     <height>693</height>
    </rect>
   </property>
@@ -27,7 +27,7 @@
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>70</x>
+      <x>240</x>
       <y>10</y>
       <width>841</width>
       <height>631</height>
@@ -63,25 +63,39 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>92</width>
-      <height>291</height>
+      <width>152</width>
+      <height>403</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_2">
-     <item row="7" column="1">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Grosor:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
      <item row="4" column="1">
       <widget class="QPushButton" name="Color_button">
        <property name="text">
         <string>Color</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1">
+      <widget class="QPushButton" name="figureeraserButton">
+       <property name="text">
+        <string>Figure eraser</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QPushButton" name="squareButton">
+       <property name="text">
+        <string>Cuadrado</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="penButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Pen</string>
        </property>
       </widget>
      </item>
@@ -95,10 +109,20 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
-      <widget class="QPushButton" name="colorPickerButton">
+     <item row="7" column="1">
+      <widget class="QLabel" name="label">
        <property name="text">
-        <string>Color Picker</string>
+        <string>Grosor general:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QPushButton" name="circle_Button">
+       <property name="text">
+        <string>Círculo</string>
        </property>
       </widget>
      </item>
@@ -115,37 +139,17 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="QPushButton" name="penButton">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
+     <item row="5" column="1">
+      <widget class="QPushButton" name="colorPickerButton">
        <property name="text">
-        <string>Pen</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QPushButton" name="squareButton">
-       <property name="text">
-        <string>Cuadrado</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QPushButton" name="circle_Button">
-       <property name="text">
-        <string>Círculo</string>
+        <string>Color Picker</string>
        </property>
       </widget>
      </item>
      <item row="10" column="1">
-      <widget class="QLabel" name="mouseLocationLabel">
+      <widget class="QPushButton" name="eraserButton">
        <property name="text">
-        <string>0, 0</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
+        <string>Free eraser</string>
        </property>
       </widget>
      </item>
@@ -158,24 +162,11 @@
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>520</y>
-      <width>89</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>PushButton</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>560</y>
+      <x>20</x>
+      <y>540</y>
       <width>89</width>
       <height>31</height>
      </rect>
@@ -184,14 +175,43 @@
      <string>Update</string>
     </property>
    </widget>
+   <widget class="QLabel" name="mouseLocationLabel">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>620</y>
+      <width>93</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0, 0</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>580</y>
+      <width>91</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Coords (x,y)</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>932</width>
-     <height>22</height>
+     <width>1132</width>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuArchivo">

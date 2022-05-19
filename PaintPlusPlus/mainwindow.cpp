@@ -66,16 +66,21 @@ void MainWindow::mouseIsPressed(int& x, int& y)
     this->mousePressedInCanvas = true;
     this->firstClick[0] = x;
     this->firstClick[1] = y;
+    this->color = this->last_color;
 
     if (this->penF) {
        setPixelInCanvas(x, y);
+    }else if(this->freeEraserF){
+        this->last_color = this->color;
+        this->color = rgbToHex(255,255,255);
+        setPixelInCanvas(x,y);
     }
 }
 
 void MainWindow::mouseIsReleased(int& x, int& y)
 {
     this->mousePressedInCanvas = false;
-
+    this->color = this->last_color;
     this->clickReleased[0] = x;
     this->clickReleased[1] = y;
 
@@ -87,9 +92,14 @@ void MainWindow::mouseIsReleased(int& x, int& y)
         drawCircle(this->firstClick, this->clickReleased);
     } else if (this->colorPickerF){
         this->color = tools.getColorColorPicker(x, y);
+        this->last_color = this->color;
         on_penButton_clicked();
     } else if (this->paintFillF) {
         usePaintFill(x, y);
+    }else if(this->figureEraserF){
+        //obtener el id de la figura si es distinto de -1
+        //luego recorrer toda la matriz y poner en blanco todos los pixeles con ese id
+        //me retiro a dormir mañana sigo
     }
 
 }
@@ -121,22 +131,25 @@ void MainWindow::usePaintFill(int posX, int posY) {
 }
 
 void MainWindow::drawALine(int start[], int end[]) {
-    tools.drawWithPencil(start, end, this->color,ui->spinBox->value());
+    tools.drawWithPencil(start, end, this->color,ui->spinBox->value(), this->id_figuras);
+    this->id_figuras++;
     updateCanvas();
 }
 
 void MainWindow::drawSquare(int *start, int *end){
-    tools.drawSquare(start, end, this->color,ui->spinBox->value());
+    tools.drawSquare(start, end, this->color,ui->spinBox->value(),this->id_figuras);
+    this->id_figuras++;
     updateCanvas();
 }
 
 void MainWindow::drawCircle(int *start, int *end){
-    tools.drawCircle(start, end, this->color,ui->spinBox->value());
+    tools.drawCircle(start, end, this->color,ui->spinBox->value(), this->id_figuras);
+    this->id_figuras++;
     updateCanvas();
 }
 
 void MainWindow::setPixelInCanvas(int x, int y) {
-    if (this->penF && this->mousePressedInCanvas) {
+    if ((this->penF || this->freeEraserF)&& this->mousePressedInCanvas) {
         QImage canvas = ui->canvasLabel->pixmap().toImage();
         int grosor = ui->spinBox->value();
 
@@ -172,6 +185,8 @@ void MainWindow::falseAllTools()
     this->circleF = false;
     this->colorPickerF = false;
     this->paintFillF = false;
+    this->freeEraserF = false;
+    this->figureEraserF = false;
 }
 
 void MainWindow::trueAllButtons() {
@@ -181,6 +196,8 @@ void MainWindow::trueAllButtons() {
     ui->circle_Button->setEnabled(true);
     ui->colorPickerButton->setEnabled(true);
     ui->paintFillButton->setEnabled(true);
+    ui->eraserButton->setEnabled(true);
+    ui->figureeraserButton->setEnabled(true);
 }
 
 void MainWindow::on_penButton_clicked()
@@ -223,6 +240,25 @@ void MainWindow::on_colorPickerButton_clicked()
     ui->colorPickerButton->setEnabled(false);
 }
 
+void MainWindow::on_eraserButton_clicked()
+{
+    falseAllTools();
+    this->freeEraserF = true;
+    trueAllButtons();
+    ui->eraserButton->setEnabled(false);
+}
+
+
+
+void MainWindow::on_figureeraserButton_clicked()
+{
+    falseAllTools();
+    this->figureEraserF = true;
+    trueAllButtons();
+    ui->figureeraserButton->setEnabled(false);
+}
+
+
 void MainWindow::on_Color_button_clicked()
 {
     QColor code = QColorDialog::getColor(Qt::blue,this, "Select Color", QColorDialog::DontUseNativeDialog);
@@ -230,22 +266,26 @@ void MainWindow::on_Color_button_clicked()
     int green = code.green();
     int blue = code.blue();
     this->color = rgbToHex(red, green, blue);
+    this->last_color = this->color;
 
 }
 
 void MainWindow::on_pushButton_3_clicked()
 {
     this->updateCanvas();
+    //print the colors on the matrix
+    /*
+    pixel **matrix = ui->canvasLabel->getMatrix();
+    for (int i = 0;i<500; i++){
+        for (int j= 0; j<500;j++){
+            qDebug()<<matrix[i][j].getId();
+        }
+    }
+    */
+
 }
 
 
-
-
-
-void MainWindow::on_pushButton_clicked()
-{
-
-}
 
 
 void MainWindow::on_paintFillButton_clicked()
@@ -255,4 +295,7 @@ void MainWindow::on_paintFillButton_clicked()
     trueAllButtons();
     ui->paintFillButton->setEnabled(false);
 }
+
+
+
 

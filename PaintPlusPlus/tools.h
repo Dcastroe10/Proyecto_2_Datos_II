@@ -33,11 +33,11 @@ public:
     void drawWithPen(int posx, int posy, uint32_t color);
 
 
-    void drawWithPencil(int start[], int end[], uint32_t color, int grosor);
+    void drawWithPencil(int start[], int end[], uint32_t color, int grosor, int id);
 
-    void drawSquare(int start[], int end[], uint32_t color, int grosor);
+    void drawSquare(int start[], int end[], uint32_t color, int grosor, int id);
 
-    void drawCircle(int start[], int end[], uint32_t color, int grosor);
+    void drawCircle(int start[], int end[], uint32_t color, int grosor, int id);
 
     void drawWithPaintFiller(int width, int height, uint32_t color, int posX, int posY);
 

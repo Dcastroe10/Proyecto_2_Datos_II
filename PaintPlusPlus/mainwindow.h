@@ -62,6 +62,10 @@ private slots:
 
     void on_paintFillButton_clicked();
 
+    void on_eraserButton_clicked();
+
+    void on_figureeraserButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     createCanvasDialog *createcanvasDialog;
@@ -73,11 +77,15 @@ private:
     bool circleF = false;
     bool colorPickerF= false;
     bool paintFillF = false;
+    bool freeEraserF = false;
+    bool figureEraserF= false;
 
     int firstClick[2] = {0, 0};
     int clickReleased[2] = {0, 0};
 
     int imageDimensions[2] = {0, 0};
+
+    int id_figuras = 0;
 
     void createNewCanvas(int x, int y);
     void fillCanvas(int r, int g, int b, int x, int y);
@@ -85,6 +93,7 @@ private:
     bool mousePressedInCanvas = false;
 
     uint32_t color;
+    uint32_t last_color; //for the eraser
 
 };
 #endif // MAINWINDOW_H

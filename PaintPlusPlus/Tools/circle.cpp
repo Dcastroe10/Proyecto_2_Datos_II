@@ -8,7 +8,7 @@ circle::circle()
 }
 
 
-void circle::draw_circle(pixel **canvas, int start[2], int end[2], uint32_t color, int grosor){
+void circle::draw_circle(pixel **canvas, int start[2], int end[2], uint32_t color, int grosor, int id){
     int radius = abs((start[0]-end[0])/2);
     int centerx;
     int centery;
@@ -32,7 +32,7 @@ void circle::draw_circle(pixel **canvas, int start[2], int end[2], uint32_t colo
 
     while(x<=y){
 
-        this->put_pixel(canvas, x, y, centerx, centery, color, grosor);
+        this->put_pixel(canvas, x, y, centerx, centery, color, grosor, id);
 
         if(d<0){
             d = d + 4 * x + 6;
@@ -47,7 +47,7 @@ void circle::draw_circle(pixel **canvas, int start[2], int end[2], uint32_t colo
 }
 
 
-void circle::put_pixel(pixel **canvas,int x, int y, int centerx, int centery, uint32_t color, int grosor){
+void circle::put_pixel(pixel **canvas,int x, int y, int centerx, int centery, uint32_t color, int grosor, int id){
     for (int i = -grosor; i < grosor; i++){
         for(int j = -grosor; j < grosor; j++){
 
@@ -67,10 +67,23 @@ void circle::put_pixel(pixel **canvas,int x, int y, int centerx, int centery, ui
 
             canvas[-y + centerx + i][ x + centery + j].setColor(color);
 
+            //ids for delete figures:
 
+            canvas[x + centerx + i][ y + centery + j].setId(id);
 
+            canvas[x + centerx + i][ -y + centery + j].setId(id);
 
+            canvas[-x + centerx + i][ -y + centery + j].setId(id);
 
+            canvas[-x + centerx + i][ y + centery + j].setId(id);
+
+            canvas[y + centerx + i][ x + centery + j].setId(id);
+
+            canvas[y + centerx + i][ -x + centery + j].setId(id);
+
+            canvas[-y + centerx + i][ -x + centery + j].setId(id);
+
+            canvas[-y + centerx + i][ x + centery + j].setId(id);
 
 
         }

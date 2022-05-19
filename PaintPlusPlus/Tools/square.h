@@ -6,7 +6,7 @@ class Square
 {
 public:
     Square();
-    void draw_square_in_canvas(pixel **canvas, int start[], int end[], uint32_t color, int grosor);
+    void draw_square_in_canvas(pixel **canvas, int start[], int end[], uint32_t color, int grosor, int id);
 };
 
 #endif // SQUARE_H

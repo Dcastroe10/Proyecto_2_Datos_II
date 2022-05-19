@@ -26,7 +26,7 @@ float Pencil::bResult(int x, int y, float m) {
 }
 
 
-void Pencil::drawALineInCanvas(pixel **canvas, int start[2], int end[2], uint32_t color, int grosor) {
+void Pencil::drawALineInCanvas(pixel **canvas, int start[2], int end[2], uint32_t color, int grosor, int id) {
     float m = mResult(start, end);
     float b = -bResult(start[0], start[1], m);
     float y = 0;
@@ -48,6 +48,7 @@ void Pencil::drawALineInCanvas(pixel **canvas, int start[2], int end[2], uint32_
             for (int i = -grosor; i < grosor; i++){
                 for(int j = -grosor; j < grosor; j++){
                      canvas[xi + i][yi + j].setColor(color);
+                     canvas[xi + i][yi + j].setId(id);
                 }
 
             }
@@ -63,6 +64,7 @@ void Pencil::drawALineInCanvas(pixel **canvas, int start[2], int end[2], uint32_
             for (int i = -grosor; i < grosor; i++){
                 for(int j = -grosor; j < grosor; j++){
                      canvas[xi + i][yi + j].setColor(color);
+                     canvas[xi + i][yi + j].setId(id);
                 }
             }
             startX += 0.1;

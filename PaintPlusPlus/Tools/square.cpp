@@ -8,7 +8,7 @@ Square::Square()
 }
 
 
-void Square::draw_square_in_canvas(pixel **canvas, int start[2], int end[2], uint32_t color, int grosor){
+void Square::draw_square_in_canvas(pixel **canvas, int start[2], int end[2], uint32_t color, int grosor, int id){
     int startx= start[0];
     int starty = start[1];
     int endx = end[0];
@@ -48,6 +48,9 @@ void Square::draw_square_in_canvas(pixel **canvas, int start[2], int end[2], uin
                 canvas[ciclo_startx + i][ciclo_starty + j].setColor(color);
                 canvas[ciclo_startx + i][ciclo_endy + j].setColor(color);
 
+                canvas[ciclo_startx + i][ciclo_starty + j].setId(id);
+                canvas[ciclo_startx + i][ciclo_endy + j].setId(id);
+
 
             }
         }
@@ -59,6 +62,10 @@ void Square::draw_square_in_canvas(pixel **canvas, int start[2], int end[2], uin
             for(int j = -grosor; j < grosor; j++){
                 canvas[startx + i ][ciclo_starty + j].setColor(color);
                 canvas[ciclo_endx + i][ciclo_starty + j].setColor(color);
+
+                canvas[startx + i ][ciclo_starty + j].setId(id);
+                canvas[ciclo_endx + i][ciclo_starty + j].setId(id);
+
             }
         }
         ciclo_starty+=1;
