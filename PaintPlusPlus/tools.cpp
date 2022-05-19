@@ -37,7 +37,7 @@ void Tools::drawWithPaintFiller(int width, int height, uint32_t color, int posX,
     PaintFill.doPaintFill(width, height, color, this->matrixPointer, posX, posY);
 }
 
-u_int32_t Tools::getColorColorPicker(int x, int y) {
+uint32_t Tools::getColorColorPicker(int x, int y) {
     return this->ColorPicker.getColorInMatrix(this->matrixPointer, x, y);
 }
 

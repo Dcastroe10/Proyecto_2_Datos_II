@@ -41,7 +41,7 @@ public:
 
     void drawWithPaintFiller(int width, int height, uint32_t color, int posX, int posY);
 
-    u_int32_t getColorColorPicker(int x, int y);
+    uint32_t getColorColorPicker(int x, int y);
 
     void set_grosor(int num);
     int get_grosor();

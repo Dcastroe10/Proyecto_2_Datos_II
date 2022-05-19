@@ -5,7 +5,7 @@ bfs::bfs()
 
 }
 
-int** bfs::neighbours(int width, int height, u_int32_t colorSelected, pixel** matrix, int posX, int posY) {
+int** bfs::neighbours(int width, int height, uint32_t colorSelected, pixel** matrix, int posX, int posY) {
     int** neighbours = new int*[4];
     for (int i = 0; i < 4; i++) {
         neighbours[i] = new int[2];
@@ -67,8 +67,8 @@ void bfs::initBFS(int width, int height) {
     }
 }
 
-void bfs::doBFS(int width, int height, u_int32_t color, pixel** matrix, int posX, int posY) {
-    u_int32_t colorSelected = matrix[posX][posY].getColor();
+void bfs::doBFS(int width, int height, uint32_t color, pixel** matrix, int posX, int posY) {
+    uint32_t colorSelected = matrix[posX][posY].getColor();
     initBFS(width, height);
     this->queueX->enQueue(posX);
     this->queueY->enQueue(posY);
