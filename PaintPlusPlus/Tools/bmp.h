@@ -5,6 +5,7 @@
 #include <fstream>
 #include <stdio.h>
 #include <string.h>
+#include "pixel.h"
 
 using namespace std;
 
@@ -26,6 +27,7 @@ public:
     uint32_t **convertToUint32(unsigned char *data);
     int getWidth() const;
     int getHeight() const;
+    void bmpExport(string path, int width, int height, pixel **matrix);
 };
 
 #endif // BMP_H

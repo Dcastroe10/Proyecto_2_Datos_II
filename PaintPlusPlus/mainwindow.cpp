@@ -334,3 +334,14 @@ void MainWindow::on_actionAbrir_triggered()
 
 
 
+
+void MainWindow::on_actionGuardar_como_triggered()
+{
+    //bool ready;
+    //std::string fileName = QInputDialog::getText(this, "Guardar como...", "Nombre:", QLineEdit::Normal, "", &ready).toStdString();
+    //fileName.append(".bmp");
+    std::string directory = QFileDialog::getSaveFileName(this, "Guardar como...", QDir::homePath(), "Imagen (*.bmp)").toStdString().append(".bmp");
+    qDebug() << directory.c_str();
+    this->tools.BMP.bmpExport(directory, this->imageDimensions[0], this->imageDimensions[1], ui->canvasLabel->getMatrix());
+}
+

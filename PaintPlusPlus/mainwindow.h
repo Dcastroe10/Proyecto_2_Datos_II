@@ -6,6 +6,7 @@
 #include <QLabel>
 #include "tools.h"
 #include <QFileDialog>
+#include <QInputDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -68,6 +69,8 @@ private slots:
     void on_figureeraserButton_clicked();
 
     void on_actionAbrir_triggered();
+
+    void on_actionGuardar_como_triggered();
 
 private:
     Ui::MainWindow *ui;

@@ -245,6 +245,7 @@
     <addaction name="separator"/>
     <addaction name="actionNuevo"/>
     <addaction name="actionAbrir"/>
+    <addaction name="actionGuardar_como"/>
    </widget>
    <addaction name="menuArchivo"/>
   </widget>
@@ -267,6 +268,11 @@
   <action name="actionAbrir">
    <property name="text">
     <string>Abrir...</string>
+   </property>
+  </action>
+  <action name="actionGuardar_como">
+   <property name="text">
+    <string>Guardar como...</string>
    </property>
   </action>
  </widget>
