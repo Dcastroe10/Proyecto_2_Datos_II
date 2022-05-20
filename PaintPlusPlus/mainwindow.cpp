@@ -84,6 +84,8 @@ void MainWindow::mouseIsReleased(int& x, int& y)
     this->clickReleased[0] = x;
     this->clickReleased[1] = y;
 
+
+
     if (this->pencilF) {
         drawALine(this->firstClick, this->clickReleased);
     } else if (this->squareF){
@@ -97,6 +99,8 @@ void MainWindow::mouseIsReleased(int& x, int& y)
     } else if (this->paintFillF) {
         usePaintFill(x, y);
     }else if(this->figureEraserF){
+        this->delete_figure(x,y);
+
         //obtener el id de la figura si es distinto de -1
         //luego recorrer toda la matriz y poner en blanco todos los pixeles con ese id
         //me retiro a dormir mañana sigo
@@ -162,6 +166,24 @@ void MainWindow::setPixelInCanvas(int x, int y) {
         }
         ui->canvasLabel->setPixmap(QPixmap::fromImage(canvas));
     }
+}
+
+void MainWindow::delete_figure(int x, int y){
+     pixel **matrix = ui->canvasLabel->getMatrix();
+     int check = matrix[x][y].getId();
+     if (check == -1){
+         qDebug()<<"NO ES FIGURA";
+     }else{
+         for (int i = 0; i < imageDimensions[0]; i++){
+             for(int j = 0; j < imageDimensions[1];j++){
+                 if(matrix[i][j].getId() == check){
+                     matrix[i][j].setColor(this->rgbToHex(255,255,255));//matrix[imageDimensions[0]][imageDimensions[1]].getColor());
+                     matrix[i][j].setId(-1);
+                 }
+             }
+         }
+          this->updateCanvas();
+     }
 }
 
 void MainWindow::on_actionNuevo_triggered()

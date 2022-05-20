@@ -29,6 +29,7 @@ public:
     void drawCircle(int start[], int end[]);
     void updateCanvas();
     void usePaintFill(int posX, int posY);
+    void delete_figure(int x, int y);
 private slots:
     void on_actionNuevo_triggered();
 
