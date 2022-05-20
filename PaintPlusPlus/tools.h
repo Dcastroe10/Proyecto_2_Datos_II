@@ -32,7 +32,7 @@ public:
 
     void setMatrixPointer(pixel **newMatrixPointer);
 
-    void drawWithPen(int posx, int posy, uint32_t color);
+    void drawWithPen(int posx, int posy, uint32_t color, int id);
 
 
     void drawWithPencil(int start[], int end[], uint32_t color, int grosor, int id);

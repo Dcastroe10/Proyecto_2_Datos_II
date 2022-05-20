@@ -69,11 +69,13 @@ void MainWindow::mouseIsPressed(int& x, int& y)
     this->color = this->last_color;
 
     if (this->penF) {
-       setPixelInCanvas(x, y);
+        setPixelInCanvas(x, y, this->id_pen);
+
+
     }else if(this->freeEraserF){
         this->last_color = this->color;
         this->color = rgbToHex(255,255,255);
-        setPixelInCanvas(x,y);
+        setPixelInCanvas(x,y, -1);
     }
 }
 
@@ -84,6 +86,8 @@ void MainWindow::mouseIsReleased(int& x, int& y)
     this->clickReleased[0] = x;
     this->clickReleased[1] = y;
 
+    this->id_figuras++;
+    this->id_pen = this->id_figuras;
 
 
     if (this->pencilF) {
@@ -100,10 +104,6 @@ void MainWindow::mouseIsReleased(int& x, int& y)
         usePaintFill(x, y);
     }else if(this->figureEraserF){
         this->delete_figure(x,y);
-
-        //obtener el id de la figura si es distinto de -1
-        //luego recorrer toda la matriz y poner en blanco todos los pixeles con ese id
-        //me retiro a dormir mañana sigo
     }
 
 }
@@ -113,7 +113,8 @@ void MainWindow::mouseMove(int &x, int &y)
     std::string location = std::to_string(x) + ", " + std::to_string(y);
     ui->mouseLocationLabel->setText(QString::fromStdString(location));
 
-    setPixelInCanvas(x, y);
+    setPixelInCanvas(x, y, this->id_pen);///////////que hace??
+    //this->id_figuras++;
 }
 
 void MainWindow::updateCanvas() {
@@ -137,22 +138,25 @@ void MainWindow::usePaintFill(int posX, int posY) {
 void MainWindow::drawALine(int start[], int end[]) {
     tools.drawWithPencil(start, end, this->color,ui->spinBox->value(), this->id_figuras);
     this->id_figuras++;
+    this->id_pen = this->id_figuras;
     updateCanvas();
 }
 
 void MainWindow::drawSquare(int *start, int *end){
     tools.drawSquare(start, end, this->color,ui->spinBox->value(),this->id_figuras);
     this->id_figuras++;
+    this->id_pen = this->id_figuras;
     updateCanvas();
 }
 
 void MainWindow::drawCircle(int *start, int *end){
     tools.drawCircle(start, end, this->color,ui->spinBox->value(), this->id_figuras);
     this->id_figuras++;
+    this->id_pen = this->id_figuras;
     updateCanvas();
 }
 
-void MainWindow::setPixelInCanvas(int x, int y) {
+void MainWindow::setPixelInCanvas(int x, int y, int id) {
     if ((this->penF || this->freeEraserF)&& this->mousePressedInCanvas) {
         QImage canvas = ui->canvasLabel->pixmap().toImage();
         int grosor = ui->spinBox->value();
@@ -160,12 +164,13 @@ void MainWindow::setPixelInCanvas(int x, int y) {
         for (int i = -grosor; i < grosor; i++){
             for(int j = -grosor; j < grosor; j++){
                  canvas.setPixel(x + i , y +j, this->color);
-                 tools.drawWithPen(x + i, y + j, this->color);
+                 tools.drawWithPen(x + i, y + j, this->color, id);
             }
 
         }
         ui->canvasLabel->setPixmap(QPixmap::fromImage(canvas));
     }
+    //this->id_figuras++;
 }
 
 void MainWindow::delete_figure(int x, int y){
