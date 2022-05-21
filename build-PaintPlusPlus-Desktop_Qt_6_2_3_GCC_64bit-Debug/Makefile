@@ -60,6 +60,7 @@ SOURCES       = ../PaintPlusPlus/CanvasDialog/createcanvasdialog.cpp \
 		../PaintPlusPlus/Tools/paintfill.cpp \
 		../PaintPlusPlus/Tools/pen.cpp \
 		../PaintPlusPlus/Tools/pencil.cpp \
+		../PaintPlusPlus/Tools/rotate.cpp \
 		../PaintPlusPlus/Tools/square.cpp \
 		../PaintPlusPlus/Tools/colorpicker.cpp \
 		../PaintPlusPlus/main.cpp \
@@ -79,6 +80,7 @@ OBJECTS       = createcanvasdialog.o \
 		paintfill.o \
 		pen.o \
 		pencil.o \
+		rotate.o \
 		square.o \
 		colorpicker.o \
 		main.o \
@@ -239,6 +241,7 @@ DIST          = ../../../Qt/6.2.3/gcc_64/mkspecs/features/spec_pre.prf \
 		../PaintPlusPlus/Tools/paintfill.h \
 		../PaintPlusPlus/Tools/pen.h \
 		../PaintPlusPlus/Tools/pencil.h \
+		../PaintPlusPlus/Tools/rotate.h \
 		../PaintPlusPlus/Tools/square.h \
 		../PaintPlusPlus/Tools/colorpicker.h \
 		../PaintPlusPlus/mainwindow.h \
@@ -254,6 +257,7 @@ DIST          = ../../../Qt/6.2.3/gcc_64/mkspecs/features/spec_pre.prf \
 		../PaintPlusPlus/Tools/paintfill.cpp \
 		../PaintPlusPlus/Tools/pen.cpp \
 		../PaintPlusPlus/Tools/pencil.cpp \
+		../PaintPlusPlus/Tools/rotate.cpp \
 		../PaintPlusPlus/Tools/square.cpp \
 		../PaintPlusPlus/Tools/colorpicker.cpp \
 		../PaintPlusPlus/main.cpp \
@@ -578,8 +582,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../Qt/6.2.3/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../PaintPlusPlus/CanvasDialog/createcanvasdialog.h ../PaintPlusPlus/DataStructures/bfs.h ../PaintPlusPlus/DataStructures/queue.h ../PaintPlusPlus/Tools/bmp.h ../PaintPlusPlus/Tools/circle.h ../PaintPlusPlus/Tools/paintfill.h ../PaintPlusPlus/Tools/pen.h ../PaintPlusPlus/Tools/pencil.h ../PaintPlusPlus/Tools/square.h ../PaintPlusPlus/Tools/colorpicker.h ../PaintPlusPlus/mainwindow.h ../PaintPlusPlus/canvasimage.h ../PaintPlusPlus/pixel.h ../PaintPlusPlus/DataStructures/linkedlist.h ../PaintPlusPlus/DataStructures/node.h ../PaintPlusPlus/tools.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../PaintPlusPlus/CanvasDialog/createcanvasdialog.cpp ../PaintPlusPlus/DataStructures/bfs.cpp ../PaintPlusPlus/DataStructures/queue.cpp ../PaintPlusPlus/Tools/bmp.cpp ../PaintPlusPlus/Tools/circle.cpp ../PaintPlusPlus/Tools/paintfill.cpp ../PaintPlusPlus/Tools/pen.cpp ../PaintPlusPlus/Tools/pencil.cpp ../PaintPlusPlus/Tools/square.cpp ../PaintPlusPlus/Tools/colorpicker.cpp ../PaintPlusPlus/main.cpp ../PaintPlusPlus/canvasimage.cpp ../PaintPlusPlus/mainwindow.cpp ../PaintPlusPlus/pixel.cpp ../PaintPlusPlus/DataStructures/linkedlist.cpp ../PaintPlusPlus/DataStructures/node.cpp ../PaintPlusPlus/tools.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../PaintPlusPlus/CanvasDialog/createcanvasdialog.h ../PaintPlusPlus/DataStructures/bfs.h ../PaintPlusPlus/DataStructures/queue.h ../PaintPlusPlus/Tools/bmp.h ../PaintPlusPlus/Tools/circle.h ../PaintPlusPlus/Tools/paintfill.h ../PaintPlusPlus/Tools/pen.h ../PaintPlusPlus/Tools/pencil.h ../PaintPlusPlus/Tools/rotate.h ../PaintPlusPlus/Tools/square.h ../PaintPlusPlus/Tools/colorpicker.h ../PaintPlusPlus/mainwindow.h ../PaintPlusPlus/canvasimage.h ../PaintPlusPlus/pixel.h ../PaintPlusPlus/DataStructures/linkedlist.h ../PaintPlusPlus/DataStructures/node.h ../PaintPlusPlus/tools.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../PaintPlusPlus/CanvasDialog/createcanvasdialog.cpp ../PaintPlusPlus/DataStructures/bfs.cpp ../PaintPlusPlus/DataStructures/queue.cpp ../PaintPlusPlus/Tools/bmp.cpp ../PaintPlusPlus/Tools/circle.cpp ../PaintPlusPlus/Tools/paintfill.cpp ../PaintPlusPlus/Tools/pen.cpp ../PaintPlusPlus/Tools/pencil.cpp ../PaintPlusPlus/Tools/rotate.cpp ../PaintPlusPlus/Tools/square.cpp ../PaintPlusPlus/Tools/colorpicker.cpp ../PaintPlusPlus/main.cpp ../PaintPlusPlus/canvasimage.cpp ../PaintPlusPlus/mainwindow.cpp ../PaintPlusPlus/pixel.cpp ../PaintPlusPlus/DataStructures/linkedlist.cpp ../PaintPlusPlus/DataStructures/node.cpp ../PaintPlusPlus/tools.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../PaintPlusPlus/CanvasDialog/createcanvasdialog.ui ../PaintPlusPlus/mainwindow.ui $(DISTDIR)/
 
 
@@ -897,6 +901,7 @@ moc_mainwindow.cpp: ../PaintPlusPlus/mainwindow.h \
 		../PaintPlusPlus/DataStructures/bfs.h \
 		../PaintPlusPlus/DataStructures/queue.h \
 		../PaintPlusPlus/Tools/bmp.h \
+		../PaintPlusPlus/Tools/rotate.h \
 		../../../Qt/6.2.3/gcc_64/include/QtWidgets/QFileDialog \
 		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qfiledialog.h \
 		../../../Qt/6.2.3/gcc_64/include/QtCore/qdir.h \
@@ -1552,7 +1557,84 @@ queue.o: ../PaintPlusPlus/DataStructures/queue.cpp ../PaintPlusPlus/DataStructur
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o queue.o ../PaintPlusPlus/DataStructures/queue.cpp
 
 bmp.o: ../PaintPlusPlus/Tools/bmp.cpp ../PaintPlusPlus/Tools/bmp.h \
-		../PaintPlusPlus/pixel.h
+		../PaintPlusPlus/pixel.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/QDebug \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qdebug.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qalgorithms.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qglobal.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qconfig.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qtcore-config.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qsysinfo.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qlogging.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qflags.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qatomic.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qnumeric.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qversiontagging.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qhash.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qcontainertools_impl.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qstring.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qchar.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qstringview.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qbytearray.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qrefcount.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qnamespace.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qtmetamacros.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qarraydata.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qpair.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qarraydatapointer.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qarraydataops.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qbytearrayalgorithms.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qbytearrayview.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qstringliteral.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qanystringview.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qutf8stringview.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qstringtokenizer.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qiterator.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qlist.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qstringlist.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qmath.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qmap.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qshareddata.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qshareddata_impl.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qtextstream.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qiodevicebase.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qstringconverter.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qset.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qobject.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qcoreevent.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qmetatype.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qcompare.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qscopeguard.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qdatastream.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qiterable.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qmetacontainer.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qcontainerinfo.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qtaggedpointer.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qobject_impl.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qbindingstorage.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bmp.o ../PaintPlusPlus/Tools/bmp.cpp
 
 circle.o: ../PaintPlusPlus/Tools/circle.cpp ../PaintPlusPlus/Tools/circle.h \
@@ -1881,6 +1963,10 @@ pencil.o: ../PaintPlusPlus/Tools/pencil.cpp ../PaintPlusPlus/Tools/pencil.h \
 		../../../Qt/6.2.3/gcc_64/include/QtCore/qbindingstorage.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o pencil.o ../PaintPlusPlus/Tools/pencil.cpp
 
+rotate.o: ../PaintPlusPlus/Tools/rotate.cpp ../PaintPlusPlus/Tools/rotate.h \
+		../PaintPlusPlus/pixel.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rotate.o ../PaintPlusPlus/Tools/rotate.cpp
+
 square.o: ../PaintPlusPlus/Tools/square.cpp ../PaintPlusPlus/Tools/square.h \
 		../PaintPlusPlus/pixel.h \
 		../../../Qt/6.2.3/gcc_64/include/QtCore/QtDebug \
@@ -2116,6 +2202,7 @@ main.o: ../PaintPlusPlus/main.cpp ../PaintPlusPlus/mainwindow.h \
 		../PaintPlusPlus/DataStructures/bfs.h \
 		../PaintPlusPlus/DataStructures/queue.h \
 		../PaintPlusPlus/Tools/bmp.h \
+		../PaintPlusPlus/Tools/rotate.h \
 		../../../Qt/6.2.3/gcc_64/include/QtWidgets/QFileDialog \
 		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qfiledialog.h \
 		../../../Qt/6.2.3/gcc_64/include/QtCore/qdir.h \
@@ -2442,6 +2529,7 @@ mainwindow.o: ../PaintPlusPlus/mainwindow.cpp ../PaintPlusPlus/mainwindow.h \
 		../PaintPlusPlus/DataStructures/bfs.h \
 		../PaintPlusPlus/DataStructures/queue.h \
 		../PaintPlusPlus/Tools/bmp.h \
+		../PaintPlusPlus/Tools/rotate.h \
 		../../../Qt/6.2.3/gcc_64/include/QtWidgets/QFileDialog \
 		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qfiledialog.h \
 		../../../Qt/6.2.3/gcc_64/include/QtCore/qdir.h \
@@ -2682,7 +2770,8 @@ tools.o: ../PaintPlusPlus/tools.cpp ../PaintPlusPlus/tools.h \
 		../PaintPlusPlus/Tools/paintfill.h \
 		../PaintPlusPlus/DataStructures/bfs.h \
 		../PaintPlusPlus/DataStructures/queue.h \
-		../PaintPlusPlus/Tools/bmp.h
+		../PaintPlusPlus/Tools/bmp.h \
+		../PaintPlusPlus/Tools/rotate.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tools.o ../PaintPlusPlus/tools.cpp
 
 moc_createcanvasdialog.o: moc_createcanvasdialog.cpp 

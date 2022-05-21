@@ -71,6 +71,14 @@ private slots:
 
     void on_actionGuardar_como_triggered();
 
+    void on_action90_triggered();
+
+    void on_action90_izquierda_triggered();
+
+    void on_actionFlip_vertical_triggered();
+
+    void on_actionFlip_horizontal_triggered();
+
 private:
     Ui::MainWindow *ui;
     createCanvasDialog *createcanvasDialog;

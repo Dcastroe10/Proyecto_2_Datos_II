@@ -19,6 +19,7 @@ SOURCES += \
     Tools/paintfill.cpp \
     Tools/pen.cpp \
     Tools/pencil.cpp \
+    Tools/rotate.cpp \
     Tools/square.cpp \
     Tools/colorpicker.cpp \
     main.cpp \
@@ -38,6 +39,7 @@ HEADERS += \
     Tools/paintfill.h \
     Tools/pen.h \
     Tools/pencil.h \
+    Tools/rotate.h \
     Tools/square.h \
     Tools/colorpicker.h \
     mainwindow.h \

@@ -95,23 +95,11 @@ void bmp::bmpExport(string path, int width, int height, pixel** matrix) {
     unsigned char fileHeader[fileHeaderSize] = {'B', 'M', 0,0,0,0, 0,0, 0,0, 54,0,0,0};
     unsigned char informationHeader[informationHeaderSize] = {40,0,0,0, 0,0,0,0, 0,0,0,0, 1,0, 24,0};
 
-    // Tipo de archivo
-
-    // Tamano archivo
+     // Tamano archivo
     fileHeader[2] = fileSize;
     fileHeader[3] = fileSize >> 8;
     fileHeader[4] = fileSize >> 16;
     fileHeader[5] = fileSize >> 24;
-
-    // Reservados
-
-    // Profundidad pixel
-
-    // Header size
-    //informationHeader[0] = informationHeaderSize;
-    //informationHeader[1] = 0;
-    //informationHeader[2] = 0;
-    //informationHeader[3] = 0;
 
     // Ancho
     informationHeader[4] = width;
@@ -124,51 +112,6 @@ void bmp::bmpExport(string path, int width, int height, pixel** matrix) {
     informationHeader[9] = height >> 8;
     informationHeader[10] = height >> 16;
     informationHeader[11] = height >> 24;
-
-    // Planos
-    //informationHeader[12] = 1;
-    //informationHeader[13] = 0;
-
-    // Bits por pixel (RGB)
-    //informationHeader[14] = 24;
-    //informationHeader[15] = 0;
-
-    // Compresion
-    //informationHeader[16] = 0;
-    //informationHeader[17] = 0;
-    //informationHeader[18] = 0;
-    //informationHeader[19] = 0;
-
-    // Tamano de imagen
-    //informationHeader[20] = 0;
-    //informationHeader[21] = 0;
-    //informationHeader[22] = 0;
-    //informationHeader[23] = 0;
-
-    // Piexeles por metro X
-    //informationHeader[24] = 0;
-    //informationHeader[25] = 0;
-    //informationHeader[26] = 0;
-    //informationHeader[27] = 0;
-
-    // Pixeles por metro Y
-    //informationHeader[28] = 0;
-    //informationHeader[29] = 0;
-    //informationHeader[30] = 0;
-    //informationHeader[31] = 0;
-
-    // Total color information
-    //informationHeader[32] = 0;
-    //informationHeader[33] = 0;
-    //informationHeader[34] = 0;
-    //informationHeader[35] = 0;
-
-    // Colores importantes
-   // informationHeader[36] = 0;
-    //informationHeader[37] = 0;
-    //informationHeader[38] = 0;
-    //informationHeader[39] = 0;
-
     f.write(reinterpret_cast<char*>(fileHeader), fileHeaderSize);
     f.write(reinterpret_cast<char*>(informationHeader), informationHeaderSize);
 

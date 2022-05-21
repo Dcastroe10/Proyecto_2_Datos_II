@@ -31,6 +31,10 @@ public:
     QAction *actionNuevo;
     QAction *actionAbrir;
     QAction *actionGuardar_como;
+    QAction *action90;
+    QAction *action90_izquierda;
+    QAction *actionFlip_vertical;
+    QAction *actionFlip_horizontal;
     QWidget *centralwidget;
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
@@ -53,6 +57,8 @@ public:
     QLabel *label_2;
     QMenuBar *menubar;
     QMenu *menuArchivo;
+    QMenu *menuImagen;
+    QMenu *menuRotar;
     QToolBar *toolBar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -69,6 +75,14 @@ public:
         actionAbrir->setObjectName(QString::fromUtf8("actionAbrir"));
         actionGuardar_como = new QAction(MainWindow);
         actionGuardar_como->setObjectName(QString::fromUtf8("actionGuardar_como"));
+        action90 = new QAction(MainWindow);
+        action90->setObjectName(QString::fromUtf8("action90"));
+        action90_izquierda = new QAction(MainWindow);
+        action90_izquierda->setObjectName(QString::fromUtf8("action90_izquierda"));
+        actionFlip_vertical = new QAction(MainWindow);
+        actionFlip_vertical->setObjectName(QString::fromUtf8("actionFlip_vertical"));
+        actionFlip_horizontal = new QAction(MainWindow);
+        actionFlip_horizontal->setObjectName(QString::fromUtf8("actionFlip_horizontal"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         gridLayoutWidget = new QWidget(centralwidget);
@@ -178,16 +192,26 @@ public:
         menubar->setGeometry(QRect(0, 0, 1132, 22));
         menuArchivo = new QMenu(menubar);
         menuArchivo->setObjectName(QString::fromUtf8("menuArchivo"));
+        menuImagen = new QMenu(menubar);
+        menuImagen->setObjectName(QString::fromUtf8("menuImagen"));
+        menuRotar = new QMenu(menuImagen);
+        menuRotar->setObjectName(QString::fromUtf8("menuRotar"));
         MainWindow->setMenuBar(menubar);
         toolBar = new QToolBar(MainWindow);
         toolBar->setObjectName(QString::fromUtf8("toolBar"));
         MainWindow->addToolBar(Qt::BottomToolBarArea, toolBar);
 
         menubar->addAction(menuArchivo->menuAction());
+        menubar->addAction(menuImagen->menuAction());
         menuArchivo->addSeparator();
         menuArchivo->addAction(actionNuevo);
         menuArchivo->addAction(actionAbrir);
         menuArchivo->addAction(actionGuardar_como);
+        menuImagen->addAction(menuRotar->menuAction());
+        menuRotar->addAction(action90);
+        menuRotar->addAction(action90_izquierda);
+        menuRotar->addAction(actionFlip_vertical);
+        menuRotar->addAction(actionFlip_horizontal);
 
         retranslateUi(MainWindow);
 
@@ -200,6 +224,10 @@ public:
         actionNuevo->setText(QCoreApplication::translate("MainWindow", "Nuevo...", nullptr));
         actionAbrir->setText(QCoreApplication::translate("MainWindow", "Abrir...", nullptr));
         actionGuardar_como->setText(QCoreApplication::translate("MainWindow", "Guardar como...", nullptr));
+        action90->setText(QCoreApplication::translate("MainWindow", "90\302\260 derecha", nullptr));
+        action90_izquierda->setText(QCoreApplication::translate("MainWindow", "90\302\260 izquierda", nullptr));
+        actionFlip_vertical->setText(QCoreApplication::translate("MainWindow", "Flip vertical", nullptr));
+        actionFlip_horizontal->setText(QCoreApplication::translate("MainWindow", "Flip horizontal", nullptr));
         canvasLabel->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:700;\">No hay ning\303\272n lienzo</span><br/>\302\241Inicia uno nuevo!</p></body></html>", nullptr));
         Color_button->setText(QCoreApplication::translate("MainWindow", "Color", nullptr));
         figureeraserButton->setText(QCoreApplication::translate("MainWindow", "Figure eraser", nullptr));
@@ -215,6 +243,8 @@ public:
         mouseLocationLabel->setText(QCoreApplication::translate("MainWindow", "0, 0", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "Coords (x,y)", nullptr));
         menuArchivo->setTitle(QCoreApplication::translate("MainWindow", "Archivo", nullptr));
+        menuImagen->setTitle(QCoreApplication::translate("MainWindow", "Imagen", nullptr));
+        menuRotar->setTitle(QCoreApplication::translate("MainWindow", "Rotar", nullptr));
         toolBar->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar", nullptr));
     } // retranslateUi
 

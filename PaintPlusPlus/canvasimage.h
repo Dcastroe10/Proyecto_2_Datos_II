@@ -21,6 +21,8 @@ public:
 
     pixel **getMatrix() const;
 
+    void setMatrix(pixel **newMatrix);
+
 protected:
     void mouseMoveEvent(QMouseEvent *event);
     void mousePressEvent(QMouseEvent *event);

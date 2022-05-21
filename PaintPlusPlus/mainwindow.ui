@@ -247,7 +247,23 @@
     <addaction name="actionAbrir"/>
     <addaction name="actionGuardar_como"/>
    </widget>
+   <widget class="QMenu" name="menuImagen">
+    <property name="title">
+     <string>Imagen</string>
+    </property>
+    <widget class="QMenu" name="menuRotar">
+     <property name="title">
+      <string>Rotar</string>
+     </property>
+     <addaction name="action90"/>
+     <addaction name="action90_izquierda"/>
+     <addaction name="actionFlip_vertical"/>
+     <addaction name="actionFlip_horizontal"/>
+    </widget>
+    <addaction name="menuRotar"/>
+   </widget>
    <addaction name="menuArchivo"/>
+   <addaction name="menuImagen"/>
   </widget>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
@@ -273,6 +289,26 @@
   <action name="actionGuardar_como">
    <property name="text">
     <string>Guardar como...</string>
+   </property>
+  </action>
+  <action name="action90">
+   <property name="text">
+    <string>90° derecha</string>
+   </property>
+  </action>
+  <action name="action90_izquierda">
+   <property name="text">
+    <string>90° izquierda</string>
+   </property>
+  </action>
+  <action name="actionFlip_vertical">
+   <property name="text">
+    <string>Flip vertical</string>
+   </property>
+  </action>
+  <action name="actionFlip_horizontal">
+   <property name="text">
+    <string>Flip horizontal</string>
    </property>
   </action>
  </widget>

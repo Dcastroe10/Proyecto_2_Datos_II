@@ -10,6 +10,7 @@
 #include "Tools/colorpicker.h"
 #include "Tools/paintfill.h"
 #include "Tools/bmp.h"
+#include "Tools/rotate.h"
 
 class Tools
 {
@@ -17,6 +18,7 @@ private:
     uint32_t color;
     int grosor;
     pixel **matrixPointer;
+    rotater rot;
 
 public:
     Tools();
@@ -48,6 +50,7 @@ public:
     void set_grosor(int num);
     int get_grosor();
 
+    rotater getRot();
 };
 
 #endif // TOOLS_H

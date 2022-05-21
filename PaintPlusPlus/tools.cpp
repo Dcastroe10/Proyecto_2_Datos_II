@@ -5,6 +5,11 @@ void Tools::setMatrixPointer(pixel **newMatrixPointer)
     matrixPointer = newMatrixPointer;
 }
 
+rotater Tools::getRot()
+{
+    return rot;
+}
+
 Tools::Tools()
 {
 

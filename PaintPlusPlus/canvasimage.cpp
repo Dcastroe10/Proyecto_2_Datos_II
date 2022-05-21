@@ -47,6 +47,11 @@ void canvasImage::mouseReleaseEvent(QMouseEvent *event)
     emit sendMouseReleased(this->x, this->y);
 }
 
+void canvasImage::setMatrix(pixel **newMatrix)
+{
+    matrix = newMatrix;
+}
+
 pixel **canvasImage::getMatrix() const
 {
     return matrix;
