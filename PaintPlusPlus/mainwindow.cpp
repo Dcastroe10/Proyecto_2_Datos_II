@@ -333,6 +333,7 @@ void MainWindow::on_actionAbrir_triggered()
 {
     std::string file = QFileDialog::getOpenFileName(this, "Escoge un archivo", QDir::homePath()).toStdString();
     uint32_t** image = tools.BMP.convertToUint32(tools.BMP.readBMP(file));
+    //tools.BMP.readBMP(file);
     int width = tools.BMP.getWidth();
     int height = tools.BMP.getHeight();
     createNewCanvas(width, height);

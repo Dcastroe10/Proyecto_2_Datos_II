@@ -40,7 +40,7 @@ DISTNAME      = PaintPlusPlus1.0.0
 DISTDIR = /home/esteban/GitHub/Proyecto_2_Datos_II/build-PaintPlusPlus-Desktop_Qt_6_2_3_GCC_64bit-Debug/.tmp/PaintPlusPlus1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/home/esteban/Qt/6.2.3/gcc_64/lib -Wl,-rpath-link,/home/esteban/Qt/6.2.3/gcc_64/lib
-LIBS          = $(SUBLIBS) /home/esteban/Qt/6.2.3/gcc_64/lib/libQt6Widgets.so /home/esteban/Qt/6.2.3/gcc_64/lib/libQt6Gui.so /home/esteban/Qt/6.2.3/gcc_64/lib/libQt6Core.so -lpthread -lGL   
+LIBS          = $(SUBLIBS) -pthread /home/esteban/Qt/6.2.3/gcc_64/lib/libQt6Widgets.so /home/esteban/Qt/6.2.3/gcc_64/lib/libQt6Gui.so /home/esteban/Qt/6.2.3/gcc_64/lib/libQt6Core.so -lpthread -lGL   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -210,6 +210,7 @@ DIST          = ../../../Qt/6.2.3/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt/6.2.3/gcc_64/mkspecs/features/qt_config.prf \
 		../../../Qt/6.2.3/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../../Qt/6.2.3/gcc_64/mkspecs/features/spec_post.prf \
+		../PaintPlusPlus/.qmake.stash \
 		../../../Qt/6.2.3/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../../Qt/6.2.3/gcc_64/mkspecs/features/toolchain.prf \
 		../../../Qt/6.2.3/gcc_64/mkspecs/features/default_pre.prf \
@@ -392,6 +393,7 @@ Makefile: ../PaintPlusPlus/PaintPlusPlus.pro ../../../Qt/6.2.3/gcc_64/mkspecs/li
 		../../../Qt/6.2.3/gcc_64/mkspecs/features/qt_config.prf \
 		../../../Qt/6.2.3/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../../Qt/6.2.3/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../Qt/6.2.3/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../../Qt/6.2.3/gcc_64/mkspecs/features/toolchain.prf \
 		../../../Qt/6.2.3/gcc_64/mkspecs/features/default_pre.prf \
@@ -536,6 +538,7 @@ Makefile: ../PaintPlusPlus/PaintPlusPlus.pro ../../../Qt/6.2.3/gcc_64/mkspecs/li
 ../../../Qt/6.2.3/gcc_64/mkspecs/features/qt_config.prf:
 ../../../Qt/6.2.3/gcc_64/mkspecs/linux-g++/qmake.conf:
 ../../../Qt/6.2.3/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../Qt/6.2.3/gcc_64/mkspecs/features/exclusive_builds.prf:
 ../../../Qt/6.2.3/gcc_64/mkspecs/features/toolchain.prf:
 ../../../Qt/6.2.3/gcc_64/mkspecs/features/default_pre.prf:
@@ -903,6 +906,13 @@ moc_mainwindow.cpp: ../PaintPlusPlus/mainwindow.h \
 		../../../Qt/6.2.3/gcc_64/include/QtCore/qdatetime.h \
 		../../../Qt/6.2.3/gcc_64/include/QtCore/qcalendar.h \
 		../../../Qt/6.2.3/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/QInputDialog \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qinputdialog.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qlineedit.h \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/qtextcursor.h \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/qtextformat.h \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/qpen.h \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/qtextoption.h \
 		moc_predefs.h \
 		../../../Qt/6.2.3/gcc_64/libexec/moc
 	/home/esteban/Qt/6.2.3/gcc_64/libexec/moc $(DEFINES) --include /home/esteban/GitHub/Proyecto_2_Datos_II/build-PaintPlusPlus-Desktop_Qt_6_2_3_GCC_64bit-Debug/moc_predefs.h -I/home/esteban/Qt/6.2.3/gcc_64/mkspecs/linux-g++ -I/home/esteban/GitHub/Proyecto_2_Datos_II/PaintPlusPlus -I/home/esteban/Qt/6.2.3/gcc_64/include -I/home/esteban/Qt/6.2.3/gcc_64/include/QtWidgets -I/home/esteban/Qt/6.2.3/gcc_64/include/QtGui -I/home/esteban/Qt/6.2.3/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../PaintPlusPlus/mainwindow.h -o moc_mainwindow.cpp
@@ -1333,6 +1343,47 @@ createcanvasdialog.o: ../PaintPlusPlus/CanvasDialog/createcanvasdialog.cpp ../Pa
 		../../../Qt/6.2.3/gcc_64/include/QtGui/QTransform \
 		../../../Qt/6.2.3/gcc_64/include/QtCore/qnativeinterface.h \
 		ui_createcanvasdialog.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/QVariant \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/QApplication \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qapplication.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qeventloop.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qcoreapplication_platform.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qfuture.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qfutureinterface.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qmutex.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qresultstore.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qfuture_impl.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qthreadpool.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qthread.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qdeadlinetimer.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qelapsedtimer.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qrunnable.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qexception.h \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/qguiapplication.h \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/qinputmethod.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/qguiapplication_platform.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/QGridLayout \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qgridlayout.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qlayout.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/QLabel \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qlabel.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qframe.h \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/qpicture.h \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/qtextdocument.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/QPushButton \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/qicon.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/QSpinBox \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qspinbox.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/qvalidator.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qregularexpression.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/QWidget \
 		../../../Qt/6.2.3/gcc_64/include/QtWidgets/QMessageBox \
 		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qmessagebox.h \
 		../../../Qt/6.2.3/gcc_64/include/QtCore/QtDebug
@@ -1500,7 +1551,8 @@ queue.o: ../PaintPlusPlus/DataStructures/queue.cpp ../PaintPlusPlus/DataStructur
 		../../../Qt/6.2.3/gcc_64/include/QtCore/qbindingstorage.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o queue.o ../PaintPlusPlus/DataStructures/queue.cpp
 
-bmp.o: ../PaintPlusPlus/Tools/bmp.cpp ../PaintPlusPlus/Tools/bmp.h
+bmp.o: ../PaintPlusPlus/Tools/bmp.cpp ../PaintPlusPlus/Tools/bmp.h \
+		../PaintPlusPlus/pixel.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bmp.o ../PaintPlusPlus/Tools/bmp.cpp
 
 circle.o: ../PaintPlusPlus/Tools/circle.cpp ../PaintPlusPlus/Tools/circle.h \
@@ -2073,6 +2125,13 @@ main.o: ../PaintPlusPlus/main.cpp ../PaintPlusPlus/mainwindow.h \
 		../../../Qt/6.2.3/gcc_64/include/QtCore/qdatetime.h \
 		../../../Qt/6.2.3/gcc_64/include/QtCore/qcalendar.h \
 		../../../Qt/6.2.3/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/QInputDialog \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qinputdialog.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qlineedit.h \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/qtextcursor.h \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/qtextformat.h \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/qpen.h \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/qtextoption.h \
 		../../../Qt/6.2.3/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qapplication.h \
 		../../../Qt/6.2.3/gcc_64/include/QtCore/qcoreapplication.h \
@@ -2392,7 +2451,58 @@ mainwindow.o: ../PaintPlusPlus/mainwindow.cpp ../PaintPlusPlus/mainwindow.h \
 		../../../Qt/6.2.3/gcc_64/include/QtCore/qdatetime.h \
 		../../../Qt/6.2.3/gcc_64/include/QtCore/qcalendar.h \
 		../../../Qt/6.2.3/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/QInputDialog \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qinputdialog.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qlineedit.h \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/qtextcursor.h \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/qtextformat.h \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/qpen.h \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/qtextoption.h \
 		ui_mainwindow.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/QVariant \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/QAction \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/qaction.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/QApplication \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qapplication.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qeventloop.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qcoreapplication_platform.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qfuture.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qfutureinterface.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qmutex.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qresultstore.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qfuture_impl.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qthreadpool.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qthread.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qdeadlinetimer.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qelapsedtimer.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qrunnable.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qexception.h \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/qguiapplication.h \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/qinputmethod.h \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/qguiapplication_platform.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/QGridLayout \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qgridlayout.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qlayout.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/QMenu \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qmenu.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/QMenuBar \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qmenubar.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/QPushButton \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/QSpinBox \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qspinbox.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/qvalidator.h \
+		../../../Qt/6.2.3/gcc_64/include/QtCore/qregularexpression.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/QToolBar \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qtoolbar.h \
+		../../../Qt/6.2.3/gcc_64/include/QtWidgets/QWidget \
+		../PaintPlusPlus/canvasimage.h \
+		../../../Qt/6.2.3/gcc_64/include/QtGui/QMouseEvent \
 		../../../Qt/6.2.3/gcc_64/include/QtCore/QtDebug \
 		../../../Qt/6.2.3/gcc_64/include/QtWidgets/QColorDialog \
 		../../../Qt/6.2.3/gcc_64/include/QtWidgets/qcolordialog.h
