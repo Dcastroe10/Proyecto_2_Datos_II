@@ -10,7 +10,7 @@ class Pen
 public:
     Pen();
 
-    void drawInCanvas(pixel** canvas, int posx, int posy, uint32_t color);
+    void drawInCanvas(pixel** canvas, int posx, int posy, uint32_t color, int id);
 
 };
 

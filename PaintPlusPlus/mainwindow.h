@@ -22,7 +22,7 @@ public:
 
     uint32_t rgbToHex(int r, int g, int b);
 
-    void setPixelInCanvas(int x, int y);
+    void setPixelInCanvas(int x, int y, int id);
     void trueAllButtons();
     void drawALine(int start[], int end[]);
     void drawSquare(int start[], int end[]);
@@ -41,11 +41,10 @@ private slots:
     void mouseIsReleased(int& x, int& y);
     void mouseMove(int& x, int& y);
 
-    void on_penButton_clicked();
 
     void falseAllTools();
 
-
+    void on_penButton_clicked();
 
     void on_pencilButton_clicked();
 
@@ -92,6 +91,7 @@ private:
     int imageDimensions[2] = {0, 0};
 
     int id_figuras = 0;
+    int id_pen = 0;
 
     void createNewCanvas(int x, int y);
     void fillCanvas(int r, int g, int b, int x, int y);

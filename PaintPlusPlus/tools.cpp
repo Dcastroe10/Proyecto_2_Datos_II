@@ -15,9 +15,9 @@ Pen Tools::getPen()
     return pen;
 }
 
-void Tools::drawWithPen(int posx, int posy, uint32_t color)
+void Tools::drawWithPen(int posx, int posy, uint32_t color, int id)
 {
-    pen.drawInCanvas(this->matrixPointer, posx, posy, color);
+    pen.drawInCanvas(this->matrixPointer, posx, posy, color, id);
 }
 
 void Tools::drawWithPencil(int start[2], int end[2], uint32_t color, int grosor, int id) {
