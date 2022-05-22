@@ -27,20 +27,25 @@ void Tools::drawWithPen(int posx, int posy, uint32_t color, int id)
 
 void Tools::drawWithPencil(int start[2], int end[2], uint32_t color, int grosor, int id) {
     pencil.drawALineInCanvas(this->matrixPointer, start, end, color, grosor, id);
+    this->add_toUndoList(start[0],start[1],id,end[0],end[1],1,grosor);
 }
 
 void Tools::drawSquare(int *start, int *end, uint32_t color, int grosor, int id){
     square.draw_square_in_canvas(this->matrixPointer,start, end, color, grosor, id);
+    this->add_toUndoList(start[0],start[1],id,end[0],end[1],2,grosor);
 }
 
 void Tools::drawCircle(int *start, int *end, uint32_t color, int grosor, int id){
     Circle.draw_circle(this->matrixPointer,start, end, color, grosor, id);
+    this->add_toUndoList(start[0],start[1],id,end[0],end[1],3,grosor);
 }
 
-void Tools::drawWithPaintFiller(int width, int height, uint32_t color, int posX, int posY)
+void Tools::drawWithPaintFiller(int width, int height, uint32_t color, int posX, int posY, int id)
 {
-    PaintFill.doPaintFill(width, height, color, this->matrixPointer, posX, posY);
+    PaintFill.doPaintFill(width, height, color, this->matrixPointer, posX, posY, id);
+     this->add_toUndoList(-1,-1,id,-1,-1,-1,-1);//paintfilleeerr
 }
+
 
 uint32_t Tools::getColorColorPicker(int x, int y) {
     return this->ColorPicker.getColorInMatrix(this->matrixPointer, x, y);
@@ -53,3 +58,108 @@ void Tools::set_grosor(int num){
 int Tools::get_grosor(){
     return grosor;
 }
+
+
+
+
+void Tools::add_toUndoList(int x, int y, int id, int x2, int y2, int figura, int grosor)
+{
+    this->lista_Undo.addCoords(x,y,id,x2,y2, figura, grosor);
+    qDebug()<<lista_Undo.getCoords(0)[0]<<lista_Undo.getCoords(0)[1]<<"cooordsss";
+    qDebug()<<"ID"<<lista_Undo.get_head_Id();
+}
+void Tools::deleteUndo(){
+    this->lista_Undo.delete_head();
+}
+
+void Tools::deleteRedo(){
+    this->lista_Redo.delete_head();
+}
+
+void Tools::add_toRedoList(int x, int y, int id,int x2, int y2, int figura, int grosor)
+{
+    this->lista_Redo.addCoords(x,y,id,x2,y2, figura, grosor);
+    qDebug()<<lista_Redo.getCoords(0)[0]<<lista_Redo.getCoords(0)[1]<<"cooordsss";
+    qDebug()<<"ID"<<lista_Redo.get_head_Id();
+}
+
+void Tools::print_listUndo(){
+    for (int i = 0; i<5;i++){
+        qDebug()<<lista_Undo.getId(i);
+    }
+}
+
+int Tools::getUndo(){
+    if(lista_Undo.get_head_Id() != -1){
+        return lista_Undo.get_head_Id();
+    }
+    return -1;
+}
+
+int Tools::getUndoSize(){
+    return this->lista_Undo.getSize();
+}
+
+int Tools::getGrosorUndo(){
+    return this->lista_Undo.getGrosor();
+}
+
+
+int Tools::getRedo(){
+    if(lista_Redo.get_head_Id() != -1){
+        return lista_Redo.get_head_Id();
+    }
+    return -1;
+}
+
+int Tools::getRedoSize(){
+    return this->lista_Redo.getSize();
+}
+
+int Tools::getStartX_UndoList(){
+    return this->lista_Undo.get_head_startX();
+}
+
+int Tools::getStartY_UndoList(){
+    return this->lista_Undo.get_head_startY();
+}
+
+int Tools::getEndX_UndoList(){
+    return this->lista_Undo.get_head_endX();
+}
+
+int Tools::getEndY_UndoList(){
+    return this->lista_Undo.get_head_endY();
+}
+
+int Tools::getUndoFigura(){
+    return this->lista_Undo.get_head_figure();
+}
+
+int Tools::getRedoFigura(){
+    return this->lista_Redo.get_head_figure();
+}
+
+
+int Tools::getStartX_RedoList(){
+    return this->lista_Redo.get_head_startX();
+}
+
+int Tools::getStartY_RedoList(){
+    return this->lista_Redo.get_head_startY();
+}
+
+int Tools::getEndX_RedoList(){
+    return this->lista_Redo.get_head_endX();
+}
+
+int Tools::getEndY_RedoList(){
+    return this->lista_Redo.get_head_endY();
+}
+
+int Tools::getGrosorRedo(){
+    return this->lista_Redo.getGrosor();
+}
+
+
+

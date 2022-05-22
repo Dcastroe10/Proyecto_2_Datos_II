@@ -1,10 +1,12 @@
 release/createcanvasdialog.o
 release/bfs.o
 release/queue.o
+release/bmp.o
 release/circle.o
 release/paintfill.o
 release/pen.o
 release/pencil.o
+release/rotate.o
 release/square.o
 release/colorpicker.o
 release/main.o

@@ -8,10 +8,17 @@ class node
 {
 private:
     node *next = NULL;
-    int value1 = 0;
-    int value2 = 0;
+    int startX = -1;
+    int startY = -1;
+    int endX = -1;
+    int endY = -1;
+    int grosor;
+    int id = -1;
+    int figure = -1;
 public:
-    node(int x, int y);
+    node(int x, int y, int id, int x2, int y2, int figure, int grosor);
+    node(int id);
+
     node();
     int getX();
     int getY();
@@ -19,6 +26,14 @@ public:
     void setY(int newY);
     void setNext(node *next1);
     node* getNext();
+
+    int get_startX();
+    int get_startY();
+    int get_endX();
+    int get_endY();
+    int getId();
+    int get_figure();
+    int getGrosor();
 };
 
 #endif // NODE_H

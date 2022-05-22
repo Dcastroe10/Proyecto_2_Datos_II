@@ -18,34 +18,39 @@ void bfs::initBFS(int posX, int posY, pixel **matrix) {
     colorCheck =  matrix[posX][posY].getColor();
 }
 
-void bfs::BFS(int width, int height, uint32_t color, pixel **matrix, int posX, int posY){
+void bfs::BFS(int width, int height, uint32_t color, pixel **matrix, int posX, int posY, int id){
     if(color == colorCheck){
         qDebug()<<"NO HAY QUE PINTAR";
     }else{
     while(!this->queueX->isEmpty()){
         matrix[posX][posY].setColor(color);
+        matrix[posX][posY].setId(id);
         if(!this->outOfBounds(width, height,posX+1,posY) && matrix[posX +1][posY].getColor()==colorCheck){
             this->queueX->enQueue(posX+1);
             this->queueY->enQueue(posY);
             matrix[posX+1][posY].setColor(color);
+            matrix[posX][posY].setId(id);
         }
 
         if(!this->outOfBounds(width, height,posX-1,posY) && matrix[posX -1][posY].getColor()==colorCheck){
             this->queueX->enQueue(posX-1);
             this->queueY->enQueue(posY);
             matrix[posX][posY-1].setColor(color);
+            matrix[posX][posY].setId(id);
         }
 
         if(!this->outOfBounds(width, height,posX,posY+1) && matrix[posX][posY+1].getColor()==colorCheck){
             this->queueX->enQueue(posX);
             this->queueY->enQueue(posY+1);
             matrix[posX][posY+1].setColor(color);
+            matrix[posX][posY].setId(id);
         }
 
         if(!this->outOfBounds(width, height,posX,posY-1) && matrix[posX][posY-1].getColor()==colorCheck){
             this->queueX->enQueue(posX);
             this->queueY->enQueue(posY-1);
             matrix[posX][posY-1].setColor(color);
+            matrix[posX][posY].setId(id);
         }
 
         posX = this->queueX->deQueue();

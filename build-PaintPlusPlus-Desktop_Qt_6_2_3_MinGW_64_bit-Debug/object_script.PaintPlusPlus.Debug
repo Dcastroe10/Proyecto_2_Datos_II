@@ -1,10 +1,12 @@
 debug/createcanvasdialog.o
 debug/bfs.o
 debug/queue.o
+debug/bmp.o
 debug/circle.o
 debug/paintfill.o
 debug/pen.o
 debug/pencil.o
+debug/rotate.o
 debug/square.o
 debug/colorpicker.o
 debug/main.o

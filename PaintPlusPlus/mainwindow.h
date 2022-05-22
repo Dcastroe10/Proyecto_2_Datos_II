@@ -29,7 +29,7 @@ public:
     void drawCircle(int start[], int end[]);
     void updateCanvas();
     void usePaintFill(int posX, int posY);
-    void delete_figure(int x, int y);
+    void delete_figure(int id);
 private slots:
     void on_actionNuevo_triggered();
 
@@ -78,6 +78,10 @@ private slots:
     void on_actionFlip_vertical_triggered();
 
     void on_actionFlip_horizontal_triggered();
+
+    void on_undoButton_clicked();
+
+    void on_redolistButton_clicked();
 
 private:
     Ui::MainWindow *ui;

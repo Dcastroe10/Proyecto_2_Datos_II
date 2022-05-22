@@ -81,14 +81,16 @@ void MainWindow::mouseIsPressed(int& x, int& y)
 
 void MainWindow::mouseIsReleased(int& x, int& y)
 {
+    pixel **matrix = ui->canvasLabel->getMatrix();
     this->mousePressedInCanvas = false;
     this->color = this->last_color;
     this->clickReleased[0] = x;
     this->clickReleased[1] = y;
 
-    this->id_figuras++;
-    this->id_pen = this->id_figuras;
-
+    //this->id_figuras++;
+    tools.add_toUndoList(-1,-1,this->id_pen,-1,-1,-1,-1);//CHEEEECK ESTOOO puede ser lo que sube extra //ES PARA AGREGAR AL UNDO LAS LINEAS DEL PEN pero
+    this->id_pen = this->id_figuras;                //con las figuras agrega otros ids entonces hay que tocar
+    this->id_figuras++;                             //varias (2) veces el botón de undo
 
     if (this->pencilF) {
         drawALine(this->firstClick, this->clickReleased);
@@ -103,7 +105,7 @@ void MainWindow::mouseIsReleased(int& x, int& y)
     } else if (this->paintFillF) {
         usePaintFill(x, y);
     }else if(this->figureEraserF){
-        this->delete_figure(x,y);
+        this->delete_figure(matrix[x][y].getId());
     }
 
 }
@@ -113,8 +115,8 @@ void MainWindow::mouseMove(int &x, int &y)
     std::string location = std::to_string(x) + ", " + std::to_string(y);
     ui->mouseLocationLabel->setText(QString::fromStdString(location));
 
-    setPixelInCanvas(x, y, this->id_pen);///////////que hace??
-    //this->id_figuras++;
+    setPixelInCanvas(x, y, this->id_pen);
+
 }
 
 void MainWindow::updateCanvas() {
@@ -131,7 +133,8 @@ void MainWindow::updateCanvas() {
 }
 
 void MainWindow::usePaintFill(int posX, int posY) {
-    tools.drawWithPaintFiller(this->imageDimensions[0], this->imageDimensions[1], this->color, posX, posY);
+    tools.drawWithPaintFiller(this->imageDimensions[0], this->imageDimensions[1], this->color, posX, posY,this->id_figuras);
+    this->id_figuras++;
     updateCanvas();
 }
 
@@ -170,25 +173,24 @@ void MainWindow::setPixelInCanvas(int x, int y, int id) {
         }
         ui->canvasLabel->setPixmap(QPixmap::fromImage(canvas));
     }
-    //this->id_figuras++;
 }
 
-void MainWindow::delete_figure(int x, int y){
-     pixel **matrix = ui->canvasLabel->getMatrix();
-     int check = matrix[x][y].getId();
-     if (check == -1){
-         qDebug()<<"NO ES FIGURA";
-     }else{
-         for (int i = 0; i < imageDimensions[0]; i++){
-             for(int j = 0; j < imageDimensions[1];j++){
-                 if(matrix[i][j].getId() == check){
-                     matrix[i][j].setColor(this->rgbToHex(255,255,255));//matrix[imageDimensions[0]][imageDimensions[1]].getColor());
-                     matrix[i][j].setId(-1);
-                 }
-             }
-         }
-          this->updateCanvas();
-     }
+void MainWindow::delete_figure(int id){
+    pixel **matrix = ui->canvasLabel->getMatrix();
+    int check = id;
+    if (check == -1){
+        qDebug()<<"NO ES FIGURA";
+    }else{
+        for (int i = 0; i < imageDimensions[0]; i++){
+            for(int j = 0; j < imageDimensions[1];j++){
+                if(matrix[i][j].getId() == check){
+                    matrix[i][j].setColor(this->rgbToHex(255,255,255));//matrix[imageDimensions[0]][imageDimensions[1]].getColor());
+                    matrix[i][j].setId(-1);
+                }
+            } 
+        }
+        this->updateCanvas();
+    }
 }
 
 void MainWindow::on_actionNuevo_triggered()
@@ -200,9 +202,6 @@ void MainWindow::on_actionNuevo_triggered()
 
     on_penButton_clicked();
 }
-
-
-
 
 void MainWindow::falseAllTools()
 {
@@ -277,8 +276,6 @@ void MainWindow::on_eraserButton_clicked()
     ui->eraserButton->setEnabled(false);
 }
 
-
-
 void MainWindow::on_figureeraserButton_clicked()
 {
     falseAllTools();
@@ -286,7 +283,6 @@ void MainWindow::on_figureeraserButton_clicked()
     trueAllButtons();
     ui->figureeraserButton->setEnabled(false);
 }
-
 
 void MainWindow::on_Color_button_clicked()
 {
@@ -319,9 +315,6 @@ void MainWindow::on_pushButton_3_clicked()
 
 }
 
-
-
-
 void MainWindow::on_paintFillButton_clicked()
 {
     falseAllTools();
@@ -330,8 +323,48 @@ void MainWindow::on_paintFillButton_clicked()
     ui->paintFillButton->setEnabled(false);
 }
 
+void MainWindow::on_undoButton_clicked()
+{  
+    if (tools.getUndoSize() != 1){
+         qDebug()<<"UNDO DONE -> ";
+        //tools.print_listUndo();
+         qDebug()<<tools.getUndo();
+         tools.add_toRedoList(tools.getStartX_UndoList(),tools.getStartY_UndoList(),
+                              tools.getUndo(),tools.getEndX_UndoList(),tools.getEndY_UndoList(),
+                              tools.getUndoFigura(),tools.getGrosorUndo());
+
+        this->delete_figure(tools.getUndo());
+        tools.deleteUndo();
+    }else{
+        this->delete_figure(tools.getUndo());
+        qDebug()<<"NO MORE TO UNDO";
+    }
+
+}
 
 
+
+void MainWindow::on_redolistButton_clicked()
+{
+    if(tools.getRedoSize() != 0){
+        qDebug()<<tools.getRedo()<< "EL REDOOOO";
+        if(tools.getRedoFigura() == 2){
+            qDebug()<<"EL MEJOR DÍA DE MI VIDAAAA";
+            int *start = new int[2];
+            int *end = new int[2];
+            start[0] = tools.getStartX_RedoList();
+            start[1] = tools.getStartY_RedoList();
+            end[0] = tools.getEndX_RedoList();
+            end[1] = tools.getEndY_RedoList();
+            tools.drawSquare(start,end, this->rgbToHex(216,235,52), tools.getGrosorRedo(),tools.getRedo());
+            this->updateCanvas();
+        }
+        tools.deleteRedo();
+    }else{
+        //VER QUE inventarse aquí JJAJAJAJ
+
+    }
+}
 
 
 void MainWindow::on_actionAbrir_triggered()
@@ -357,10 +390,6 @@ void MainWindow::on_actionAbrir_triggered()
 
     on_penButton_clicked();
 }
-
-
-
-
 
 
 void MainWindow::on_actionGuardar_como_triggered()
@@ -418,4 +447,7 @@ void MainWindow::on_actionFlip_horizontal_triggered()
     ui->canvasLabel->setMatrix(rotatedMatrix);
     updateCanvas();
 }
+
+
+
 

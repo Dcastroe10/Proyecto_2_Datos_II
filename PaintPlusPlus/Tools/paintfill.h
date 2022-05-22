@@ -10,7 +10,7 @@ private:
     bfs BFS;
 public:
     paintfill();
-    void doPaintFill(int width, int height, int color, pixel** matrix, int posX, int posY);
+    void doPaintFill(int width, int height, int color, pixel** matrix, int posX, int posY, int id);
 };
 
 #endif // PAINTFILL_H

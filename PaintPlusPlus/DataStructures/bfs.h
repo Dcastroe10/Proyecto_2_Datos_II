@@ -11,7 +11,7 @@ class bfs
 {
 public:
     void initBFS(int posX,int posY, pixel** matrix);
-    void BFS(int width, int height, uint32_t color, pixel** matrix, int posX, int posY);
+    void BFS(int width, int height, uint32_t color, pixel** matrix, int posX, int posY, int id);
 
 
 private:

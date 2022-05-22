@@ -6,12 +6,12 @@ linkedList::linkedList()
 
 }
 
-void linkedList::addCoords(int x, int y) {
+void linkedList::addCoords(int x, int y, int id, int x2, int y2, int figura, int grosor) {  //codigo de numeros para saber que figura es
     if (head == NULL) {
-        head = new node(x, y);
+        head = new node(x, y, id, x2, y2, figura, grosor);
     } else {
         node *tmp = head;
-        head = new node(x, y);
+        head = new node(x, y, id, x2, y2, figura, grosor);
         head->setNext(tmp);
     }
     this->size++;
@@ -26,6 +26,20 @@ int* linkedList::getCoords(int index) {
         int *returnValue = new int[2];
         returnValue[0] = tmp->getX();
         returnValue[1] = tmp->getY();
+        return returnValue;
+    } else {
+        return NULL;
+    }
+}
+
+int linkedList::getId(int index){
+    if (index < size && index >= 0) {
+        node *tmp = head;
+        for (int i = 0; i < index; i++) {
+            tmp = tmp->getNext();
+        }
+        int returnValue;
+        returnValue = tmp->getId();
         return returnValue;
     } else {
         return NULL;
@@ -58,6 +72,44 @@ int linkedList::deleteData(int index) {
     }
     return 0;
 }
+
+void linkedList::delete_head(){  
+    head = head->getNext();
+    size--;
+}
+
+int linkedList::get_head_Id(){
+    return head->getId();
+}
+
+int linkedList::get_head_startX()
+{
+    return head->get_startX();
+}
+
+int linkedList::get_head_startY()
+{
+    return head->get_startY();
+}
+
+int linkedList::get_head_endX()
+{
+    return head->get_endX();
+}
+
+int linkedList::get_head_endY()
+{
+    return head->get_endY();
+}
+
+int linkedList::get_head_figure(){
+    return head->get_figure();
+}
+
+int linkedList::getGrosor(){
+    return head->getGrosor();
+}
+
 
 /**
  * @brief Elimina el último elemento de la lista.
