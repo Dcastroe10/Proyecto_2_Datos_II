@@ -27,23 +27,23 @@ void Tools::drawWithPen(int posx, int posy, uint32_t color, int id)
 
 void Tools::drawWithPencil(int start[2], int end[2], uint32_t color, int grosor, int id) {
     pencil.drawALineInCanvas(this->matrixPointer, start, end, color, grosor, id);
-    this->add_toUndoList(start[0],start[1],id,end[0],end[1],1,grosor);
+    this->add_toUndoList(start[0],start[1],id,end[0],end[1],1,grosor,color);
 }
 
 void Tools::drawSquare(int *start, int *end, uint32_t color, int grosor, int id){
     square.draw_square_in_canvas(this->matrixPointer,start, end, color, grosor, id);
-    this->add_toUndoList(start[0],start[1],id,end[0],end[1],2,grosor);
+    this->add_toUndoList(start[0],start[1],id,end[0],end[1],2,grosor,color);
 }
 
 void Tools::drawCircle(int *start, int *end, uint32_t color, int grosor, int id){
     Circle.draw_circle(this->matrixPointer,start, end, color, grosor, id);
-    this->add_toUndoList(start[0],start[1],id,end[0],end[1],3,grosor);
+    this->add_toUndoList(start[0],start[1],id,end[0],end[1],3,grosor,color);
 }
 
 void Tools::drawWithPaintFiller(int width, int height, uint32_t color, int posX, int posY, int id)
 {
     PaintFill.doPaintFill(width, height, color, this->matrixPointer, posX, posY, id);
-     this->add_toUndoList(-1,-1,id,-1,-1,-1,-1);//paintfilleeerr
+     this->add_toUndoList(-1,-1,id,-1,-1,-1,-1,color);//paintfilleeerr
 }
 
 
@@ -62,9 +62,9 @@ int Tools::get_grosor(){
 
 
 
-void Tools::add_toUndoList(int x, int y, int id, int x2, int y2, int figura, int grosor)
+void Tools::add_toUndoList(int x, int y, int id, int x2, int y2, int figura, int grosor,uint32_t color)
 {
-    this->lista_Undo.addCoords(x,y,id,x2,y2, figura, grosor);
+    this->lista_Undo.addCoords(x,y,id,x2,y2, figura, grosor,color);
     qDebug()<<lista_Undo.getCoords(0)[0]<<lista_Undo.getCoords(0)[1]<<"cooordsss";
     qDebug()<<"ID"<<lista_Undo.get_head_Id();
 }
@@ -76,9 +76,9 @@ void Tools::deleteRedo(){
     this->lista_Redo.delete_head();
 }
 
-void Tools::add_toRedoList(int x, int y, int id,int x2, int y2, int figura, int grosor)
+void Tools::add_toRedoList(int x, int y, int id,int x2, int y2, int figura, int grosor,uint32_t color)
 {
-    this->lista_Redo.addCoords(x,y,id,x2,y2, figura, grosor);
+    this->lista_Redo.addCoords(x,y,id,x2,y2, figura, grosor,color);
     qDebug()<<lista_Redo.getCoords(0)[0]<<lista_Redo.getCoords(0)[1]<<"cooordsss";
     qDebug()<<"ID"<<lista_Redo.get_head_Id();
 }
@@ -102,6 +102,16 @@ int Tools::getUndoSize(){
 
 int Tools::getGrosorUndo(){
     return this->lista_Undo.getGrosor();
+}
+
+uint32_t Tools::getColorUndo()
+{
+    return this->lista_Undo.getColor();
+}
+
+uint32_t Tools::getColorRedo()
+{
+    return this->lista_Redo.getColor();
 }
 
 

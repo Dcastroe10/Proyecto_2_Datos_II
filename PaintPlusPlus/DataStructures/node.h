@@ -15,8 +15,9 @@ private:
     int grosor;
     int id = -1;
     int figure = -1;
+    uint32_t color;
 public:
-    node(int x, int y, int id, int x2, int y2, int figure, int grosor);
+    node(int x, int y, int id, int x2, int y2, int figure, int grosor,uint32_t color);
     node(int id);
 
     node();
@@ -34,6 +35,7 @@ public:
     int getId();
     int get_figure();
     int getGrosor();
+    uint32_t getColor();
 };
 
 #endif // NODE_H

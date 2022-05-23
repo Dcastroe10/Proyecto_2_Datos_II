@@ -48,9 +48,9 @@ public:
 
     void drawWithPaintFiller(int width, int height, uint32_t color, int posX, int posY, int id);
 
-    void add_toUndoList(int x, int y, int id, int x2, int y2, int figura, int grosor);
+    void add_toUndoList(int x, int y, int id, int x2, int y2, int figura, int grosor,uint32_t color);
 
-    void add_toRedoList(int x, int y, int id, int x2, int y2, int figura, int grosor);
+    void add_toRedoList(int x, int y, int id, int x2, int y2, int figura, int grosor,uint32_t color);
 
     uint32_t getColorColorPicker(int x, int y);
 
@@ -67,17 +67,26 @@ public:
     int getStartY_UndoList();
     int getEndX_UndoList();
     int getEndY_UndoList();
+
     int getRedo();
     int getRedoSize();
+
     void deleteRedo();
+
     int getUndoFigura();
     int getRedoFigura();
+
     int getStartX_RedoList();
     int getStartY_RedoList();
+
     int getEndX_RedoList();
     int getEndY_RedoList();
+
     int getGrosorRedo();
     int getGrosorUndo();
+
+    uint32_t getColorUndo();
+    uint32_t getColorRedo();
 };
 
 #endif // TOOLS_H

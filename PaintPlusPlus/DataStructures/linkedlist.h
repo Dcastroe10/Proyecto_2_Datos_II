@@ -11,7 +11,7 @@ private:
     int size = 0;
 public:
     linkedList();
-    void addCoords(int x, int y, int id, int x2, int y2, int figura, int grosor);
+    void addCoords(int x, int y, int id, int x2, int y2, int figura, int grosor, uint32_t color);
     int* getCoords(int index);
     int deleteData(int index);
     void deleteLastData();
@@ -25,6 +25,7 @@ public:
     void delete_head();
     int get_head_figure();
     int getGrosor();
+    uint32_t getColor();
 };
 
 #endif // LINKEDLIST_H

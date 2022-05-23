@@ -6,12 +6,12 @@ linkedList::linkedList()
 
 }
 
-void linkedList::addCoords(int x, int y, int id, int x2, int y2, int figura, int grosor) {  //codigo de numeros para saber que figura es
+void linkedList::addCoords(int x, int y, int id, int x2, int y2, int figura, int grosor,uint32_t color) {  //codigo de numeros para saber que figura es
     if (head == NULL) {
-        head = new node(x, y, id, x2, y2, figura, grosor);
+        head = new node(x, y, id, x2, y2, figura, grosor, color);
     } else {
         node *tmp = head;
-        head = new node(x, y, id, x2, y2, figura, grosor);
+        head = new node(x, y, id, x2, y2, figura, grosor,color);
         head->setNext(tmp);
     }
     this->size++;
@@ -108,6 +108,11 @@ int linkedList::get_head_figure(){
 
 int linkedList::getGrosor(){
     return head->getGrosor();
+}
+
+uint32_t linkedList::getColor()
+{
+    return head->getColor();
 }
 
 

@@ -88,9 +88,9 @@ void MainWindow::mouseIsReleased(int& x, int& y)
     this->clickReleased[1] = y;
 
     //this->id_figuras++;
-    tools.add_toUndoList(-1,-1,this->id_pen,-1,-1,-1,-1);//CHEEEECK ESTOOO puede ser lo que sube extra //ES PARA AGREGAR AL UNDO LAS LINEAS DEL PEN pero
+    tools.add_toUndoList(-1,-1,this->id_pen,-1,-1,-1,-1,this->color);//CHEEEECK ESTOOO puede ser lo que sube extra //ES PARA AGREGAR AL UNDO LAS LINEAS DEL PEN pero
     this->id_pen = this->id_figuras;                //con las figuras agrega otros ids entonces hay que tocar
-    this->id_figuras++;                             //varias (2) veces el botón de undo
+    //this->id_figuras++;                             //varias (2) veces el botón de undo
 
     if (this->pencilF) {
         drawALine(this->firstClick, this->clickReleased);
@@ -326,14 +326,15 @@ void MainWindow::on_paintFillButton_clicked()
 void MainWindow::on_undoButton_clicked()
 {  
     if (tools.getUndoSize() != 1){
-         qDebug()<<"UNDO DONE -> ";
+        qDebug()<<"UNDO DONE -> ";
         //tools.print_listUndo();
-         qDebug()<<tools.getUndo();
-         tools.add_toRedoList(tools.getStartX_UndoList(),tools.getStartY_UndoList(),
-                              tools.getUndo(),tools.getEndX_UndoList(),tools.getEndY_UndoList(),
-                              tools.getUndoFigura(),tools.getGrosorUndo());
+        qDebug()<<tools.getUndo();
+        tools.add_toRedoList(tools.getStartX_UndoList(),tools.getStartY_UndoList(),
+                             tools.getUndo(),tools.getEndX_UndoList(),tools.getEndY_UndoList(),
+                             tools.getUndoFigura(),tools.getGrosorUndo(),tools.getColorUndo());
 
         this->delete_figure(tools.getUndo());
+        //this->delete_figure(tools.getUndo());
         tools.deleteUndo();
     }else{
         this->delete_figure(tools.getUndo());
@@ -347,18 +348,32 @@ void MainWindow::on_undoButton_clicked()
 void MainWindow::on_redolistButton_clicked()
 {
     if(tools.getRedoSize() != 0){
-        qDebug()<<tools.getRedo()<< "EL REDOOOO";
-        if(tools.getRedoFigura() == 2){
-            qDebug()<<"EL MEJOR DÍA DE MI VIDAAAA";
-            int *start = new int[2];
-            int *end = new int[2];
-            start[0] = tools.getStartX_RedoList();
-            start[1] = tools.getStartY_RedoList();
-            end[0] = tools.getEndX_RedoList();
-            end[1] = tools.getEndY_RedoList();
-            tools.drawSquare(start,end, this->rgbToHex(216,235,52), tools.getGrosorRedo(),tools.getRedo());
-            this->updateCanvas();
+        int *start = new int[2];
+        int *end = new int[2];
+        start[0] = tools.getStartX_RedoList();
+        start[1] = tools.getStartY_RedoList();
+        end[0] = tools.getEndX_RedoList();
+        end[1] = tools.getEndY_RedoList();
+
+        if(tools.getRedoFigura() ==0){
+            //PANIK this is the pen lol
         }
+        if(tools.getRedoFigura() == 1){
+            qDebug()<<"PENCILLLL";
+            tools.drawWithPencil(start,end,tools.getColorRedo(),tools.getGrosorRedo(),tools.getRedo());
+
+        }
+        if(tools.getRedoFigura() == 2){
+            qDebug()<<"SQUAREEEEEEEEEEEE";
+            tools.drawSquare(start,end, tools.getColorRedo(), tools.getGrosorRedo(),tools.getRedo());
+
+        }
+        if(tools.getRedoFigura() == 3){
+            qDebug()<<"CIRCLEEEEE";
+            tools.drawCircle(start,end,tools.getColorRedo(),tools.getGrosorRedo(),tools.getRedo());
+
+        }
+        this->updateCanvas();
         tools.deleteRedo();
     }else{
         //VER QUE inventarse aquí JJAJAJAJ

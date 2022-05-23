@@ -1,7 +1,7 @@
 #include "node.h"
 
 
-node::node(int x, int y, int id, int x2, int y2, int figure, int grosor)
+node::node(int x, int y, int id, int x2, int y2, int figure, int grosor,uint32_t color)
 {
     this->startX = x;
     this->startY = y;
@@ -10,6 +10,7 @@ node::node(int x, int y, int id, int x2, int y2, int figure, int grosor)
     this->figure = figure;
     this->id = id;
     this->grosor = grosor;
+    this->color = color;
 }
 
 node::node(int id) {
@@ -55,6 +56,11 @@ int node::get_figure(){
 
 int node::getGrosor(){
     return this->grosor;
+}
+
+uint32_t node::getColor()
+{
+    return this->color;
 }
 int node::getX() {
     return startX;
