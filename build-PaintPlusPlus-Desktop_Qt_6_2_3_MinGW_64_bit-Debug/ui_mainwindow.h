@@ -56,7 +56,6 @@ public:
     QLabel *mouseLocationLabel;
     QLabel *label_2;
     QPushButton *undoButton;
-    QPushButton *redoButton;
     QPushButton *redolistButton;
     QMenuBar *menubar;
     QMenu *menuArchivo;
@@ -192,12 +191,9 @@ public:
         undoButton = new QPushButton(centralwidget);
         undoButton->setObjectName(QString::fromUtf8("undoButton"));
         undoButton->setGeometry(QRect(20, 470, 51, 31));
-        redoButton = new QPushButton(centralwidget);
-        redoButton->setObjectName(QString::fromUtf8("redoButton"));
-        redoButton->setGeometry(QRect(80, 470, 41, 31));
         redolistButton = new QPushButton(centralwidget);
         redolistButton->setObjectName(QString::fromUtf8("redolistButton"));
-        redolistButton->setGeometry(QRect(140, 580, 89, 31));
+        redolistButton->setGeometry(QRect(80, 470, 41, 31));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -255,8 +251,7 @@ public:
         mouseLocationLabel->setText(QCoreApplication::translate("MainWindow", "0, 0", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "Coords (x,y)", nullptr));
         undoButton->setText(QCoreApplication::translate("MainWindow", "Undo", nullptr));
-        redoButton->setText(QCoreApplication::translate("MainWindow", "Redo", nullptr));
-        redolistButton->setText(QCoreApplication::translate("MainWindow", "Redolist", nullptr));
+        redolistButton->setText(QCoreApplication::translate("MainWindow", "Redo", nullptr));
         menuArchivo->setTitle(QCoreApplication::translate("MainWindow", "Archivo", nullptr));
         menuImagen->setTitle(QCoreApplication::translate("MainWindow", "Imagen", nullptr));
         menuRotar->setTitle(QCoreApplication::translate("MainWindow", "Rotar", nullptr));
