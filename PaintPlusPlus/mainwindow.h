@@ -30,6 +30,10 @@ public:
     void updateCanvas();
     void usePaintFill(int posX, int posY);
     void delete_figure(int id);
+    int HexToRGB(uint32_t hexa);
+    bool isValid(char valid);
+    void getpixelRgb(int X, int Y);
+    void resetRGB();
 private slots:
     void on_actionNuevo_triggered();
 
@@ -83,6 +87,14 @@ private slots:
 
     void on_redolistButton_clicked();
 
+    void on_GrisesButton_clicked();
+
+    void on_negativoButton_clicked();
+
+    void on_pushButton_clicked();
+
+    void on_pastelButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     createCanvasDialog *createcanvasDialog;
@@ -99,6 +111,10 @@ private:
 
     int firstClick[2] = {0, 0};
     int clickReleased[2] = {0, 0};
+
+    int red = -1;
+    int green = -1;
+    int blue = -1;
 
     int imageDimensions[2] = {0, 0};
 

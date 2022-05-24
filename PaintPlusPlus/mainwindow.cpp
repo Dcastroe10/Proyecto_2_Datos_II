@@ -46,6 +46,50 @@ uint32_t MainWindow::rgbToHex(int r, int g, int b) {
     return ((r & 0xFF) << 16) + ((g & 0xFF) << 8) + ((b & 0xFF));
 }
 
+int MainWindow::HexToRGB(uint32_t hexa){
+
+
+
+
+
+    /*
+    int *hexadecimal = new int[10000];
+    int residuo;
+    int result;
+    int i = 0;
+    //qDebug()<<hex;
+    do{
+        residuo = decimal % 16;
+        result = decimal / 16;
+        hexadecimal[i] = result;
+        i++;
+        qDebug()<<"ciclo";
+    }while(result>15);
+    hexadecimal[i] = result;
+
+    for (int x = i; x >= 0; x--){
+        if( hexadecimal[i] == 10){
+            qDebug() <<"A";
+        }else if( hexadecimal[i] == 11){
+            qDebug() <<"B";
+        }else if( hexadecimal[i] == 12){
+            qDebug() <<"C";
+        }else if( hexadecimal[i] == 13){
+            qDebug() <<"D";
+        }else if( hexadecimal[i] == 14){
+            qDebug()<< "E";
+        }else if( hexadecimal[i] == 15){
+            qDebug()<<"F";
+        }else{
+            qDebug() <<  hexadecimal[i];
+        }
+    }
+    */
+}
+
+
+
+
 void MainWindow::fillCanvas(int r, int g, int b, int x, int y)
 {
     QImage *image = new QImage(x, y, QImage::Format_RGB32);
@@ -366,6 +410,7 @@ void MainWindow::on_redolistButton_clicked()
         if(tools.getRedoFigura() == 2){
             qDebug()<<"SQUAREEEEEEEEEEEE";
             tools.drawSquare(start,end, tools.getColorRedo(), tools.getGrosorRedo(),tools.getRedo());
+            qDebug()<<tools.getColorRedo()<<"COLOOOOR";
 
         }
         if(tools.getRedoFigura() == 3){
@@ -464,5 +509,177 @@ void MainWindow::on_actionFlip_horizontal_triggered()
 }
 
 
+void MainWindow::getpixelRgb(int X, int Y){
+    pixel **matrix = ui->canvasLabel->getMatrix();
+    uint32_t color = matrix[X][Y].getColor();
+    int decimal = color;
+    std::string myHexa[7];
+    std::string hexaColor;
+    int digito[30];
+    int residuo;
+    int resultado;
+    int i = 0;
+    int wow = 0;
+    do{
+        residuo=decimal%16;
+        resultado=decimal/16;
+        digito[i]=residuo;
+        decimal = resultado;
+        i++;
+    }while(resultado>15);
+    digito[i] = resultado;
+    for (int x = i;x>=0;x--){
+        if(digito[x] == 10){
+            myHexa[wow] = 'A';
+        }else{
+            if(digito[x] == 11){
+                myHexa[wow] = 'B';
+            }else{
+                if(digito[x] == 12){
+                    myHexa[wow] = 'C';
+                }
+                else{
+                    if(digito[x] == 13){
+                        myHexa[wow] = 'D';
+                    }
+                    else{
+                        if(digito[x] == 14){
+                            myHexa[wow] = 'E';
+                        }
+                        else{
+                            if(digito[x] == 15){
+                                myHexa[wow] = 'F';
+                            }
+                            else{
+                                myHexa[wow] = digito[x] + '0';
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        wow++;
+    }
+    for (int w = std::size(myHexa)-1 ; w >0 ; w--){
+        myHexa[w] = myHexa [w-1];
+    }
+    myHexa[0] = '#';
+    for(int e = 0 ; e < std::size(myHexa); e++){
+        hexaColor += myHexa[e];
 
+    }
+    char const *hexColor = hexaColor.c_str();
+    std::sscanf(hexColor, "#%02x%02x%02x", &this->red, &this->green, &this->blue);
+}
+
+void MainWindow::resetRGB(){
+    this->red = 0;
+    this->green = 0;
+    this->blue = 0;
+}
+
+
+
+void MainWindow::on_GrisesButton_clicked()
+{
+    pixel **matrix = ui->canvasLabel->getMatrix();
+    uint32_t Color;
+    int grey;
+    for (int i = 0; i <this->imageDimensions[0];i++){
+        for (int j = 0; j<this->imageDimensions[1];j++){
+            if(matrix[i][j].getColor() != 16777215){
+                this->getpixelRgb(i,j);
+                grey = (red+green+blue)/3;
+                Color = this->rgbToHex(grey,grey, grey);
+                matrix[i][j].setColor(Color);
+                this->resetRGB();
+            }
+        }
+    }
+    this->updateCanvas();
+
+}
+
+void MainWindow::on_negativoButton_clicked()
+{
+    pixel **matrix = ui->canvasLabel->getMatrix();
+    uint32_t negative;
+    for (int i = 0; i <this->imageDimensions[0];i++){
+        for (int j = 0; j<this->imageDimensions[1];j++){
+                this->getpixelRgb(i,j);
+                negative = this->rgbToHex(255-red,255-green,255-blue);
+                matrix[i][j].setColor(negative);
+                this->resetRGB();
+        }
+    }
+    this->updateCanvas();
+}
+
+
+void MainWindow::on_pushButton_clicked()
+{
+    pixel **matrix = ui->canvasLabel->getMatrix();
+    uint32_t Sepia;
+    int sepiaR;
+    int sepiaG;
+    int sepiaB;
+    for (int i = 0; i <this->imageDimensions[0];i++){
+        for (int j = 0; j<this->imageDimensions[1];j++){
+                this->getpixelRgb(i,j);
+                sepiaR= (red*0.393)+(green*0.769)+(blue*0.189);
+                sepiaG= (red*0.349)+(green*0.686)+(blue*0.168);
+                sepiaB= (red*0.272)+(green*0.534)+(blue*0.131);
+
+                if(sepiaR > 255){sepiaR = 255;}
+                if(sepiaR < 0){sepiaR = 0;}
+
+                if(sepiaG > 255){sepiaG = 255;}
+                if(sepiaG < 0){sepiaG = 0;}
+
+                if(sepiaB > 255){sepiaB = 255;}
+                if(sepiaB < 0){sepiaB = 0;}
+
+
+
+                Sepia = this->rgbToHex(sepiaR,sepiaG,sepiaB);
+                matrix[i][j].setColor(Sepia);
+                this->resetRGB();
+        }
+    }
+    this->updateCanvas();
+}
+
+
+void MainWindow::on_pastelButton_clicked()
+{
+    pixel **matrix = ui->canvasLabel->getMatrix();
+    uint32_t Sepia;
+    int pastelR;
+    int pastelG;
+    int pastelB;
+    for (int i = 0; i <this->imageDimensions[0];i++){
+        for (int j = 0; j<this->imageDimensions[1];j++){
+                this->getpixelRgb(i,j);
+                pastelR= (red/2) + 127;
+                pastelG= (green/2) + 127;
+                pastelB= (blue/2) + 127;
+
+
+                if(pastelR > 255){pastelR = 255;}
+                if(pastelR < 0){pastelR = 0;}
+
+                if(pastelG > 255){pastelG = 255;}
+                if(pastelG < 0){pastelG = 0;}
+
+                if(pastelB > 255){pastelB = 255;}
+                if(pastelB < 0){pastelB = 0;}
+
+
+                Sepia = this->rgbToHex(pastelR,pastelG,pastelB);
+                matrix[i][j].setColor(Sepia);
+                this->resetRGB();
+        }
+    }
+    this->updateCanvas();
+}
 

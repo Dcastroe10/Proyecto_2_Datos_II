@@ -35,6 +35,8 @@ public:
     QAction *action90_izquierda;
     QAction *actionFlip_vertical;
     QAction *actionFlip_horizontal;
+    QAction *actionEscala_de_Grisis;
+    QAction *actionNegativo;
     QWidget *centralwidget;
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
@@ -57,10 +59,15 @@ public:
     QLabel *label_2;
     QPushButton *undoButton;
     QPushButton *redolistButton;
+    QPushButton *GrisesButton;
+    QPushButton *negativoButton;
+    QPushButton *pushButton;
+    QPushButton *pastelButton;
     QMenuBar *menubar;
     QMenu *menuArchivo;
     QMenu *menuImagen;
     QMenu *menuRotar;
+    QMenu *menuFiltros;
     QToolBar *toolBar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -85,6 +92,10 @@ public:
         actionFlip_vertical->setObjectName(QString::fromUtf8("actionFlip_vertical"));
         actionFlip_horizontal = new QAction(MainWindow);
         actionFlip_horizontal->setObjectName(QString::fromUtf8("actionFlip_horizontal"));
+        actionEscala_de_Grisis = new QAction(MainWindow);
+        actionEscala_de_Grisis->setObjectName(QString::fromUtf8("actionEscala_de_Grisis"));
+        actionNegativo = new QAction(MainWindow);
+        actionNegativo->setObjectName(QString::fromUtf8("actionNegativo"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         gridLayoutWidget = new QWidget(centralwidget);
@@ -180,7 +191,7 @@ public:
 
         pushButton_3 = new QPushButton(centralwidget);
         pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
-        pushButton_3->setGeometry(QRect(20, 540, 89, 31));
+        pushButton_3->setGeometry(QRect(110, 580, 89, 31));
         mouseLocationLabel = new QLabel(centralwidget);
         mouseLocationLabel->setObjectName(QString::fromUtf8("mouseLocationLabel"));
         mouseLocationLabel->setGeometry(QRect(0, 620, 93, 22));
@@ -190,10 +201,22 @@ public:
         label_2->setGeometry(QRect(10, 580, 91, 22));
         undoButton = new QPushButton(centralwidget);
         undoButton->setObjectName(QString::fromUtf8("undoButton"));
-        undoButton->setGeometry(QRect(20, 470, 51, 31));
+        undoButton->setGeometry(QRect(10, 430, 51, 31));
         redolistButton = new QPushButton(centralwidget);
         redolistButton->setObjectName(QString::fromUtf8("redolistButton"));
-        redolistButton->setGeometry(QRect(80, 470, 41, 31));
+        redolistButton->setGeometry(QRect(70, 430, 41, 31));
+        GrisesButton = new QPushButton(centralwidget);
+        GrisesButton->setObjectName(QString::fromUtf8("GrisesButton"));
+        GrisesButton->setGeometry(QRect(10, 480, 61, 31));
+        negativoButton = new QPushButton(centralwidget);
+        negativoButton->setObjectName(QString::fromUtf8("negativoButton"));
+        negativoButton->setGeometry(QRect(80, 480, 71, 31));
+        pushButton = new QPushButton(centralwidget);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pushButton->setGeometry(QRect(160, 480, 61, 31));
+        pastelButton = new QPushButton(centralwidget);
+        pastelButton->setObjectName(QString::fromUtf8("pastelButton"));
+        pastelButton->setGeometry(QRect(20, 520, 89, 31));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -204,6 +227,8 @@ public:
         menuImagen->setObjectName(QString::fromUtf8("menuImagen"));
         menuRotar = new QMenu(menuImagen);
         menuRotar->setObjectName(QString::fromUtf8("menuRotar"));
+        menuFiltros = new QMenu(menubar);
+        menuFiltros->setObjectName(QString::fromUtf8("menuFiltros"));
         MainWindow->setMenuBar(menubar);
         toolBar = new QToolBar(MainWindow);
         toolBar->setObjectName(QString::fromUtf8("toolBar"));
@@ -211,6 +236,7 @@ public:
 
         menubar->addAction(menuArchivo->menuAction());
         menubar->addAction(menuImagen->menuAction());
+        menubar->addAction(menuFiltros->menuAction());
         menuArchivo->addSeparator();
         menuArchivo->addAction(actionNuevo);
         menuArchivo->addAction(actionAbrir);
@@ -220,6 +246,8 @@ public:
         menuRotar->addAction(action90_izquierda);
         menuRotar->addAction(actionFlip_vertical);
         menuRotar->addAction(actionFlip_horizontal);
+        menuFiltros->addAction(actionEscala_de_Grisis);
+        menuFiltros->addAction(actionNegativo);
 
         retranslateUi(MainWindow);
 
@@ -236,6 +264,8 @@ public:
         action90_izquierda->setText(QCoreApplication::translate("MainWindow", "90\302\260 izquierda", nullptr));
         actionFlip_vertical->setText(QCoreApplication::translate("MainWindow", "Flip vertical", nullptr));
         actionFlip_horizontal->setText(QCoreApplication::translate("MainWindow", "Flip horizontal", nullptr));
+        actionEscala_de_Grisis->setText(QCoreApplication::translate("MainWindow", "Escala de Grises", nullptr));
+        actionNegativo->setText(QCoreApplication::translate("MainWindow", "Negativo", nullptr));
         canvasLabel->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:700;\">No hay ning\303\272n lienzo</span><br/>\302\241Inicia uno nuevo!</p></body></html>", nullptr));
         Color_button->setText(QCoreApplication::translate("MainWindow", "Color", nullptr));
         figureeraserButton->setText(QCoreApplication::translate("MainWindow", "Figure eraser", nullptr));
@@ -252,9 +282,14 @@ public:
         label_2->setText(QCoreApplication::translate("MainWindow", "Coords (x,y)", nullptr));
         undoButton->setText(QCoreApplication::translate("MainWindow", "Undo", nullptr));
         redolistButton->setText(QCoreApplication::translate("MainWindow", "Redo", nullptr));
+        GrisesButton->setText(QCoreApplication::translate("MainWindow", "Grises", nullptr));
+        negativoButton->setText(QCoreApplication::translate("MainWindow", "Negativo", nullptr));
+        pushButton->setText(QCoreApplication::translate("MainWindow", "Sepia", nullptr));
+        pastelButton->setText(QCoreApplication::translate("MainWindow", "Pastel", nullptr));
         menuArchivo->setTitle(QCoreApplication::translate("MainWindow", "Archivo", nullptr));
         menuImagen->setTitle(QCoreApplication::translate("MainWindow", "Imagen", nullptr));
         menuRotar->setTitle(QCoreApplication::translate("MainWindow", "Rotar", nullptr));
+        menuFiltros->setTitle(QCoreApplication::translate("MainWindow", "Filtros", nullptr));
         toolBar->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar", nullptr));
     } // retranslateUi
 
