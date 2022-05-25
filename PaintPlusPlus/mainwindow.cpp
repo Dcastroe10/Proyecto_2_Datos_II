@@ -468,7 +468,7 @@ void MainWindow::on_action90_triggered()
     int width = this->imageDimensions[0], height = this->imageDimensions[1];
     pixel **rotatedMatrix = this->tools.getRot().rotate90(ui->canvasLabel->getMatrix(), width, height);
     createNewCanvas(height, width);
-    delete[] ui->canvasLabel->getMatrix();
+    delete ui->canvasLabel->getMatrix();
     ui->canvasLabel->setMatrix(rotatedMatrix);
     updateCanvas();
 }
@@ -481,7 +481,7 @@ void MainWindow::on_action90_izquierda_triggered()
     rotatedMatrix = this->tools.getRot().rotate90(rotatedMatrix, width, height);
     rotatedMatrix = this->tools.getRot().rotate90(rotatedMatrix, width, height);
     createNewCanvas(height, width);
-    delete[] ui->canvasLabel->getMatrix();
+    delete ui->canvasLabel->getMatrix();
     ui->canvasLabel->setMatrix(rotatedMatrix);
     updateCanvas();
 }
@@ -492,7 +492,7 @@ void MainWindow::on_actionFlip_vertical_triggered()
     int width = this->imageDimensions[0], height = this->imageDimensions[1];
     pixel **rotatedMatrix = this->tools.getRot().flipVertical(ui->canvasLabel->getMatrix(), width, height);
     //createNewCanvas(height, width);
-    delete[] ui->canvasLabel->getMatrix();
+    delete ui->canvasLabel->getMatrix();
     ui->canvasLabel->setMatrix(rotatedMatrix);
     updateCanvas();
 }
@@ -500,10 +500,11 @@ void MainWindow::on_actionFlip_vertical_triggered()
 
 void MainWindow::on_actionFlip_horizontal_triggered()
 {
-    int width = this->imageDimensions[0], height = this->imageDimensions[1];
+    int width = this->imageDimensions[0];
+    int height = this->imageDimensions[1];
     pixel **rotatedMatrix = this->tools.getRot().flipHorizontal(ui->canvasLabel->getMatrix(), width, height);
     //createNewCanvas(height, width);
-    delete[] ui->canvasLabel->getMatrix();
+    delete ui->canvasLabel->getMatrix();
     ui->canvasLabel->setMatrix(rotatedMatrix);
     updateCanvas();
 }

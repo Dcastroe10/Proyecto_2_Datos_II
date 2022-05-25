@@ -26,12 +26,9 @@ pixel **rotater::flipVertical(pixel **oldMatrix, int oldWidth, int oldHeight)
 {
     pixel **newMatrix = matrixCreator(oldWidth, oldHeight);
 
-    qDebug() << "new";
-
     for (int y = 0; y < oldHeight; y++) {
         for (int x = 0; x < oldWidth; x++) {
             newMatrix[x][oldHeight - y] = oldMatrix[x][y];
-            qDebug() << "new" << newMatrix[x][oldHeight - 1].getColor();
         }
     }
     return newMatrix;
@@ -43,9 +40,10 @@ pixel **rotater::flipHorizontal(pixel **oldMatrix, int oldWidth, int oldHeight)
 
     for (int y = 0; y < oldHeight; y++) {
         for (int x = 0; x < oldWidth; x++) {
-            newMatrix[oldWidth - x][y] = oldMatrix[x][y];
+            newMatrix[oldWidth - x - 1][y] = oldMatrix[x][y];
         }
     }
+
     return newMatrix;
 }
 
