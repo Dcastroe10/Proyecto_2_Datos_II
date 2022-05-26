@@ -30,8 +30,12 @@ void MainWindow::receiveCanvas(int& x, int& y) {
 
 void MainWindow::createNewCanvas(int x, int y)
 {
+
+    ui->zoomSpin->setValue(1.0);
+
     ui->canvasLabel->setEnabled(true);
     ui->canvasLabel->createNewMatrix(x, y);
+
     this->tools.setMatrixPointer(ui->canvasLabel->getMatrix());
 
     this->imageDimensions[0] = x;
@@ -39,6 +43,10 @@ void MainWindow::createNewCanvas(int x, int y)
 
     ui->gridLayout->setGeometry(QRect(x, y, x, y));
     fillCanvas(255, 255, 255, x, y);
+
+    on_zoomSpin_valueChanged(1.1);
+    on_zoomSpin_valueChanged(1.0);
+
 }
 
 
@@ -47,9 +55,6 @@ uint32_t MainWindow::rgbToHex(int r, int g, int b) {
 }
 
 int MainWindow::HexToRGB(uint32_t hexa){
-
-
-
 
 
     /*
@@ -143,12 +148,14 @@ void MainWindow::mouseIsReleased(int& x, int& y)
     } else if(this->circleF){
         drawCircle(this->firstClick, this->clickReleased);
     } else if (this->colorPickerF){
-        this->color = tools.getColorColorPicker(x, y);
+        this->color = tools.getColorColorPicker(x / this->zoom, y / this->zoom);
         this->last_color = this->color;
         on_penButton_clicked();
     } else if (this->paintFillF) {
         usePaintFill(x, y);
     }else if(this->figureEraserF){
+        x /= this->zoom;
+        y /= this->zoom;
         this->delete_figure(matrix[x][y].getId());
     }
 
@@ -177,12 +184,18 @@ void MainWindow::updateCanvas() {
 }
 
 void MainWindow::usePaintFill(int posX, int posY) {
+    posX /= this->zoom;
+    posY /= this->zoom;
     tools.drawWithPaintFiller(this->imageDimensions[0], this->imageDimensions[1], this->color, posX, posY,this->id_figuras);
     this->id_figuras++;
     updateCanvas();
 }
 
 void MainWindow::drawALine(int start[], int end[]) {
+    start[0] /= this->zoom;
+    start[1] /= this->zoom;
+    end[0] /= this->zoom;
+    end[1] /= this->zoom;
     tools.drawWithPencil(start, end, this->color,ui->spinBox->value(), this->id_figuras);
     this->id_figuras++;
     this->id_pen = this->id_figuras;
@@ -197,6 +210,10 @@ void MainWindow::drawSquare(int *start, int *end){
 }
 
 void MainWindow::drawCircle(int *start, int *end){
+    start[0] /= this->zoom;
+    start[1] /= this->zoom;
+    end[0] /= this->zoom;
+    end[1] /= this->zoom;
     tools.drawCircle(start, end, this->color,ui->spinBox->value(), this->id_figuras);
     this->id_figuras++;
     this->id_pen = this->id_figuras;
@@ -210,8 +227,9 @@ void MainWindow::setPixelInCanvas(int x, int y, int id) {
 
         for (int i = -grosor; i < grosor; i++){
             for(int j = -grosor; j < grosor; j++){
-                 canvas.setPixel(x + i , y +j, this->color);
-                 tools.drawWithPen(x + i, y + j, this->color, id);
+                 canvas.setPixel((x + i) / this->zoom, (y + j) / this->zoom, this->color);
+                 tools.drawWithPen((x + i) / this->zoom, (y + j) / this->zoom, this->color, id);
+                 //(pos.x() + i) / this->zoom, (pos.y() + j) / this->zoom
             }
 
         }
@@ -465,24 +483,36 @@ void MainWindow::on_actionGuardar_como_triggered()
 
 void MainWindow::on_action90_triggered()
 {
+    //on_zoomSpin_valueChanged(1.0);
     int width = this->imageDimensions[0], height = this->imageDimensions[1];
+    double spinZoomLastValue = ui->zoomSpin->value();
     pixel **rotatedMatrix = this->tools.getRot().rotate90(ui->canvasLabel->getMatrix(), width, height);
     createNewCanvas(height, width);
     delete ui->canvasLabel->getMatrix();
     ui->canvasLabel->setMatrix(rotatedMatrix);
+    this->tools.setMatrixPointer(rotatedMatrix);
     updateCanvas();
+    on_zoomSpin_valueChanged(spinZoomLastValue + 0.01);
+    on_zoomSpin_valueChanged(spinZoomLastValue - 0.01);
 }
 
 
 void MainWindow::on_action90_izquierda_triggered()
 {
     int width = this->imageDimensions[0], height = this->imageDimensions[1];
+    double spinZoomLastValue = ui->zoomSpin->value();
     pixel **rotatedMatrix = this->tools.getRot().rotate90(ui->canvasLabel->getMatrix(), width, height);
     rotatedMatrix = this->tools.getRot().rotate90(rotatedMatrix, width, height);
     rotatedMatrix = this->tools.getRot().rotate90(rotatedMatrix, width, height);
     createNewCanvas(height, width);
     delete ui->canvasLabel->getMatrix();
     ui->canvasLabel->setMatrix(rotatedMatrix);
+    this->tools.setMatrixPointer(rotatedMatrix);
+    on_zoomSpin_valueChanged(spinZoomLastValue + 0.01);
+    on_zoomSpin_valueChanged(spinZoomLastValue - 0.01);
+    //if (spinZoomLastValue != 1.00) {
+    //    on_zoomSpin_valueChanged(spinZoomLastValue);
+    //}
     updateCanvas();
 }
 
@@ -494,6 +524,7 @@ void MainWindow::on_actionFlip_vertical_triggered()
     //createNewCanvas(height, width);
     delete ui->canvasLabel->getMatrix();
     ui->canvasLabel->setMatrix(rotatedMatrix);
+    this->tools.setMatrixPointer(rotatedMatrix);
     updateCanvas();
 }
 
@@ -506,6 +537,7 @@ void MainWindow::on_actionFlip_horizontal_triggered()
     //createNewCanvas(height, width);
     delete ui->canvasLabel->getMatrix();
     ui->canvasLabel->setMatrix(rotatedMatrix);
+    this->tools.setMatrixPointer(rotatedMatrix);
     updateCanvas();
 }
 
@@ -580,8 +612,16 @@ void MainWindow::resetRGB(){
 }
 
 
+void MainWindow::on_zoomSpin_valueChanged(double arg1)
+{
+    ui->canvasLabel->setFixedWidth(arg1 * ui->canvasLabel->pixmap().width());
+    ui->canvasLabel->setFixedHeight(arg1 * ui->canvasLabel->pixmap().height());
+    this->zoom = arg1;
+    this->tools.setZoom(arg1);
+}
 
-void MainWindow::on_GrisesButton_clicked()
+
+void MainWindow::on_actionEscala_de_Grisis_triggered()
 {
     pixel **matrix = ui->canvasLabel->getMatrix();
     uint32_t Color;
@@ -598,10 +638,10 @@ void MainWindow::on_GrisesButton_clicked()
         }
     }
     this->updateCanvas();
-
 }
 
-void MainWindow::on_negativoButton_clicked()
+
+void MainWindow::on_actionNegativo_triggered()
 {
     pixel **matrix = ui->canvasLabel->getMatrix();
     uint32_t negative;
@@ -617,7 +657,7 @@ void MainWindow::on_negativoButton_clicked()
 }
 
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_actionSepia_triggered()
 {
     pixel **matrix = ui->canvasLabel->getMatrix();
     uint32_t Sepia;
@@ -626,32 +666,31 @@ void MainWindow::on_pushButton_clicked()
     int sepiaB;
     for (int i = 0; i <this->imageDimensions[0];i++){
         for (int j = 0; j<this->imageDimensions[1];j++){
-                this->getpixelRgb(i,j);
-                sepiaR= (red*0.393)+(green*0.769)+(blue*0.189);
-                sepiaG= (red*0.349)+(green*0.686)+(blue*0.168);
-                sepiaB= (red*0.272)+(green*0.534)+(blue*0.131);
+            this->getpixelRgb(i,j);
+            sepiaR= (red*0.393)+(green*0.769)+(blue*0.189);
+            sepiaG= (red*0.349)+(green*0.686)+(blue*0.168);
+            sepiaB= (red*0.272)+(green*0.534)+(blue*0.131);
 
-                if(sepiaR > 255){sepiaR = 255;}
-                if(sepiaR < 0){sepiaR = 0;}
+            if(sepiaR > 255){sepiaR = 255;}
+            if(sepiaR < 0){sepiaR = 0;}
 
-                if(sepiaG > 255){sepiaG = 255;}
-                if(sepiaG < 0){sepiaG = 0;}
+            if(sepiaG > 255){sepiaG = 255;}
+            if(sepiaG < 0){sepiaG = 0;}
 
-                if(sepiaB > 255){sepiaB = 255;}
-                if(sepiaB < 0){sepiaB = 0;}
+            if(sepiaB > 255){sepiaB = 255;}
+            if(sepiaB < 0){sepiaB = 0;}
 
 
-
-                Sepia = this->rgbToHex(sepiaR,sepiaG,sepiaB);
-                matrix[i][j].setColor(Sepia);
-                this->resetRGB();
+            Sepia = this->rgbToHex(sepiaR,sepiaG,sepiaB);
+            matrix[i][j].setColor(Sepia);
+            this->resetRGB();
         }
     }
     this->updateCanvas();
 }
 
 
-void MainWindow::on_pastelButton_clicked()
+void MainWindow::on_actionPastel_triggered()
 {
     pixel **matrix = ui->canvasLabel->getMatrix();
     uint32_t Sepia;
@@ -660,25 +699,25 @@ void MainWindow::on_pastelButton_clicked()
     int pastelB;
     for (int i = 0; i <this->imageDimensions[0];i++){
         for (int j = 0; j<this->imageDimensions[1];j++){
-                this->getpixelRgb(i,j);
-                pastelR= (red/2) + 127;
-                pastelG= (green/2) + 127;
-                pastelB= (blue/2) + 127;
+            this->getpixelRgb(i,j);
+            pastelR= (red/2) + 127;
+            pastelG= (green/2) + 127;
+            pastelB= (blue/2) + 127;
 
 
-                if(pastelR > 255){pastelR = 255;}
-                if(pastelR < 0){pastelR = 0;}
+            if(pastelR > 255){pastelR = 255;}
+            if(pastelR < 0){pastelR = 0;}
 
-                if(pastelG > 255){pastelG = 255;}
-                if(pastelG < 0){pastelG = 0;}
+            if(pastelG > 255){pastelG = 255;}
+            if(pastelG < 0){pastelG = 0;}
 
-                if(pastelB > 255){pastelB = 255;}
-                if(pastelB < 0){pastelB = 0;}
+            if(pastelB > 255){pastelB = 255;}
+            if(pastelB < 0){pastelB = 0;}
 
 
-                Sepia = this->rgbToHex(pastelR,pastelG,pastelB);
-                matrix[i][j].setColor(Sepia);
-                this->resetRGB();
+            Sepia = this->rgbToHex(pastelR,pastelG,pastelB);
+            matrix[i][j].setColor(Sepia);
+            this->resetRGB();
         }
     }
     this->updateCanvas();

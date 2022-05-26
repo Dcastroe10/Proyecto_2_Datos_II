@@ -10,6 +10,16 @@ rotater Tools::getRot()
     return rot;
 }
 
+double Tools::getZoom() const
+{
+    return zoom;
+}
+
+void Tools::setZoom(double newZoom)
+{
+    zoom = newZoom;
+}
+
 Tools::Tools()
 {
 
@@ -26,12 +36,12 @@ void Tools::drawWithPen(int posx, int posy, uint32_t color, int id)
 }
 
 void Tools::drawWithPencil(int start[2], int end[2], uint32_t color, int grosor, int id) {
-    pencil.drawALineInCanvas(this->matrixPointer, start, end, color, grosor, id);
+    pencil.drawALineInCanvas(this->matrixPointer, start, end, color, grosor, id, this->zoom);
     this->add_toUndoList(start[0],start[1],id,end[0],end[1],1,grosor,color);
 }
 
 void Tools::drawSquare(int *start, int *end, uint32_t color, int grosor, int id){
-    square.draw_square_in_canvas(this->matrixPointer,start, end, color, grosor, id);
+    square.draw_square_in_canvas(this->matrixPointer,start, end, color, grosor, id, this->zoom);
     this->add_toUndoList(start[0],start[1],id,end[0],end[1],2,grosor,color);
 }
 

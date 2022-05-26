@@ -8,11 +8,11 @@ Square::Square()
 }
 
 
-void Square::draw_square_in_canvas(pixel **canvas, int start[2], int end[2], uint32_t color, int grosor, int id){
-    int startx= start[0];
-    int starty = start[1];
-    int endx = end[0];
-    int endy = end[1];
+void Square::draw_square_in_canvas(pixel **canvas, int start[2], int end[2], uint32_t color, int grosor, int id, double zoom){
+    int startx= start[0] / zoom;
+    int starty = start[1] / zoom;
+    int endx = end[0] / zoom;
+    int endy = end[1] / zoom;
 
     //para los ciclos
     int ciclo_startx;

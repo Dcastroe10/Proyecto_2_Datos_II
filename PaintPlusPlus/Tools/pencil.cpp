@@ -21,12 +21,12 @@ float Pencil::bResult(int x, int y, float m) {
     float mf = m;
 
     float b = yf - (mf * xf);
-    printf("b: %f ", b);
+    //printf("b: %f ", b);
     return b;
 }
 
 
-void Pencil::drawALineInCanvas(pixel **canvas, int start[2], int end[2], uint32_t color, int grosor, int id) {
+void Pencil::drawALineInCanvas(pixel **canvas, int start[2], int end[2], uint32_t color, int grosor, int id, double zoom) {
     float m = mResult(start, end);
     float b = -bResult(start[0], start[1], m);
     float y = 0;
@@ -47,13 +47,13 @@ void Pencil::drawALineInCanvas(pixel **canvas, int start[2], int end[2], uint32_
             //qDebug() << "line >";
             for (int i = -grosor; i < grosor; i++){
                 for(int j = -grosor; j < grosor; j++){
-                     canvas[xi + i][yi + j].setColor(color);
-                     canvas[xi + i][yi + j].setId(id);
+                     canvas[(xi + i) / (int)zoom][(yi + j) / (int)zoom].setColor(color);
+                     canvas[(xi + i) / (int)zoom][(yi + j) / (int)zoom].setId(id);
                 }
 
             }
 
-            startX -= 0.1;
+            startX -= 0.09;
         }
     } else {
         while(startX < endX) {
@@ -67,7 +67,7 @@ void Pencil::drawALineInCanvas(pixel **canvas, int start[2], int end[2], uint32_
                      canvas[xi + i][yi + j].setId(id);
                 }
             }
-            startX += 0.1;
+            startX += 0.09;
         }
     }
 }

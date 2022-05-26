@@ -87,13 +87,15 @@ private slots:
 
     void on_redolistButton_clicked();
 
-    void on_GrisesButton_clicked();
+    void on_zoomSpin_valueChanged(double arg1);
 
-    void on_negativoButton_clicked();
+    void on_actionEscala_de_Grisis_triggered();
 
-    void on_pushButton_clicked();
+    void on_actionNegativo_triggered();
 
-    void on_pastelButton_clicked();
+    void on_actionSepia_triggered();
+
+    void on_actionPastel_triggered();
 
 private:
     Ui::MainWindow *ui;
@@ -111,6 +113,8 @@ private:
 
     int firstClick[2] = {0, 0};
     int clickReleased[2] = {0, 0};
+
+    double zoom = 1.0;
 
     int red = -1;
     int green = -1;

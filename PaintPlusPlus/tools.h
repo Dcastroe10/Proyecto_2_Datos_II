@@ -20,6 +20,7 @@ private:
     int grosor;
     pixel **matrixPointer;
     rotater rot;
+    double zoom = 1.0;
 
 public:
     Tools();
@@ -87,6 +88,8 @@ public:
 
     uint32_t getColorUndo();
     uint32_t getColorRedo();
+    double getZoom() const;
+    void setZoom(double newZoom);
 };
 
 #endif // TOOLS_H
