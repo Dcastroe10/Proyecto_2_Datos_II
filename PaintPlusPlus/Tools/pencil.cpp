@@ -25,8 +25,16 @@ float Pencil::bResult(int x, int y, float m) {
     return b;
 }
 
+bool Pencil::outOfBounds(int width, int height, int posX, int posY) {
+    if (posX < 0 || posX >= width || posY < 0 || posY >= height) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
-void Pencil::drawALineInCanvas(pixel **canvas, int start[2], int end[2], uint32_t color, int grosor, int id, double zoom) {
+
+void Pencil::drawALineInCanvas(pixel **canvas, int start[2], int end[2], uint32_t color, int grosor, int id, double zoom,int width, int height) {
     float m = mResult(start, end);
     float b = -bResult(start[0], start[1], m);
     float y = 0;
@@ -47,8 +55,11 @@ void Pencil::drawALineInCanvas(pixel **canvas, int start[2], int end[2], uint32_
             //qDebug() << "line >";
             for (int i = -grosor; i < grosor; i++){
                 for(int j = -grosor; j < grosor; j++){
-                     canvas[(xi + i) / (int)zoom][(yi + j) / (int)zoom].setColor(color);
-                     canvas[(xi + i) / (int)zoom][(yi + j) / (int)zoom].setId(id);
+                    if(!this->outOfBounds(width,height,i,j)){
+                        canvas[(xi + i) / (int)zoom][(yi + j) / (int)zoom].setColor(color);
+                        canvas[(xi + i) / (int)zoom][(yi + j) / (int)zoom].setId(id);
+                    }
+
                 }
 
             }
@@ -63,8 +74,10 @@ void Pencil::drawALineInCanvas(pixel **canvas, int start[2], int end[2], uint32_
             //qDebug() << "line <";
             for (int i = -grosor; i < grosor; i++){
                 for(int j = -grosor; j < grosor; j++){
-                     canvas[xi + i][yi + j].setColor(color);
-                     canvas[xi + i][yi + j].setId(id);
+                    if(!this->outOfBounds(width,height,i,j)){
+                        canvas[(xi + i) / (int)zoom][(yi + j) / (int)zoom].setColor(color);
+                        canvas[(xi + i) / (int)zoom][(yi + j) / (int)zoom].setId(id);
+                    }
                 }
             }
             startX += 0.09;

@@ -16,6 +16,16 @@ void pixel::setColor(uint32_t newColor)
     color = newColor;
 }
 
+void pixel::setFigura(int figura)
+{
+    this->figura = figura;
+}
+
+int pixel::getFigura()
+{
+    return this->figura;
+}
+
 int pixel::getId() const
 {
     return id;

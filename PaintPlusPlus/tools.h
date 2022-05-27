@@ -21,6 +21,13 @@ private:
     pixel **matrixPointer;
     rotater rot;
     double zoom = 1.0;
+    pixel **RectangularSelected = new pixel* [10];;
+    pixel **freeformSelected;
+    pixel **magicSelected;
+
+
+
+
 
 public:
     Tools();
@@ -36,12 +43,13 @@ public:
     linkedList lista_Redo;
 
 
+
     void setMatrixPointer(pixel **newMatrixPointer);
 
     void drawWithPen(int posx, int posy, uint32_t color, int id);
 
 
-    void drawWithPencil(int start[], int end[], uint32_t color, int grosor, int id);
+    void drawWithPencil(int start[], int end[], uint32_t color, int grosor, int id, int width, int height);
 
     void drawSquare(int start[], int end[], uint32_t color, int grosor, int id);
 
@@ -90,6 +98,9 @@ public:
     uint32_t getColorRedo();
     double getZoom() const;
     void setZoom(double newZoom);
+    void rectangularSelection(int *start, int *end);
+    void set_RectangularSelected_size(int width, int height);
+
 };
 
 #endif // TOOLS_H

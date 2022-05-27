@@ -92,9 +92,6 @@ int MainWindow::HexToRGB(uint32_t hexa){
     */
 }
 
-
-
-
 void MainWindow::fillCanvas(int r, int g, int b, int x, int y)
 {
     QImage *image = new QImage(x, y, QImage::Format_RGB32);
@@ -157,6 +154,9 @@ void MainWindow::mouseIsReleased(int& x, int& y)
         x /= this->zoom;
         y /= this->zoom;
         this->delete_figure(matrix[x][y].getId());
+    }else if (this->rectangularSelection){
+        tools.set_RectangularSelected_size(this->imageDimensions[0], this->imageDimensions[1]);
+        tools.rectangularSelection(this->firstClick, this->clickReleased);
     }
 
 }
@@ -196,7 +196,7 @@ void MainWindow::drawALine(int start[], int end[]) {
     start[1] /= this->zoom;
     end[0] /= this->zoom;
     end[1] /= this->zoom;
-    tools.drawWithPencil(start, end, this->color,ui->spinBox->value(), this->id_figuras);
+    tools.drawWithPencil(start, end, this->color,ui->spinBox->value(), this->id_figuras, imageDimensions[0], imageDimensions[1]);
     this->id_figuras++;
     this->id_pen = this->id_figuras;
     updateCanvas();
@@ -275,6 +275,9 @@ void MainWindow::falseAllTools()
     this->paintFillF = false;
     this->freeEraserF = false;
     this->figureEraserF = false;
+    this->rectangularSelection = false;
+    this->magiSelection = false;
+    this->freeformSelection = false;
 }
 
 void MainWindow::trueAllButtons() {
@@ -288,6 +291,9 @@ void MainWindow::trueAllButtons() {
     ui->figureeraserButton->setEnabled(true);
     ui->Color_button->setEnabled(true);
     ui->spinBox->setEnabled(true);
+    ui->RectangularSelectionButton->setEnabled(true);
+    ui->FreeFormSelectionButton->setEnabled(true);
+    ui->MagicSelectionButton->setEnabled(true);
 }
 
 void MainWindow::on_penButton_clicked()
@@ -359,21 +365,7 @@ void MainWindow::on_Color_button_clicked()
 
 void MainWindow::on_pushButton_3_clicked()
 {
-    for (int i = 0; i < 20; i++) {
-        for (int j = 0; j < 20; j++) {
-            qDebug() << this->ui->canvasLabel->getMatrix()[i][j].getColor();
-        }
-    }
     this->updateCanvas();
-    //print the colors on the matrix
-    /*
-    pixel **matrix = ui->canvasLabel->getMatrix();
-    for (int i = 0;i<500; i++){
-        for (int j= 0; j<500;j++){
-            qDebug()<<matrix[i][j].getId();
-        }
-    }
-    */
 
 }
 
@@ -422,7 +414,7 @@ void MainWindow::on_redolistButton_clicked()
         }
         if(tools.getRedoFigura() == 1){
             qDebug()<<"PENCILLLL";
-            tools.drawWithPencil(start,end,tools.getColorRedo(),tools.getGrosorRedo(),tools.getRedo());
+            tools.drawWithPencil(start,end,tools.getColorRedo(),tools.getGrosorRedo(),tools.getRedo(), imageDimensions[0], imageDimensions[1]);
 
         }
         if(tools.getRedoFigura() == 2){
@@ -611,7 +603,6 @@ void MainWindow::resetRGB(){
     this->blue = 0;
 }
 
-
 void MainWindow::on_zoomSpin_valueChanged(double arg1)
 {
     ui->canvasLabel->setFixedWidth(arg1 * ui->canvasLabel->pixmap().width());
@@ -723,3 +714,23 @@ void MainWindow::on_actionPastel_triggered()
     this->updateCanvas();
 }
 
+
+
+
+
+void MainWindow::on_RectangularSelectionButton_clicked()
+{
+    falseAllTools();
+    this->rectangularSelection = true;
+    trueAllButtons();
+    ui->RectangularSelectionButton->setEnabled(false);
+
+
+}
+
+
+/*
+    pixel selected = new pixel[]
+    pixel **matrix = ui->canvasLabel->getMatrix();
+    uint32_t Color;
+    */

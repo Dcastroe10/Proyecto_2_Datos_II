@@ -35,8 +35,8 @@ void Tools::drawWithPen(int posx, int posy, uint32_t color, int id)
     pen.drawInCanvas(this->matrixPointer, posx, posy, color, id);
 }
 
-void Tools::drawWithPencil(int start[2], int end[2], uint32_t color, int grosor, int id) {
-    pencil.drawALineInCanvas(this->matrixPointer, start, end, color, grosor, id, this->zoom);
+void Tools::drawWithPencil(int start[2], int end[2], uint32_t color, int grosor, int id, int width, int height) {
+    pencil.drawALineInCanvas(this->matrixPointer, start, end, color, grosor, id, this->zoom, width , height);
     this->add_toUndoList(start[0],start[1],id,end[0],end[1],1,grosor,color);
 }
 
@@ -60,6 +60,63 @@ void Tools::drawWithPaintFiller(int width, int height, uint32_t color, int posX,
 uint32_t Tools::getColorColorPicker(int x, int y) {
     return this->ColorPicker.getColorInMatrix(this->matrixPointer, x, y);
 }
+
+void Tools::rectangularSelection(int *start, int *end){
+    int startx= start[0];
+    int starty = start[1];
+    int endx = end[0];
+    int endy = end[1];
+    int m = 0;
+    int n = 0;
+
+    int ciclo_startx;
+    int ciclo_starty;
+    int ciclo_endx;
+    int ciclo_endy;
+
+    if(startx < endx){
+        ciclo_startx = startx;
+        ciclo_endx = endx;
+    }else{
+         ciclo_startx = endx;
+         ciclo_endx = startx;
+    }
+
+    if(starty<endy){
+        ciclo_starty = starty;
+        ciclo_endy = endy;
+    }else{
+        ciclo_starty = endy;
+        ciclo_endy = starty;
+
+    }
+
+    for (int i = ciclo_startx; i < ciclo_endx; i++){
+        for(int j = ciclo_starty ; j < ciclo_endy; j++){
+            this->RectangularSelected[m][n] = this->matrixPointer[i][j];
+            qDebug()<<this->RectangularSelected[m][n].getId();
+            n++;
+        }
+        m++;
+        n=0;
+
+    }
+
+
+}
+
+void Tools::set_RectangularSelected_size(int width, int height)
+{
+    delete[] RectangularSelected;
+    RectangularSelected = new pixel* [width];
+    for (int p = 0; p<height;p++){
+        RectangularSelected[p] = new pixel [height];
+    }
+
+}
+
+
+
 
 void Tools::set_grosor(int num){
     this->grosor = num;

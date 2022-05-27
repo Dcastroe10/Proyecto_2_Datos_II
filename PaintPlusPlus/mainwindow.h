@@ -97,6 +97,8 @@ private slots:
 
     void on_actionPastel_triggered();
 
+    void on_RectangularSelectionButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     createCanvasDialog *createcanvasDialog;
@@ -110,6 +112,9 @@ private:
     bool paintFillF = false;
     bool freeEraserF = false;
     bool figureEraserF= false;
+    bool rectangularSelection = false;
+    bool magiSelection = false;
+    bool freeformSelection = false;
 
     int firstClick[2] = {0, 0};
     int clickReleased[2] = {0, 0};
