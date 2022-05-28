@@ -99,6 +99,8 @@ private slots:
 
     void on_RectangularSelectionButton_clicked();
 
+    void on_MoveFigureButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     createCanvasDialog *createcanvasDialog;
@@ -115,6 +117,7 @@ private:
     bool rectangularSelection = false;
     bool magiSelection = false;
     bool freeformSelection = false;
+    bool movefigureF = false;
 
     int firstClick[2] = {0, 0};
     int clickReleased[2] = {0, 0};
