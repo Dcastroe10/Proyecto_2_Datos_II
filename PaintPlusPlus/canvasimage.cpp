@@ -12,6 +12,11 @@ canvasImage::~canvasImage()
 
 }
 
+/**
+ * @brief canvasImage::createNewMatrix
+ * @param x
+ * @param y
+ */
 void canvasImage::createNewMatrix(int x, int y)
 {
     matrix = new pixel*[x];
@@ -21,8 +26,10 @@ void canvasImage::createNewMatrix(int x, int y)
     }
 }
 
-
-
+/**
+ * @brief canvasImage::mouseMoveEvent
+ * @param event
+ */
 void canvasImage::mouseMoveEvent(QMouseEvent *event)
 {
     this->x = event->pos().x();
@@ -35,23 +42,39 @@ void canvasImage::mouseMoveEvent(QMouseEvent *event)
     }
 }
 
+/**
+ * @brief canvasImage::mousePressEvent
+ * @param event
+ */
 void canvasImage::mousePressEvent(QMouseEvent *event)
 {
      qDebug() << x << y << "clicked";
      emit sendMouseClicked(this->x, this->y);
 }
 
+/**
+ * @brief canvasImage::mouseReleaseEvent
+ * @param event
+ */
 void canvasImage::mouseReleaseEvent(QMouseEvent *event)
 {
     qDebug() << x << y << "released";
     emit sendMouseReleased(this->x, this->y);
 }
 
+/**
+ * @brief canvasImage::setMatrix
+ * @param newMatrix
+ */
 void canvasImage::setMatrix(pixel **newMatrix)
 {
     matrix = newMatrix;
 }
 
+/**
+ * @brief canvasImage::getMatrix
+ * @return
+ */
 pixel **canvasImage::getMatrix() const
 {
     return matrix;

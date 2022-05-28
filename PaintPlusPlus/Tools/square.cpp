@@ -7,14 +7,21 @@ Square::Square()
 
 }
 
-
+/**
+ * @brief Dibuja un cuadrilátero con el ancho y alto deseado en el canvas recibido
+ * @param canvas    canvas en el que se desea dibujar
+ * @param start     Posiciones (x,y) iniciales
+ * @param end       Posiciones (x,y) finales
+ * @param color     Color deseado
+ * @param grosor    Grosor deseado
+ * @param id        Identificador de la figura
+ * @param zoom      Zoom deseado
+ */
 void Square::draw_square_in_canvas(pixel **canvas, int start[2], int end[2], uint32_t color, int grosor, int id, double zoom){
     int startx= start[0] / zoom;
     int starty = start[1] / zoom;
     int endx = end[0] / zoom;
     int endy = end[1] / zoom;
-
-    //para los ciclos
     int ciclo_startx;
     int ciclo_starty;
     int ciclo_endx;
@@ -50,8 +57,6 @@ void Square::draw_square_in_canvas(pixel **canvas, int start[2], int end[2], uin
 
                 canvas[ciclo_startx + i][ciclo_starty + j].setId(id);
                 canvas[ciclo_startx + i][ciclo_endy + j].setId(id);
-
-
             }
         }
         ciclo_startx+=1;
@@ -65,13 +70,9 @@ void Square::draw_square_in_canvas(pixel **canvas, int start[2], int end[2], uin
 
                 canvas[startx + i ][ciclo_starty + j].setId(id);
                 canvas[ciclo_endx + i][ciclo_starty + j].setId(id);
-
             }
         }
         ciclo_starty+=1;
     }
-
-
-
 }
 

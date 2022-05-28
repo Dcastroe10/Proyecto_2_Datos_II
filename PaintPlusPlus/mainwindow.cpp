@@ -136,7 +136,7 @@ void MainWindow::mouseIsReleased(int& x, int& y)
     //this->id_figuras++;
     tools.add_toUndoList(-1,-1,this->id_pen,-1,-1,-1,-1,this->color);//CHEEEECK ESTOOO puede ser lo que sube extra //ES PARA AGREGAR AL UNDO LAS LINEAS DEL PEN pero
     this->id_pen = this->id_figuras;                //con las figuras agrega otros ids entonces hay que tocar
-    //this->id_figuras++;                             //varias (2) veces el botón de undo
+    this->id_figuras++;                             //varias (2) veces el botón de undo
 
     if (this->pencilF) {
         drawALine(this->firstClick, this->clickReleased);
@@ -229,9 +229,7 @@ void MainWindow::setPixelInCanvas(int x, int y, int id) {
             for(int j = -grosor; j < grosor; j++){
                  canvas.setPixel((x + i) / this->zoom, (y + j) / this->zoom, this->color);
                  tools.drawWithPen((x + i) / this->zoom, (y + j) / this->zoom, this->color, id);
-                 //(pos.x() + i) / this->zoom, (pos.y() + j) / this->zoom
             }
-
         }
         ui->canvasLabel->setPixmap(QPixmap::fromImage(canvas));
     }
@@ -397,8 +395,6 @@ void MainWindow::on_undoButton_clicked()
 
 }
 
-
-
 void MainWindow::on_redolistButton_clicked()
 {
     if(tools.getRedoSize() != 0){
@@ -430,12 +426,8 @@ void MainWindow::on_redolistButton_clicked()
         }
         this->updateCanvas();
         tools.deleteRedo();
-    }else{
-        //VER QUE inventarse aquí JJAJAJAJ
-
     }
 }
-
 
 void MainWindow::on_actionAbrir_triggered()
 {
@@ -461,7 +453,6 @@ void MainWindow::on_actionAbrir_triggered()
     on_penButton_clicked();
 }
 
-
 void MainWindow::on_actionGuardar_como_triggered()
 {
     //bool ready;
@@ -471,7 +462,6 @@ void MainWindow::on_actionGuardar_como_triggered()
     qDebug() << directory.c_str();
     this->tools.BMP.bmpExport(directory, this->imageDimensions[0], this->imageDimensions[1], ui->canvasLabel->getMatrix());
 }
-
 
 void MainWindow::on_action90_triggered()
 {
@@ -487,7 +477,6 @@ void MainWindow::on_action90_triggered()
     on_zoomSpin_valueChanged(spinZoomLastValue + 0.01);
     on_zoomSpin_valueChanged(spinZoomLastValue - 0.01);
 }
-
 
 void MainWindow::on_action90_izquierda_triggered()
 {
@@ -508,7 +497,6 @@ void MainWindow::on_action90_izquierda_triggered()
     updateCanvas();
 }
 
-
 void MainWindow::on_actionFlip_vertical_triggered()
 {
     int width = this->imageDimensions[0], height = this->imageDimensions[1];
@@ -519,7 +507,6 @@ void MainWindow::on_actionFlip_vertical_triggered()
     this->tools.setMatrixPointer(rotatedMatrix);
     updateCanvas();
 }
-
 
 void MainWindow::on_actionFlip_horizontal_triggered()
 {
@@ -532,7 +519,6 @@ void MainWindow::on_actionFlip_horizontal_triggered()
     this->tools.setMatrixPointer(rotatedMatrix);
     updateCanvas();
 }
-
 
 void MainWindow::getpixelRgb(int X, int Y){
     pixel **matrix = ui->canvasLabel->getMatrix();
@@ -611,7 +597,6 @@ void MainWindow::on_zoomSpin_valueChanged(double arg1)
     this->tools.setZoom(arg1);
 }
 
-
 void MainWindow::on_actionEscala_de_Grisis_triggered()
 {
     pixel **matrix = ui->canvasLabel->getMatrix();
@@ -631,7 +616,6 @@ void MainWindow::on_actionEscala_de_Grisis_triggered()
     this->updateCanvas();
 }
 
-
 void MainWindow::on_actionNegativo_triggered()
 {
     pixel **matrix = ui->canvasLabel->getMatrix();
@@ -646,7 +630,6 @@ void MainWindow::on_actionNegativo_triggered()
     }
     this->updateCanvas();
 }
-
 
 void MainWindow::on_actionSepia_triggered()
 {
@@ -679,7 +662,6 @@ void MainWindow::on_actionSepia_triggered()
     }
     this->updateCanvas();
 }
-
 
 void MainWindow::on_actionPastel_triggered()
 {
@@ -714,10 +696,6 @@ void MainWindow::on_actionPastel_triggered()
     this->updateCanvas();
 }
 
-
-
-
-
 void MainWindow::on_RectangularSelectionButton_clicked()
 {
     falseAllTools();
@@ -728,9 +706,3 @@ void MainWindow::on_RectangularSelectionButton_clicked()
 
 }
 
-
-/*
-    pixel selected = new pixel[]
-    pixel **matrix = ui->canvasLabel->getMatrix();
-    uint32_t Color;
-    */

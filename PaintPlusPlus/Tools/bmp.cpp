@@ -1,20 +1,33 @@
 #include "bmp.h"
 
-int bmp::getWidth() const
-{
-    return width;
-}
-
-int bmp::getHeight() const
-{
-    return height;
-}
-
 bmp::bmp()
 {
 
 }
 
+/**
+ * @brief Obtiene el ancho del bmp
+ * @return  el ancho del bmp
+ */
+int bmp::getWidth() const
+{
+    return width;
+}
+
+/**
+ * @brief Obtiene la altura del bmp
+ * @return  la altura del bmp
+ */
+int bmp::getHeight() const
+{
+    return height;
+}
+
+/**
+ * @brief Lectura de un archivo bmp para su apertura en el canvas
+ * @param filename Nombre del archivo que se desea abrir
+ * @return
+ */
 unsigned char *bmp::readBMP(string filename)
 {
     FILE* f = fopen(filename.c_str(), "rb");
@@ -49,6 +62,11 @@ unsigned char *bmp::readBMP(string filename)
     return data;
 }
 
+/**
+ * @brief
+ * @param data
+ * @return
+ */
 uint32_t **bmp::convertToUint32(unsigned char* data) {
      uint32_t** image2 = new uint32_t*[this->width];
     for (int i = 0; i < this->width; i++) {
@@ -75,6 +93,13 @@ uint32_t **bmp::convertToUint32(unsigned char* data) {
     return image2;
 }
 
+/**
+ * @brief bmp::bmpExport
+ * @param path
+ * @param width
+ * @param height
+ * @param matrix
+ */
 void bmp::bmpExport(string path, int width, int height, pixel** matrix) {
     ofstream f;
     f.open(path.c_str(), ios::out | ios::binary);
@@ -132,6 +157,3 @@ void bmp::bmpExport(string path, int width, int height, pixel** matrix) {
 
     std::cout << "Archivo creado";
 }
-
-
-
