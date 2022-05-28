@@ -83,7 +83,8 @@ void Pencil::drawALineInCanvas(pixel **canvas, int start[2], int end[2], uint32_
             yi = int(y);
             for (int i = -grosor; i < grosor; i++){
                 for(int j = -grosor; j < grosor; j++){
-                    if(!this->outOfBounds(width,height,i,j)){
+                    //qDebug() << i << j;
+                    if(!this->outOfBounds(width,height,xi + i, yi + j)){
                         canvas[(xi + i) / (int)zoom][(yi + j) / (int)zoom].setColor(color);
                         canvas[(xi + i) / (int)zoom][(yi + j) / (int)zoom].setId(id);
                     }
@@ -100,7 +101,7 @@ void Pencil::drawALineInCanvas(pixel **canvas, int start[2], int end[2], uint32_
             yi = int(y);
             for (int i = -grosor; i < grosor; i++){
                 for(int j = -grosor; j < grosor; j++){
-                    if(!this->outOfBounds(width,height,i,j)){
+                    if(!this->outOfBounds(width,height,xi + i, yi + j)){
                         canvas[(xi + i) / (int)zoom][(yi + j) / (int)zoom].setColor(color);
                         canvas[(xi + i) / (int)zoom][(yi + j) / (int)zoom].setId(id);
                     }

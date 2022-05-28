@@ -16,7 +16,7 @@ circle::circle()
  * @param grosor    Grosor deseado
  * @param id        Identificador de la figura para
  */
-void circle::draw_circle(pixel **canvas, int start[2], int end[2], uint32_t color, int grosor, int id){
+void circle::draw_circle(pixel **canvas, int start[2], int end[2], uint32_t color, int grosor, int id, int width, int height){
     int radius = abs((start[0]-end[0])/2);
     int centerx;
     int centery;
@@ -40,7 +40,7 @@ void circle::draw_circle(pixel **canvas, int start[2], int end[2], uint32_t colo
 
     while(x<=y){
 
-        this->put_pixel(canvas, x, y, centerx, centery, color, grosor, id);
+        this->put_pixel(canvas, x, y, centerx, centery, color, grosor, id, width, height);
 
         if(d<0){
             d = d + 4 * x + 6;
@@ -65,45 +65,68 @@ void circle::draw_circle(pixel **canvas, int start[2], int end[2], uint32_t colo
  * @param grosor    Grosor deseado
  * @param id        Identificador de la figura para
  */
-void circle::put_pixel(pixel **canvas,int x, int y, int centerx, int centery, uint32_t color, int grosor, int id){
+void circle::put_pixel(pixel **canvas, int x, int y, int centerx, int centery, uint32_t color, int grosor, int id, int width, int height){
     for (int i = -grosor; i < grosor; i++){
         for(int j = -grosor; j < grosor; j++){
 
-            canvas[x + centerx + i][ y + centery + j].setColor(color);
+            if (!outOfBounds(width, height, x + centerx + i, y + centery + j)) {
+                canvas[x + centerx + i][ y + centery + j].setColor(color);
+                canvas[x + centerx + i][ y + centery + j].setId(id);
+            }
 
-            canvas[x + centerx + i][ -y + centery + j].setColor(color);
-
-            canvas[-x + centerx + i][ -y + centery + j].setColor(color);
-
-            canvas[-x + centerx + i][ y + centery + j].setColor(color);
-
-            canvas[y + centerx + i][ x + centery + j].setColor(color);
-
-            canvas[y + centerx + i][ -x + centery + j].setColor(color);
-
-            canvas[-y + centerx + i][ -x + centery + j].setColor(color);
-
-            canvas[-y + centerx + i][ x + centery + j].setColor(color);
-
-            //ids for delete figures:
-
-            canvas[x + centerx + i][ y + centery + j].setId(id);
-
-            canvas[x + centerx + i][ -y + centery + j].setId(id);
-
-            canvas[-x + centerx + i][ -y + centery + j].setId(id);
-
-            canvas[-x + centerx + i][ y + centery + j].setId(id);
-
-            canvas[y + centerx + i][ x + centery + j].setId(id);
-
-            canvas[y + centerx + i][ -x + centery + j].setId(id);
-
-            canvas[-y + centerx + i][ -x + centery + j].setId(id);
-
-            canvas[-y + centerx + i][ x + centery + j].setId(id);
+            if (!outOfBounds(width, height, x + centerx + i, -y + centery + j)) {
+                canvas[x + centerx + i][ -y + centery + j].setColor(color);
+                canvas[x + centerx + i][ -y + centery + j].setId(id);
+            }
 
 
+            if (!outOfBounds(width, height, -x + centerx + i, -y + centery + j)) {
+                canvas[-x + centerx + i][ -y + centery + j].setColor(color);
+                canvas[-x + centerx + i][ -y + centery + j].setId(id);
+            }
+
+
+            if (!outOfBounds(width, height, -x + centerx + i, -y + centery + j)) {
+                canvas[-x + centerx + i][ y + centery + j].setColor(color);
+                canvas[-x + centerx + i][ y + centery + j].setId(id);
+            }
+
+
+            if (!outOfBounds(width, height, y + centerx + i, x + centery + j)) {
+                canvas[y + centerx + i][ x + centery + j].setColor(color);
+                canvas[y + centerx + i][ x + centery + j].setId(id);
+            }
+
+            if (!outOfBounds(width, height, y + centerx + i, -x + centery + j)) {
+                canvas[y + centerx + i][ -x + centery + j].setColor(color);
+                canvas[y + centerx + i][ -x + centery + j].setId(id);
+            }
+
+            if (!outOfBounds(width, height, -y + centerx + i, -x + centery + j)) {
+                canvas[-y + centerx + i][ -x + centery + j].setColor(color);
+                canvas[-y + centerx + i][ -x + centery + j].setId(id);
+            }
+
+            if (!outOfBounds(width, height, -y + centerx + i, x + centery + j)) {
+                canvas[-y + centerx + i][ x + centery + j].setColor(color);
+                canvas[-y + centerx + i][ x + centery + j].setId(id);
+            }
         }
+    }
+}
+
+/**
+ * @brief Verifica si se encuentra fuera de los límites del canvas
+ * @param width     Ancho del canvas
+ * @param height    Altura del canvas
+ * @param posX      Posición x
+ * @param posY      Posición y
+ * @return
+ */
+bool circle::outOfBounds(int width, int height, int posX, int posY) {
+    if (posX < 0 || posX >= width || posY < 0 || posY >= height) {
+        return true;
+    } else {
+        return false;
     }
 }

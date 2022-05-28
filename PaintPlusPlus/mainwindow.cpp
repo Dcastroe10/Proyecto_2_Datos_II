@@ -218,7 +218,7 @@ void MainWindow::drawALine(int start[], int end[]) {
  * @param end       Posiciones (x,y) finales
  */
 void MainWindow::drawSquare(int *start, int *end){
-    tools.drawSquare(start, end, this->color,ui->spinBox->value(),this->id_figuras);
+    tools.drawSquare(start, end, this->color,ui->spinBox->value(),this->id_figuras, this->imageDimensions[0], this->imageDimensions[1]);
     this->id_figuras++;
     this->id_pen = this->id_figuras;
     updateCanvas();
@@ -234,7 +234,7 @@ void MainWindow::drawCircle(int *start, int *end){
     start[1] /= this->zoom;
     end[0] /= this->zoom;
     end[1] /= this->zoom;
-    tools.drawCircle(start, end, this->color,ui->spinBox->value(), this->id_figuras);
+    tools.drawCircle(start, end, this->color,ui->spinBox->value(), this->id_figuras, this->imageDimensions[0], this->imageDimensions[1]);
     this->id_figuras++;
     this->id_pen = this->id_figuras;
     updateCanvas();
@@ -253,8 +253,10 @@ void MainWindow::setPixelInCanvas(int x, int y, int id) {
 
         for (int i = -grosor; i < grosor; i++){
             for(int j = -grosor; j < grosor; j++){
-                 canvas.setPixel((x + i) / this->zoom, (y + j) / this->zoom, this->color);
-                 tools.drawWithPen((x + i) / this->zoom, (y + j) / this->zoom, this->color, id);
+                if (!tools.pencil.outOfBounds(this->imageDimensions[0], this->imageDimensions[1], (x + i), (y + j))) {
+                    canvas.setPixel((x + i) / this->zoom, (y + j) / this->zoom, this->color);
+                    tools.drawWithPen((x + i) / this->zoom, (y + j) / this->zoom, this->color, id);
+                }
             }
         }
         ui->canvasLabel->setPixmap(QPixmap::fromImage(canvas));
@@ -526,10 +528,10 @@ void MainWindow::on_redolistButton_clicked()
             tools.drawWithPencil(start,end,tools.getColorRedo(),tools.getGrosorRedo(),tools.getRedo(), imageDimensions[0], imageDimensions[1]);
         }
         if(tools.getRedoFigura() == 2){
-            tools.drawSquare(start,end, tools.getColorRedo(), tools.getGrosorRedo(),tools.getRedo());
+            tools.drawSquare(start,end, tools.getColorRedo(), tools.getGrosorRedo(),tools.getRedo(), imageDimensions[0], imageDimensions[1]);
         }
         if(tools.getRedoFigura() == 3){
-            tools.drawCircle(start,end,tools.getColorRedo(),tools.getGrosorRedo(),tools.getRedo());
+            tools.drawCircle(start,end,tools.getColorRedo(),tools.getGrosorRedo(),tools.getRedo(), this->imageDimensions[0], this->imageDimensions[1]);
         }
         this->updateCanvas();
         tools.deleteRedo();
@@ -539,24 +541,32 @@ void MainWindow::on_redolistButton_clicked()
 void MainWindow::on_actionAbrir_triggered()
 {
     std::string file = QFileDialog::getOpenFileName(this, "Escoge un archivo", QDir::homePath()).toStdString();
-    uint32_t** image = tools.BMP.convertToUint32(tools.BMP.readBMP(file));
-    int width = tools.BMP.getWidth();
-    int height = tools.BMP.getHeight();
-    createNewCanvas(width, height);
+    if (file != "") {
+        uint32_t** image = tools.BMP.convertToUint32(tools.BMP.readBMP(file));
+        if (image != NULL) {
+            int width = tools.BMP.getWidth();
+            int height = tools.BMP.getHeight();
+            createNewCanvas(width, height);
 
-    QImage canvas = ui->canvasLabel->pixmap().toImage();
+            QImage canvas = ui->canvasLabel->pixmap().toImage();
 
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            canvas.setPixel(x, height - y, image[x][y]);
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    canvas.setPixel(x, height - y, image[x][y]);
 
-            ui->canvasLabel->getMatrix()[x][height - y].setColor(image[x][y]);
+                    ui->canvasLabel->getMatrix()[x][height - y].setColor(image[x][y]);
+                }
+            }
+
+            ui->canvasLabel->setPixmap(QPixmap::fromImage(canvas));
+
+            on_penButton_clicked();
+        } else {
+            QMessageBox msg;
+            msg.setText("El formato de archivo es inválido");
+            msg.exec();
         }
     }
-
-    ui->canvasLabel->setPixmap(QPixmap::fromImage(canvas));
-
-    on_penButton_clicked();
 }
 
 void MainWindow::on_actionGuardar_como_triggered()
@@ -736,4 +746,3 @@ void MainWindow::on_RectangularSelectionButton_clicked()
 
 
 }
-

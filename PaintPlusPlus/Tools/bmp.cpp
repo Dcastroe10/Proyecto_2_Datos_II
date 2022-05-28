@@ -33,6 +33,12 @@ unsigned char *bmp::readBMP(string filename)
     FILE* f = fopen(filename.c_str(), "rb");
     unsigned char info[54];
     fread(&info, sizeof(unsigned char), 54, f);
+    unsigned char type[2] = {info[0], info[1]};
+
+    if (type[0] != 0x42 && type[1] != 0x4d) {
+        qDebug() << "Formato de archivo invalido";
+        return NULL;
+    }
 
     int width, height;
     width = *(int*)&info[18];
@@ -68,6 +74,9 @@ unsigned char *bmp::readBMP(string filename)
  * @return Matriz de pixeles hexadecimales.
  */
 uint32_t **bmp::convertToUint32(unsigned char* data) {
+    if (data == NULL) {
+        return NULL;
+    }
      uint32_t** image2 = new uint32_t*[this->width];
     for (int i = 0; i < this->width; i++) {
 

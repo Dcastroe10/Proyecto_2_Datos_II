@@ -66,8 +66,8 @@ void Tools::drawWithPencil(int start[2], int end[2], uint32_t color, int grosor,
  * @param grosor    Grosor deseado
  * @param id        Identificador de la figura
  */
-void Tools::drawSquare(int *start, int *end, uint32_t color, int grosor, int id){
-    square.draw_square_in_canvas(this->matrixPointer,start, end, color, grosor, id, this->zoom);
+void Tools::drawSquare(int *start, int *end, uint32_t color, int grosor, int id, int width, int height){
+    square.draw_square_in_canvas(this->matrixPointer,start, end, color, grosor, id, this->zoom, width, height);
     this->add_toUndoList(start[0],start[1],id,end[0],end[1],2,grosor,color);
 }
 
@@ -79,8 +79,8 @@ void Tools::drawSquare(int *start, int *end, uint32_t color, int grosor, int id)
  * @param grosor    Grosor deseado
  * @param id        Identificador de la figura
  */
-void Tools::drawCircle(int *start, int *end, uint32_t color, int grosor, int id){
-    Circle.draw_circle(this->matrixPointer,start, end, color, grosor, id);
+void Tools::drawCircle(int *start, int *end, uint32_t color, int grosor, int id, int width, int height){
+    Circle.draw_circle(this->matrixPointer,start, end, color, grosor, id, width, height);
     this->add_toUndoList(start[0],start[1],id,end[0],end[1],3,grosor,color);
 }
 

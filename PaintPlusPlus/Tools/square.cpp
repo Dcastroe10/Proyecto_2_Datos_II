@@ -17,7 +17,7 @@ Square::Square()
  * @param id        Identificador de la figura
  * @param zoom      Zoom deseado
  */
-void Square::draw_square_in_canvas(pixel **canvas, int start[2], int end[2], uint32_t color, int grosor, int id, double zoom){
+void Square::draw_square_in_canvas(pixel **canvas, int start[2], int end[2], uint32_t color, int grosor, int id, double zoom, int width, int height){
     int startx= start[0] / zoom;
     int starty = start[1] / zoom;
     int endx = end[0] / zoom;
@@ -52,11 +52,16 @@ void Square::draw_square_in_canvas(pixel **canvas, int start[2], int end[2], uin
     for(int x = startx; x<endx;x++){
         for (int i = -grosor; i < grosor; i++){
             for(int j = -grosor; j < grosor; j++){
-                canvas[ciclo_startx + i][ciclo_starty + j].setColor(color);
-                canvas[ciclo_startx + i][ciclo_endy + j].setColor(color);
+                if (!outOfBounds(width, height, ciclo_startx + i,ciclo_starty + j)) {
+                    canvas[ciclo_startx + i][ciclo_starty + j].setColor(color);
+                    canvas[ciclo_startx + i][ciclo_starty + j].setId(id);
+                }
+                if (!outOfBounds(width, height, ciclo_startx + i, ciclo_endy + j)) {
+                    canvas[ciclo_startx + i][ciclo_endy + j].setColor(color);
+                    canvas[ciclo_startx + i][ciclo_endy + j].setId(id);
+                }
 
-                canvas[ciclo_startx + i][ciclo_starty + j].setId(id);
-                canvas[ciclo_startx + i][ciclo_endy + j].setId(id);
+
             }
         }
         ciclo_startx+=1;
@@ -65,14 +70,35 @@ void Square::draw_square_in_canvas(pixel **canvas, int start[2], int end[2], uin
     for(int x = starty; x<endy;x++){
         for (int i = -grosor; i < grosor; i++){
             for(int j = -grosor; j < grosor; j++){
-                canvas[startx + i ][ciclo_starty + j].setColor(color);
-                canvas[ciclo_endx + i][ciclo_starty + j].setColor(color);
+                if (!outOfBounds(width, height, startx + i, ciclo_starty + j)) {
+                    canvas[startx + i ][ciclo_starty + j].setColor(color);
+                    canvas[startx + i ][ciclo_starty + j].setId(id);
 
-                canvas[startx + i ][ciclo_starty + j].setId(id);
-                canvas[ciclo_endx + i][ciclo_starty + j].setId(id);
+                }
+                if (!outOfBounds(width, height, ciclo_endx + i, ciclo_starty + j)) {
+                    canvas[ciclo_endx + i][ciclo_starty + j].setColor(color);
+                    canvas[ciclo_endx + i][ciclo_starty + j].setId(id);
+                }
             }
         }
         ciclo_starty+=1;
     }
 }
+
+/**
+ * @brief Verifica si se encuentra fuera de los límites del canvas
+ * @param width     Ancho del canvas
+ * @param height    Altura del canvas
+ * @param posX      Posición x
+ * @param posY      Posición y
+ * @return
+ */
+bool Square::outOfBounds(int width, int height, int posX, int posY) {
+    if (posX < 0 || posX >= width || posY < 0 || posY >= height) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 

@@ -51,9 +51,9 @@ public:
 
     void drawWithPencil(int start[], int end[], uint32_t color, int grosor, int id, int width, int height);
 
-    void drawSquare(int start[], int end[], uint32_t color, int grosor, int id);
+    void drawSquare(int start[], int end[], uint32_t color, int grosor, int id, int width, int height);
 
-    void drawCircle(int start[], int end[], uint32_t color, int grosor, int id);
+    void drawCircle(int start[], int end[], uint32_t color, int grosor, int id, int width, int height);
 
     void drawWithPaintFiller(int width, int height, uint32_t color, int posX, int posY, int id);
 
