@@ -149,8 +149,36 @@ void MainWindow::mouseIsReleased(int& x, int& y)
     }else if (this->rectangularSelection){
         tools.set_RectangularSelected_size(this->imageDimensions[0], this->imageDimensions[1]);
         tools.rectangularSelection(this->firstClick, this->clickReleased);
-    }
+    }else if(this->movefigureF){
+        int id_toCheck = matrix[this->firstClick[0]][this->firstClick[1]].getId();
+        uint32_t color = matrix[this->firstClick[0]][this->firstClick[1]].getColor();
 
+        int moveX = this->clickReleased[0] - this->firstClick[0];
+        int moveY = this->clickReleased[1] - this->firstClick[1];
+
+        if(id_toCheck!=-1){
+            for(int i = 0; i<imageDimensions[0]; i++){
+                for(int j = 0; j<imageDimensions[1]; j++){
+                    if(matrix[i][j].getId() == id_toCheck){
+                        if(i+moveX < imageDimensions[0] && j+moveY <imageDimensions[1]
+                                && i+moveX >0 && j+moveY > 0){
+
+                            matrix[i+moveX][j+moveY].setColor(color);
+                            matrix[i+moveX][j+moveY].setId(this->id_figuras);
+
+
+                        }
+
+                    }
+                }
+            }
+            this->id_figuras++;
+            //this->updateCanvas();
+            this->delete_figure(id_toCheck);
+        }
+
+
+    }
 }
 
 /**
@@ -285,7 +313,6 @@ void MainWindow::delete_figure(int id){
     }
 }
 
-
 void MainWindow::on_actionNuevo_triggered()
 {
     createcanvasDialog = new createCanvasDialog();
@@ -313,6 +340,7 @@ void MainWindow::falseAllTools()
     this->rectangularSelection = false;
     this->magiSelection = false;
     this->freeformSelection = false;
+    this->movefigureF = false;
 }
 
 /**
@@ -332,6 +360,7 @@ void MainWindow::trueAllButtons() {
     ui->RectangularSelectionButton->setEnabled(true);
     ui->FreeFormSelectionButton->setEnabled(true);
     ui->MagicSelectionButton->setEnabled(true);
+    ui->MoveFigureButton->setEnabled(true);
 }
 
 /**
@@ -746,3 +775,13 @@ void MainWindow::on_RectangularSelectionButton_clicked()
 
 
 }
+
+void MainWindow::on_MoveFigureButton_clicked()
+{
+    falseAllTools();
+    this->movefigureF = true;
+    trueAllButtons();
+    ui->MoveFigureButton->setEnabled(false);
+
+}
+

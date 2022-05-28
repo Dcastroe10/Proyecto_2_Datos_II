@@ -101,6 +101,7 @@ public:
     void rectangularSelection(int *start, int *end);
     void set_RectangularSelected_size(int width, int height);
 
+
 };
 
 #endif // TOOLS_H

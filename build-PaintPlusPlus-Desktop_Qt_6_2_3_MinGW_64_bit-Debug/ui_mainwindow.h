@@ -46,24 +46,25 @@ public:
     canvasImage *canvasLabel;
     QWidget *gridLayoutWidget_2;
     QGridLayout *gridLayout_2;
-    QPushButton *figureeraserButton;
-    QPushButton *Color_button;
-    QPushButton *RectangularSelectionButton;
-    QLabel *label_3;
-    QSpinBox *spinBox;
-    QPushButton *colorPickerButton;
-    QPushButton *circle_Button;
-    QPushButton *redolistButton;
-    QPushButton *paintFillButton;
-    QDoubleSpinBox *zoomSpin;
-    QLabel *label;
-    QPushButton *undoButton;
-    QPushButton *squareButton;
-    QPushButton *penButton;
     QPushButton *pencilButton;
+    QPushButton *figureeraserButton;
+    QPushButton *colorPickerButton;
+    QDoubleSpinBox *zoomSpin;
+    QPushButton *RectangularSelectionButton;
+    QPushButton *undoButton;
+    QPushButton *MagicSelectionButton;
+    QPushButton *Color_button;
+    QPushButton *redolistButton;
+    QPushButton *circle_Button;
     QPushButton *FreeFormSelectionButton;
     QPushButton *eraserButton;
-    QPushButton *MagicSelectionButton;
+    QLabel *label;
+    QSpinBox *spinBox;
+    QPushButton *paintFillButton;
+    QPushButton *squareButton;
+    QLabel *label_3;
+    QPushButton *penButton;
+    QPushButton *MoveFigureButton;
     QPushButton *pushButton_3;
     QLabel *mouseLocationLabel;
     QLabel *label_2;
@@ -124,64 +125,27 @@ public:
 
         gridLayoutWidget_2 = new QWidget(centralwidget);
         gridLayoutWidget_2->setObjectName(QString::fromUtf8("gridLayoutWidget_2"));
-        gridLayoutWidget_2->setGeometry(QRect(10, 10, 178, 563));
+        gridLayoutWidget_2->setGeometry(QRect(10, 10, 191, 601));
         gridLayout_2 = new QGridLayout(gridLayoutWidget_2);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
         gridLayout_2->setContentsMargins(0, 0, 0, 0);
+        pencilButton = new QPushButton(gridLayoutWidget_2);
+        pencilButton->setObjectName(QString::fromUtf8("pencilButton"));
+        pencilButton->setEnabled(false);
+
+        gridLayout_2->addWidget(pencilButton, 2, 1, 1, 2);
+
         figureeraserButton = new QPushButton(gridLayoutWidget_2);
         figureeraserButton->setObjectName(QString::fromUtf8("figureeraserButton"));
         figureeraserButton->setEnabled(false);
 
-        gridLayout_2->addWidget(figureeraserButton, 11, 1, 1, 2);
-
-        Color_button = new QPushButton(gridLayoutWidget_2);
-        Color_button->setObjectName(QString::fromUtf8("Color_button"));
-        Color_button->setEnabled(false);
-
-        gridLayout_2->addWidget(Color_button, 5, 1, 1, 2);
-
-        RectangularSelectionButton = new QPushButton(gridLayoutWidget_2);
-        RectangularSelectionButton->setObjectName(QString::fromUtf8("RectangularSelectionButton"));
-
-        gridLayout_2->addWidget(RectangularSelectionButton, 14, 1, 1, 2);
-
-        label_3 = new QLabel(gridLayoutWidget_2);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
-        label_3->setAlignment(Qt::AlignCenter);
-
-        gridLayout_2->addWidget(label_3, 17, 1, 1, 1);
-
-        spinBox = new QSpinBox(gridLayoutWidget_2);
-        spinBox->setObjectName(QString::fromUtf8("spinBox"));
-        spinBox->setEnabled(false);
-        spinBox->setMinimum(2);
-        spinBox->setMaximum(100);
-        spinBox->setSingleStep(2);
-
-        gridLayout_2->addWidget(spinBox, 8, 2, 1, 1);
+        gridLayout_2->addWidget(figureeraserButton, 12, 1, 1, 2);
 
         colorPickerButton = new QPushButton(gridLayoutWidget_2);
         colorPickerButton->setObjectName(QString::fromUtf8("colorPickerButton"));
         colorPickerButton->setEnabled(false);
 
         gridLayout_2->addWidget(colorPickerButton, 6, 1, 1, 2);
-
-        circle_Button = new QPushButton(gridLayoutWidget_2);
-        circle_Button->setObjectName(QString::fromUtf8("circle_Button"));
-        circle_Button->setEnabled(false);
-
-        gridLayout_2->addWidget(circle_Button, 4, 1, 1, 2);
-
-        redolistButton = new QPushButton(gridLayoutWidget_2);
-        redolistButton->setObjectName(QString::fromUtf8("redolistButton"));
-
-        gridLayout_2->addWidget(redolistButton, 0, 2, 1, 1);
-
-        paintFillButton = new QPushButton(gridLayoutWidget_2);
-        paintFillButton->setObjectName(QString::fromUtf8("paintFillButton"));
-        paintFillButton->setEnabled(false);
-
-        gridLayout_2->addWidget(paintFillButton, 7, 1, 1, 2);
 
         zoomSpin = new QDoubleSpinBox(gridLayoutWidget_2);
         zoomSpin->setObjectName(QString::fromUtf8("zoomSpin"));
@@ -190,18 +154,71 @@ public:
         zoomSpin->setSingleStep(0.010000000000000);
         zoomSpin->setValue(1.000000000000000);
 
-        gridLayout_2->addWidget(zoomSpin, 17, 2, 1, 1);
+        gridLayout_2->addWidget(zoomSpin, 18, 2, 1, 1);
 
-        label = new QLabel(gridLayoutWidget_2);
-        label->setObjectName(QString::fromUtf8("label"));
-        label->setAlignment(Qt::AlignCenter);
+        RectangularSelectionButton = new QPushButton(gridLayoutWidget_2);
+        RectangularSelectionButton->setObjectName(QString::fromUtf8("RectangularSelectionButton"));
 
-        gridLayout_2->addWidget(label, 8, 1, 1, 1);
+        gridLayout_2->addWidget(RectangularSelectionButton, 15, 1, 1, 2);
 
         undoButton = new QPushButton(gridLayoutWidget_2);
         undoButton->setObjectName(QString::fromUtf8("undoButton"));
 
         gridLayout_2->addWidget(undoButton, 0, 1, 1, 1);
+
+        MagicSelectionButton = new QPushButton(gridLayoutWidget_2);
+        MagicSelectionButton->setObjectName(QString::fromUtf8("MagicSelectionButton"));
+
+        gridLayout_2->addWidget(MagicSelectionButton, 17, 1, 1, 2);
+
+        Color_button = new QPushButton(gridLayoutWidget_2);
+        Color_button->setObjectName(QString::fromUtf8("Color_button"));
+        Color_button->setEnabled(false);
+
+        gridLayout_2->addWidget(Color_button, 5, 1, 1, 2);
+
+        redolistButton = new QPushButton(gridLayoutWidget_2);
+        redolistButton->setObjectName(QString::fromUtf8("redolistButton"));
+
+        gridLayout_2->addWidget(redolistButton, 0, 2, 1, 1);
+
+        circle_Button = new QPushButton(gridLayoutWidget_2);
+        circle_Button->setObjectName(QString::fromUtf8("circle_Button"));
+        circle_Button->setEnabled(false);
+
+        gridLayout_2->addWidget(circle_Button, 4, 1, 1, 2);
+
+        FreeFormSelectionButton = new QPushButton(gridLayoutWidget_2);
+        FreeFormSelectionButton->setObjectName(QString::fromUtf8("FreeFormSelectionButton"));
+
+        gridLayout_2->addWidget(FreeFormSelectionButton, 16, 1, 1, 2);
+
+        eraserButton = new QPushButton(gridLayoutWidget_2);
+        eraserButton->setObjectName(QString::fromUtf8("eraserButton"));
+        eraserButton->setEnabled(false);
+
+        gridLayout_2->addWidget(eraserButton, 14, 1, 1, 2);
+
+        label = new QLabel(gridLayoutWidget_2);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setAlignment(Qt::AlignCenter);
+
+        gridLayout_2->addWidget(label, 9, 1, 1, 1);
+
+        spinBox = new QSpinBox(gridLayoutWidget_2);
+        spinBox->setObjectName(QString::fromUtf8("spinBox"));
+        spinBox->setEnabled(false);
+        spinBox->setMinimum(2);
+        spinBox->setMaximum(100);
+        spinBox->setSingleStep(2);
+
+        gridLayout_2->addWidget(spinBox, 9, 2, 1, 1);
+
+        paintFillButton = new QPushButton(gridLayoutWidget_2);
+        paintFillButton->setObjectName(QString::fromUtf8("paintFillButton"));
+        paintFillButton->setEnabled(false);
+
+        gridLayout_2->addWidget(paintFillButton, 7, 1, 1, 2);
 
         squareButton = new QPushButton(gridLayoutWidget_2);
         squareButton->setObjectName(QString::fromUtf8("squareButton"));
@@ -209,44 +226,33 @@ public:
 
         gridLayout_2->addWidget(squareButton, 3, 1, 1, 2);
 
+        label_3 = new QLabel(gridLayoutWidget_2);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+        label_3->setAlignment(Qt::AlignCenter);
+
+        gridLayout_2->addWidget(label_3, 18, 1, 1, 1);
+
         penButton = new QPushButton(gridLayoutWidget_2);
         penButton->setObjectName(QString::fromUtf8("penButton"));
         penButton->setEnabled(false);
 
         gridLayout_2->addWidget(penButton, 1, 1, 1, 2);
 
-        pencilButton = new QPushButton(gridLayoutWidget_2);
-        pencilButton->setObjectName(QString::fromUtf8("pencilButton"));
-        pencilButton->setEnabled(false);
+        MoveFigureButton = new QPushButton(gridLayoutWidget_2);
+        MoveFigureButton->setObjectName(QString::fromUtf8("MoveFigureButton"));
 
-        gridLayout_2->addWidget(pencilButton, 2, 1, 1, 2);
-
-        FreeFormSelectionButton = new QPushButton(gridLayoutWidget_2);
-        FreeFormSelectionButton->setObjectName(QString::fromUtf8("FreeFormSelectionButton"));
-
-        gridLayout_2->addWidget(FreeFormSelectionButton, 15, 1, 1, 2);
-
-        eraserButton = new QPushButton(gridLayoutWidget_2);
-        eraserButton->setObjectName(QString::fromUtf8("eraserButton"));
-        eraserButton->setEnabled(false);
-
-        gridLayout_2->addWidget(eraserButton, 13, 1, 1, 2);
-
-        MagicSelectionButton = new QPushButton(gridLayoutWidget_2);
-        MagicSelectionButton->setObjectName(QString::fromUtf8("MagicSelectionButton"));
-
-        gridLayout_2->addWidget(MagicSelectionButton, 16, 1, 1, 2);
+        gridLayout_2->addWidget(MoveFigureButton, 8, 1, 1, 2);
 
         pushButton_3 = new QPushButton(centralwidget);
         pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
-        pushButton_3->setGeometry(QRect(110, 580, 89, 31));
+        pushButton_3->setGeometry(QRect(110, 630, 89, 31));
         mouseLocationLabel = new QLabel(centralwidget);
         mouseLocationLabel->setObjectName(QString::fromUtf8("mouseLocationLabel"));
-        mouseLocationLabel->setGeometry(QRect(0, 620, 93, 22));
+        mouseLocationLabel->setGeometry(QRect(0, 670, 93, 22));
         mouseLocationLabel->setAlignment(Qt::AlignCenter);
         label_2 = new QLabel(centralwidget);
         label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setGeometry(QRect(10, 580, 91, 22));
+        label_2->setGeometry(QRect(10, 630, 91, 22));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -301,23 +307,24 @@ public:
         actionSepia->setText(QCoreApplication::translate("MainWindow", "Sepia", nullptr));
         actionPastel->setText(QCoreApplication::translate("MainWindow", "Pastel", nullptr));
         canvasLabel->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:700;\">No hay ning\303\272n lienzo</span><br/>\302\241Inicia uno nuevo!</p></body></html>", nullptr));
-        figureeraserButton->setText(QCoreApplication::translate("MainWindow", "Figure eraser", nullptr));
-        Color_button->setText(QCoreApplication::translate("MainWindow", "Color", nullptr));
-        RectangularSelectionButton->setText(QCoreApplication::translate("MainWindow", "Selecci\303\263n Rectangular", nullptr));
-        label_3->setText(QCoreApplication::translate("MainWindow", "Zoom:", nullptr));
-        colorPickerButton->setText(QCoreApplication::translate("MainWindow", "Color Picker", nullptr));
-        circle_Button->setText(QCoreApplication::translate("MainWindow", "C\303\255rculo", nullptr));
-        redolistButton->setText(QCoreApplication::translate("MainWindow", "Redo", nullptr));
-        paintFillButton->setText(QCoreApplication::translate("MainWindow", "PaintFill", nullptr));
-        zoomSpin->setSuffix(QString());
-        label->setText(QCoreApplication::translate("MainWindow", "Grosor:", nullptr));
-        undoButton->setText(QCoreApplication::translate("MainWindow", "Undo", nullptr));
-        squareButton->setText(QCoreApplication::translate("MainWindow", "Cuadrado", nullptr));
-        penButton->setText(QCoreApplication::translate("MainWindow", "Pen", nullptr));
         pencilButton->setText(QCoreApplication::translate("MainWindow", "Pencil", nullptr));
+        figureeraserButton->setText(QCoreApplication::translate("MainWindow", "Figure eraser", nullptr));
+        colorPickerButton->setText(QCoreApplication::translate("MainWindow", "Color Picker", nullptr));
+        zoomSpin->setSuffix(QString());
+        RectangularSelectionButton->setText(QCoreApplication::translate("MainWindow", "Selecci\303\263n Rectangular", nullptr));
+        undoButton->setText(QCoreApplication::translate("MainWindow", "Undo", nullptr));
+        MagicSelectionButton->setText(QCoreApplication::translate("MainWindow", "Selecci\303\263n M\303\241gica", nullptr));
+        Color_button->setText(QCoreApplication::translate("MainWindow", "Color", nullptr));
+        redolistButton->setText(QCoreApplication::translate("MainWindow", "Redo", nullptr));
+        circle_Button->setText(QCoreApplication::translate("MainWindow", "C\303\255rculo", nullptr));
         FreeFormSelectionButton->setText(QCoreApplication::translate("MainWindow", "Selecci\303\263n Free Form ", nullptr));
         eraserButton->setText(QCoreApplication::translate("MainWindow", "Free eraser", nullptr));
-        MagicSelectionButton->setText(QCoreApplication::translate("MainWindow", "Selecci\303\263n M\303\241gica", nullptr));
+        label->setText(QCoreApplication::translate("MainWindow", "Grosor:", nullptr));
+        paintFillButton->setText(QCoreApplication::translate("MainWindow", "PaintFill", nullptr));
+        squareButton->setText(QCoreApplication::translate("MainWindow", "Cuadrado", nullptr));
+        label_3->setText(QCoreApplication::translate("MainWindow", "Zoom:", nullptr));
+        penButton->setText(QCoreApplication::translate("MainWindow", "Pen", nullptr));
+        MoveFigureButton->setText(QCoreApplication::translate("MainWindow", "Mover Figura", nullptr));
         pushButton_3->setText(QCoreApplication::translate("MainWindow", "Update", nullptr));
         mouseLocationLabel->setText(QCoreApplication::translate("MainWindow", "0, 0", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "Coords (x,y)", nullptr));

@@ -20,7 +20,6 @@ void circle::draw_circle(pixel **canvas, int start[2], int end[2], uint32_t colo
     int radius = abs((start[0]-end[0])/2);
     int centerx;
     int centery;
-    //brensananahbsadmsadjlaksdasd method
     int x=0;
     int y = radius;
     int d = 3-2*radius;

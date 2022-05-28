@@ -63,61 +63,28 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>178</width>
-      <height>563</height>
+      <width>191</width>
+      <height>601</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_2">
-     <item row="11" column="1" colspan="2">
+     <item row="2" column="1" colspan="2">
+      <widget class="QPushButton" name="pencilButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Pencil</string>
+       </property>
+      </widget>
+     </item>
+     <item row="12" column="1" colspan="2">
       <widget class="QPushButton" name="figureeraserButton">
        <property name="enabled">
         <bool>false</bool>
        </property>
        <property name="text">
         <string>Figure eraser</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1" colspan="2">
-      <widget class="QPushButton" name="Color_button">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string>Color</string>
-       </property>
-      </widget>
-     </item>
-     <item row="14" column="1" colspan="2">
-      <widget class="QPushButton" name="RectangularSelectionButton">
-       <property name="text">
-        <string>Selección Rectangular</string>
-       </property>
-      </widget>
-     </item>
-     <item row="17" column="1">
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>Zoom:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="2">
-      <widget class="QSpinBox" name="spinBox">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="minimum">
-        <number>2</number>
-       </property>
-       <property name="maximum">
-        <number>100</number>
-       </property>
-       <property name="singleStep">
-        <number>2</number>
        </property>
       </widget>
      </item>
@@ -131,34 +98,7 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="1" colspan="2">
-      <widget class="QPushButton" name="circle_Button">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string>Círculo</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="QPushButton" name="redolistButton">
-       <property name="text">
-        <string>Redo</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="1" colspan="2">
-      <widget class="QPushButton" name="paintFillButton">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string>PaintFill</string>
-       </property>
-      </widget>
-     </item>
-     <item row="17" column="2">
+     <item row="18" column="2">
       <widget class="QDoubleSpinBox" name="zoomSpin">
        <property name="suffix">
         <string/>
@@ -177,7 +117,72 @@
        </property>
       </widget>
      </item>
-     <item row="8" column="1">
+     <item row="15" column="1" colspan="2">
+      <widget class="QPushButton" name="RectangularSelectionButton">
+       <property name="text">
+        <string>Selección Rectangular</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="undoButton">
+       <property name="text">
+        <string>Undo</string>
+       </property>
+      </widget>
+     </item>
+     <item row="17" column="1" colspan="2">
+      <widget class="QPushButton" name="MagicSelectionButton">
+       <property name="text">
+        <string>Selección Mágica</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1" colspan="2">
+      <widget class="QPushButton" name="Color_button">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Color</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QPushButton" name="redolistButton">
+       <property name="text">
+        <string>Redo</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1" colspan="2">
+      <widget class="QPushButton" name="circle_Button">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Círculo</string>
+       </property>
+      </widget>
+     </item>
+     <item row="16" column="1" colspan="2">
+      <widget class="QPushButton" name="FreeFormSelectionButton">
+       <property name="text">
+        <string>Selección Free Form </string>
+       </property>
+      </widget>
+     </item>
+     <item row="14" column="1" colspan="2">
+      <widget class="QPushButton" name="eraserButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Free eraser</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1">
       <widget class="QLabel" name="label">
        <property name="text">
         <string>Grosor:</string>
@@ -187,10 +192,29 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="QPushButton" name="undoButton">
+     <item row="9" column="2">
+      <widget class="QSpinBox" name="spinBox">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="minimum">
+        <number>2</number>
+       </property>
+       <property name="maximum">
+        <number>100</number>
+       </property>
+       <property name="singleStep">
+        <number>2</number>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1" colspan="2">
+      <widget class="QPushButton" name="paintFillButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
-        <string>Undo</string>
+        <string>PaintFill</string>
        </property>
       </widget>
      </item>
@@ -204,6 +228,16 @@
        </property>
       </widget>
      </item>
+     <item row="18" column="1">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Zoom:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
      <item row="1" column="1" colspan="2">
       <widget class="QPushButton" name="penButton">
        <property name="enabled">
@@ -214,37 +248,10 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="1" colspan="2">
-      <widget class="QPushButton" name="pencilButton">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
+     <item row="8" column="1" colspan="2">
+      <widget class="QPushButton" name="MoveFigureButton">
        <property name="text">
-        <string>Pencil</string>
-       </property>
-      </widget>
-     </item>
-     <item row="15" column="1" colspan="2">
-      <widget class="QPushButton" name="FreeFormSelectionButton">
-       <property name="text">
-        <string>Selección Free Form </string>
-       </property>
-      </widget>
-     </item>
-     <item row="13" column="1" colspan="2">
-      <widget class="QPushButton" name="eraserButton">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string>Free eraser</string>
-       </property>
-      </widget>
-     </item>
-     <item row="16" column="1" colspan="2">
-      <widget class="QPushButton" name="MagicSelectionButton">
-       <property name="text">
-        <string>Selección Mágica</string>
+        <string>Mover Figura</string>
        </property>
       </widget>
      </item>
@@ -254,7 +261,7 @@
     <property name="geometry">
      <rect>
       <x>110</x>
-      <y>580</y>
+      <y>630</y>
       <width>89</width>
       <height>31</height>
      </rect>
@@ -267,7 +274,7 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>620</y>
+      <y>670</y>
       <width>93</width>
       <height>22</height>
      </rect>
@@ -283,7 +290,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>580</y>
+      <y>630</y>
       <width>91</width>
       <height>22</height>
      </rect>
