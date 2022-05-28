@@ -22,12 +22,20 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+/**
+ * @brief Crea un canvas con las dimensiones ingresadas por el usuario
+ * @param x     Ancho del canvas
+ * @param y     Alto del canvas
+ */
 void MainWindow::receiveCanvas(int& x, int& y) {
-    qDebug() << x << y;
     createNewCanvas(x, y);
 }
 
-
+/**
+ * @brief Crea un canvas con las dimensiones ingresadas por el usuario
+ * @param x     Ancho deseado
+ * @param y     Alto deseado
+ */
 void MainWindow::createNewCanvas(int x, int y)
 {
 
@@ -49,54 +57,29 @@ void MainWindow::createNewCanvas(int x, int y)
 
 }
 
-
+/**
+ * @brief Convierte un color en valores de red green blue a un color hexadecimal
+ * @param r     Valor del red
+ * @param g     Valor del green
+ * @param b     Valor del blue
+ * @return  El color en hexadecimal
+ */
 uint32_t MainWindow::rgbToHex(int r, int g, int b) {
     return ((r & 0xFF) << 16) + ((g & 0xFF) << 8) + ((b & 0xFF));
 }
 
-int MainWindow::HexToRGB(uint32_t hexa){
-
-
-    /*
-    int *hexadecimal = new int[10000];
-    int residuo;
-    int result;
-    int i = 0;
-    //qDebug()<<hex;
-    do{
-        residuo = decimal % 16;
-        result = decimal / 16;
-        hexadecimal[i] = result;
-        i++;
-        qDebug()<<"ciclo";
-    }while(result>15);
-    hexadecimal[i] = result;
-
-    for (int x = i; x >= 0; x--){
-        if( hexadecimal[i] == 10){
-            qDebug() <<"A";
-        }else if( hexadecimal[i] == 11){
-            qDebug() <<"B";
-        }else if( hexadecimal[i] == 12){
-            qDebug() <<"C";
-        }else if( hexadecimal[i] == 13){
-            qDebug() <<"D";
-        }else if( hexadecimal[i] == 14){
-            qDebug()<< "E";
-        }else if( hexadecimal[i] == 15){
-            qDebug()<<"F";
-        }else{
-            qDebug() <<  hexadecimal[i];
-        }
-    }
-    */
-}
-
+/**
+ * @brief Rellena el canvas de las dimensiones asignadas del color deseado
+ * @param r     Valor del red
+ * @param g     Valor del green
+ * @param b     Valor del blue
+ * @param x     Ancho del canvas
+ * @param y     Alto del canvas
+ */
 void MainWindow::fillCanvas(int r, int g, int b, int x, int y)
 {
     QImage *image = new QImage(x, y, QImage::Format_RGB32);
     uint32_t color = rgbToHex(r, g, b);
-
     for (int xi = 0; xi < x; xi++) {
         for (int yi = 0; yi < y; yi++) {
             image->setPixel(xi, yi, color);
@@ -107,6 +90,11 @@ void MainWindow::fillCanvas(int r, int g, int b, int x, int y)
     delete image;
 }
 
+/**
+ * @brief Detecta cuando el mouse es presionado
+ * @param x     Coord x del clik
+ * @param y     Coord y del click
+ */
 void MainWindow::mouseIsPressed(int& x, int& y)
 {
     this->mousePressedInCanvas = true;
@@ -116,8 +104,6 @@ void MainWindow::mouseIsPressed(int& x, int& y)
 
     if (this->penF) {
         setPixelInCanvas(x, y, this->id_pen);
-
-
     }else if(this->freeEraserF){
         this->last_color = this->color;
         this->color = rgbToHex(255,255,255);
@@ -125,6 +111,11 @@ void MainWindow::mouseIsPressed(int& x, int& y)
     }
 }
 
+/**
+ * @brief Detecta cuando el mouse es presionado y luego liberado
+ * @param x     Coord x del click
+ * @param y     Coord y del click
+ */
 void MainWindow::mouseIsReleased(int& x, int& y)
 {
     pixel **matrix = ui->canvasLabel->getMatrix();
@@ -133,8 +124,9 @@ void MainWindow::mouseIsReleased(int& x, int& y)
     this->clickReleased[0] = x;
     this->clickReleased[1] = y;
 
-    //this->id_figuras++;
-    tools.add_toUndoList(-1,-1,this->id_pen,-1,-1,-1,-1,this->color);//CHEEEECK ESTOOO puede ser lo que sube extra //ES PARA AGREGAR AL UNDO LAS LINEAS DEL PEN pero
+    tools.add_toUndoList(-1,-1,this->id_pen,-1,-1,-1,-1,this->color);
+                                                    //CHEEEECK ESTOOO puede ser lo que sube extra
+                                                    //ES PARA AGREGAR AL UNDO LAS LINEAS DEL PEN pero
     this->id_pen = this->id_figuras;                //con las figuras agrega otros ids entonces hay que tocar
     this->id_figuras++;                             //varias (2) veces el botón de undo
 
@@ -161,6 +153,11 @@ void MainWindow::mouseIsReleased(int& x, int& y)
 
 }
 
+/**
+ * @brief Detecta el movimiento del mouse
+ * @param x     Coord x del click
+ * @param y     Coord y del clicl
+ */
 void MainWindow::mouseMove(int &x, int &y)
 {
     std::string location = std::to_string(x) + ", " + std::to_string(y);
@@ -170,6 +167,9 @@ void MainWindow::mouseMove(int &x, int &y)
 
 }
 
+/**
+ * @brief Actualiza el canvas en la aplicación con los datos de la matriz de pixeles
+ */
 void MainWindow::updateCanvas() {
     int x = this->imageDimensions[0];
     int y = this->imageDimensions[1];
@@ -183,6 +183,11 @@ void MainWindow::updateCanvas() {
     ui->canvasLabel->setPixmap(QPixmap::fromImage(canvas));
 }
 
+/**
+ * @brief Llama a la función de paintfill para pintar el área  por medio del bfs
+ * @param posX      Posición x del pixel
+ * @param posY      Posición y del pixel
+ */
 void MainWindow::usePaintFill(int posX, int posY) {
     posX /= this->zoom;
     posY /= this->zoom;
@@ -191,6 +196,11 @@ void MainWindow::usePaintFill(int posX, int posY) {
     updateCanvas();
 }
 
+/**
+ * @brief Dibuja una línea recta en el canvass
+ * @param start     Posiciones (x,y) iniciales
+ * @param end       Posiciones (x,y) finales
+ */
 void MainWindow::drawALine(int start[], int end[]) {
     start[0] /= this->zoom;
     start[1] /= this->zoom;
@@ -202,6 +212,11 @@ void MainWindow::drawALine(int start[], int end[]) {
     updateCanvas();
 }
 
+/**
+ * @brief LLama a la función de dibujar un cuadrado en el canvas
+ * @param start     Posiciones (x,y) iniciales
+ * @param end       Posiciones (x,y) finales
+ */
 void MainWindow::drawSquare(int *start, int *end){
     tools.drawSquare(start, end, this->color,ui->spinBox->value(),this->id_figuras);
     this->id_figuras++;
@@ -209,6 +224,11 @@ void MainWindow::drawSquare(int *start, int *end){
     updateCanvas();
 }
 
+/**
+ * @brief Llama a la función de dibujar un círculo en el canvas
+ * @param start     Posiciones (x,y) iniciales
+ * @param end       Posiciones (x,y) finales
+ */
 void MainWindow::drawCircle(int *start, int *end){
     start[0] /= this->zoom;
     start[1] /= this->zoom;
@@ -220,6 +240,12 @@ void MainWindow::drawCircle(int *start, int *end){
     updateCanvas();
 }
 
+/**
+ * @brief Cambia el color de un pixel dado en el canvas
+ * @param x     posición x del pixel
+ * @param y     posición y del pixel
+ * @param id    identificador para el pixel
+ */
 void MainWindow::setPixelInCanvas(int x, int y, int id) {
     if ((this->penF || this->freeEraserF)&& this->mousePressedInCanvas) {
         QImage canvas = ui->canvasLabel->pixmap().toImage();
@@ -235,6 +261,10 @@ void MainWindow::setPixelInCanvas(int x, int y, int id) {
     }
 }
 
+/**
+ * @brief Eliminar una figura completa o trazo
+ * @param id    Identificador que se desea eliminar
+ */
 void MainWindow::delete_figure(int id){
     pixel **matrix = ui->canvasLabel->getMatrix();
     int check = id;
@@ -244,7 +274,7 @@ void MainWindow::delete_figure(int id){
         for (int i = 0; i < imageDimensions[0]; i++){
             for(int j = 0; j < imageDimensions[1];j++){
                 if(matrix[i][j].getId() == check){
-                    matrix[i][j].setColor(this->rgbToHex(255,255,255));//matrix[imageDimensions[0]][imageDimensions[1]].getColor());
+                    matrix[i][j].setColor(this->rgbToHex(255,255,255));
                     matrix[i][j].setId(-1);
                 }
             } 
@@ -252,6 +282,7 @@ void MainWindow::delete_figure(int id){
         this->updateCanvas();
     }
 }
+
 
 void MainWindow::on_actionNuevo_triggered()
 {
@@ -263,6 +294,10 @@ void MainWindow::on_actionNuevo_triggered()
     on_penButton_clicked();
 }
 
+/**
+ * @brief cambia a false todas las variables de control que tienen
+ * relación con tools
+ */
 void MainWindow::falseAllTools()
 {
     this->penF = false;
@@ -278,6 +313,9 @@ void MainWindow::falseAllTools()
     this->freeformSelection = false;
 }
 
+/**
+ * @brief habilita todos los botones de tools en la aplicación
+ */
 void MainWindow::trueAllButtons() {
     ui->penButton->setEnabled(true);
     ui->pencilButton->setEnabled(true);
@@ -292,6 +330,82 @@ void MainWindow::trueAllButtons() {
     ui->RectangularSelectionButton->setEnabled(true);
     ui->FreeFormSelectionButton->setEnabled(true);
     ui->MagicSelectionButton->setEnabled(true);
+}
+
+/**
+ * @brief Obtiene los colores en valores de rgb para el pixel deseado
+ * @param X     posición x del pixel
+ * @param Y     posición y del pixel
+ */
+void MainWindow::getpixelRgb(int X, int Y){
+    pixel **matrix = ui->canvasLabel->getMatrix();
+    uint32_t color = matrix[X][Y].getColor();
+    int decimal = color;
+    std::string myHexa[7];
+    std::string hexaColor;
+    int digito[30];
+    int residuo;
+    int resultado;
+    int i = 0;
+    int wow = 0;
+    do{
+        residuo=decimal%16;
+        resultado=decimal/16;
+        digito[i]=residuo;
+        decimal = resultado;
+        i++;
+    }while(resultado>15);
+    digito[i] = resultado;
+    for (int x = i;x>=0;x--){
+        if(digito[x] == 10){
+            myHexa[wow] = 'A';
+        }else{
+            if(digito[x] == 11){
+                myHexa[wow] = 'B';
+            }else{
+                if(digito[x] == 12){
+                    myHexa[wow] = 'C';
+                }
+                else{
+                    if(digito[x] == 13){
+                        myHexa[wow] = 'D';
+                    }
+                    else{
+                        if(digito[x] == 14){
+                            myHexa[wow] = 'E';
+                        }
+                        else{
+                            if(digito[x] == 15){
+                                myHexa[wow] = 'F';
+                            }
+                            else{
+                                myHexa[wow] = digito[x] + '0';
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        wow++;
+    }
+    for (int w = std::size(myHexa)-1 ; w >0 ; w--){
+        myHexa[w] = myHexa [w-1];
+    }
+    myHexa[0] = '#';
+    for(int e = 0 ; e < std::size(myHexa); e++){
+        hexaColor += myHexa[e];
+    }
+    char const *hexColor = hexaColor.c_str();
+    std::sscanf(hexColor, "#%02x%02x%02x", &this->red, &this->green, &this->blue);
+}
+
+/**
+ * @brief reset a los valores globales de rgb de mainwindow
+ */
+void MainWindow::resetRGB(){
+    this->red = 0;
+    this->green = 0;
+    this->blue = 0;
 }
 
 void MainWindow::on_penButton_clicked()
@@ -406,23 +520,16 @@ void MainWindow::on_redolistButton_clicked()
         end[1] = tools.getEndY_RedoList();
 
         if(tools.getRedoFigura() ==0){
-            //PANIK this is the pen lol
+            //the pen
         }
         if(tools.getRedoFigura() == 1){
-            qDebug()<<"PENCILLLL";
             tools.drawWithPencil(start,end,tools.getColorRedo(),tools.getGrosorRedo(),tools.getRedo(), imageDimensions[0], imageDimensions[1]);
-
         }
         if(tools.getRedoFigura() == 2){
-            qDebug()<<"SQUAREEEEEEEEEEEE";
             tools.drawSquare(start,end, tools.getColorRedo(), tools.getGrosorRedo(),tools.getRedo());
-            qDebug()<<tools.getColorRedo()<<"COLOOOOR";
-
         }
         if(tools.getRedoFigura() == 3){
-            qDebug()<<"CIRCLEEEEE";
             tools.drawCircle(start,end,tools.getColorRedo(),tools.getGrosorRedo(),tools.getRedo());
-
         }
         this->updateCanvas();
         tools.deleteRedo();
@@ -433,7 +540,6 @@ void MainWindow::on_actionAbrir_triggered()
 {
     std::string file = QFileDialog::getOpenFileName(this, "Escoge un archivo", QDir::homePath()).toStdString();
     uint32_t** image = tools.BMP.convertToUint32(tools.BMP.readBMP(file));
-    //tools.BMP.readBMP(file);
     int width = tools.BMP.getWidth();
     int height = tools.BMP.getHeight();
     createNewCanvas(width, height);
@@ -455,17 +561,13 @@ void MainWindow::on_actionAbrir_triggered()
 
 void MainWindow::on_actionGuardar_como_triggered()
 {
-    //bool ready;
-    //std::string fileName = QInputDialog::getText(this, "Guardar como...", "Nombre:", QLineEdit::Normal, "", &ready).toStdString();
-    //fileName.append(".bmp");
     std::string directory = QFileDialog::getSaveFileName(this, "Guardar como...", QDir::homePath(), "Imagen (*.bmp)").toStdString().append(".bmp");
-    qDebug() << directory.c_str();
     this->tools.BMP.bmpExport(directory, this->imageDimensions[0], this->imageDimensions[1], ui->canvasLabel->getMatrix());
 }
 
 void MainWindow::on_action90_triggered()
 {
-    //on_zoomSpin_valueChanged(1.0);
+
     int width = this->imageDimensions[0], height = this->imageDimensions[1];
     double spinZoomLastValue = ui->zoomSpin->value();
     pixel **rotatedMatrix = this->tools.getRot().rotate90(ui->canvasLabel->getMatrix(), width, height);
@@ -501,7 +603,6 @@ void MainWindow::on_actionFlip_vertical_triggered()
 {
     int width = this->imageDimensions[0], height = this->imageDimensions[1];
     pixel **rotatedMatrix = this->tools.getRot().flipVertical(ui->canvasLabel->getMatrix(), width, height);
-    //createNewCanvas(height, width);
     delete ui->canvasLabel->getMatrix();
     ui->canvasLabel->setMatrix(rotatedMatrix);
     this->tools.setMatrixPointer(rotatedMatrix);
@@ -513,80 +614,10 @@ void MainWindow::on_actionFlip_horizontal_triggered()
     int width = this->imageDimensions[0];
     int height = this->imageDimensions[1];
     pixel **rotatedMatrix = this->tools.getRot().flipHorizontal(ui->canvasLabel->getMatrix(), width, height);
-    //createNewCanvas(height, width);
     delete ui->canvasLabel->getMatrix();
     ui->canvasLabel->setMatrix(rotatedMatrix);
     this->tools.setMatrixPointer(rotatedMatrix);
     updateCanvas();
-}
-
-void MainWindow::getpixelRgb(int X, int Y){
-    pixel **matrix = ui->canvasLabel->getMatrix();
-    uint32_t color = matrix[X][Y].getColor();
-    int decimal = color;
-    std::string myHexa[7];
-    std::string hexaColor;
-    int digito[30];
-    int residuo;
-    int resultado;
-    int i = 0;
-    int wow = 0;
-    do{
-        residuo=decimal%16;
-        resultado=decimal/16;
-        digito[i]=residuo;
-        decimal = resultado;
-        i++;
-    }while(resultado>15);
-    digito[i] = resultado;
-    for (int x = i;x>=0;x--){
-        if(digito[x] == 10){
-            myHexa[wow] = 'A';
-        }else{
-            if(digito[x] == 11){
-                myHexa[wow] = 'B';
-            }else{
-                if(digito[x] == 12){
-                    myHexa[wow] = 'C';
-                }
-                else{
-                    if(digito[x] == 13){
-                        myHexa[wow] = 'D';
-                    }
-                    else{
-                        if(digito[x] == 14){
-                            myHexa[wow] = 'E';
-                        }
-                        else{
-                            if(digito[x] == 15){
-                                myHexa[wow] = 'F';
-                            }
-                            else{
-                                myHexa[wow] = digito[x] + '0';
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        wow++;
-    }
-    for (int w = std::size(myHexa)-1 ; w >0 ; w--){
-        myHexa[w] = myHexa [w-1];
-    }
-    myHexa[0] = '#';
-    for(int e = 0 ; e < std::size(myHexa); e++){
-        hexaColor += myHexa[e];
-
-    }
-    char const *hexColor = hexaColor.c_str();
-    std::sscanf(hexColor, "#%02x%02x%02x", &this->red, &this->green, &this->blue);
-}
-
-void MainWindow::resetRGB(){
-    this->red = 0;
-    this->green = 0;
-    this->blue = 0;
 }
 
 void MainWindow::on_zoomSpin_valueChanged(double arg1)
