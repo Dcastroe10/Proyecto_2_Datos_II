@@ -25,7 +25,7 @@ int bmp::getHeight() const
 
 /**
  * @brief Lectura de un archivo bmp para su apertura en el canvas
- * @param filename Nombre del archivo que se desea abrir
+ * @param filename Directorio del archivo que se desea abrir
  * @return
  */
 unsigned char *bmp::readBMP(string filename)
@@ -63,9 +63,9 @@ unsigned char *bmp::readBMP(string filename)
 }
 
 /**
- * @brief
- * @param data
- * @return
+ * @brief Convierte los datos de una imagen abierta a una matriz de hexadecimales.
+ * @param data Array de pixeles RGB de la imagen abierta.
+ * @return Matriz de pixeles hexadecimales.
  */
 uint32_t **bmp::convertToUint32(unsigned char* data) {
      uint32_t** image2 = new uint32_t*[this->width];
@@ -94,11 +94,11 @@ uint32_t **bmp::convertToUint32(unsigned char* data) {
 }
 
 /**
- * @brief bmp::bmpExport
- * @param path
- * @param width
- * @param height
- * @param matrix
+ * @brief Realiza el guardado en disco de imagenes.
+ * @param path directorio
+ * @param width anchura
+ * @param height altura
+ * @param matrix matriz
  */
 void bmp::bmpExport(string path, int width, int height, pixel** matrix) {
     ofstream f;
