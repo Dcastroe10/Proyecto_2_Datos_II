@@ -281,7 +281,7 @@ void MainWindow::setPixelInCanvas(int x, int y, int id) {
 
         for (int i = -grosor; i < grosor; i++){
             for(int j = -grosor; j < grosor; j++){
-                if (!tools.pencil.outOfBounds(this->imageDimensions[0], this->imageDimensions[1], (x + i), (y + j))) {
+                if (!tools.pencil.outOfBounds(this->imageDimensions[0], this->imageDimensions[1], (x + i) / this->zoom, (y + j) / this->zoom)) {
                     canvas.setPixel((x + i) / this->zoom, (y + j) / this->zoom, this->color);
                     tools.drawWithPen((x + i) / this->zoom, (y + j) / this->zoom, this->color, id);
                 }
